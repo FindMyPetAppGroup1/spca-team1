@@ -46,7 +46,7 @@ GEM
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (7.1.4)
-    autoprefixer-rails (6.5.1.1)
+    autoprefixer-rails (6.5.3)
       execjs
     awesome_print (1.7.0)
     bcrypt (3.1.11)
@@ -93,8 +93,10 @@ GEM
       railties (>= 3.2, < 5.1)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
+    geocoder (1.4.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gmaps4rails (2.1.2)
     hashie (3.4.6)
     hirb (0.7.3)
     http (1.0.4)
@@ -294,6 +296,8 @@ DEPENDENCIES
   faker
   font-awesome-rails
   friendly_id
+  geocoder
+  gmaps4rails
   hirb
   interactive_editor
   jbuilder (~> 2.5)
