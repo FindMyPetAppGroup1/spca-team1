@@ -1,0 +1,5 @@
+# Copy this file and rename it to app_keys.rb and make sure to put the correct
+# api credentials below
+
+ENV['FACEBOOK_KEY'] = 	'???'
+ENV['FACEBOOK_SECRET'] = '???'
