@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :reports, dependent: :nullify
+  has_many :reports, dependent: :destroy
   has_secure_password
 
 

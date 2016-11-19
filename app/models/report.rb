@@ -8,7 +8,6 @@ class Report < ApplicationRecord
   validates :last_seen_address, presence: true
   validates :latitude, presence: true
   validates :longitude, presence: true
-  validates :longitude, presence: true
   validates :report_type, presence: true
 
   def user_full_name
