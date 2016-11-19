@@ -28,5 +28,5 @@ class UsersController < ApplicationController
                                                 :oauth_raw_data
                                                 ])
 
-
+    end
 end
