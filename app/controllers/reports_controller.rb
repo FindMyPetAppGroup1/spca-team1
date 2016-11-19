@@ -34,7 +34,19 @@ class ReportsController < ApplicationController
     # find_report action getting called
   end
 
-  
+  def update
+    # find report is called
+    if @report.update report_params
+      redirect_to @report
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @report.destroy
+    redirect_to reports_path
+  end
 
   private
 

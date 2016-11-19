@@ -11,4 +11,12 @@ class Report < ApplicationRecord
   validates :longitude, presence: true
   validates :report_type, presence: true
 
+  def user_full_name
+    if user
+      user.first_name + ' ' + user.last_name
+    else
+      'Anonyomous'
+    end
+  end
+
 end
