@@ -1,0 +1,77 @@
+
+<%= form_for(@report, html: {class: 'form-horizontal'}) do |p| %>
+
+  <div class="field form-group">
+    <%= p.label :name, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+    <%= p.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= p.label :pet_type, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+      <%= p.text_area :pet_type, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= p.label :last_seen_date, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+      <%= p.text_area :last_seen_date, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= p.label :last_seen_address, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+      <%= p.text_area :last_seen_address, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= p.label :latitude, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+      <%= p.text_area :latitude, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= p.label :longitude, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+      <%= p.text_area :longitude, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= p.label :report_type, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+      <%= p.text_area :report_type, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= p.label :photo1, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+      <%= p.file_field :photo1, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="field form-group">
+    <%= p.label :photo2, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+      <%= p.file_field :photo2, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="field form-group">
+    <%= p.label :photo3, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-11">
+      <%= p.file_field :photo3, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="actions form-group">
+    <div class="col-sm-offset-1 col-sm-11 btn">
+      <%= p.submit %>
+    </div>
+  </div>
+<% end %>
