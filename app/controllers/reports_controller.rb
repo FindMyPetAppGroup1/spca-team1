@@ -18,6 +18,12 @@ class ReportsController < ApplicationController
 
   def show
     # find_report gets called here
+      respond_to do |format|
+      format.html { render }
+      format.text { render }
+      format.xml  { render xml: @report }
+      format.json { render json: @report.to_json }
+    end
   end
 
   def index
@@ -28,6 +34,11 @@ class ReportsController < ApplicationController
 
     # This index is for displaying 'List view' of all reports (in a certain area)
     @reports = Report.order(created_at: :DESC)
+    format.html { render }
+    format.text { render }
+    format.xml  { render xml: @reports }
+    format.json { render json: @reports.to_json }
+    end
   end
 
   def edit

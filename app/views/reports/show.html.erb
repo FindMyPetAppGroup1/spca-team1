@@ -3,6 +3,10 @@
   <div class="col-xs-10 col-sm-11 report-show">
     <h1><%= @report.name %></h1>
     <p><%= @report.pet_type %></p>
+    <p>
+     Report created by: <%= @report.user_full_name %>
+    </p>
+
 
       <%= link_to 'edit', edit_report_path(@report) %>
 

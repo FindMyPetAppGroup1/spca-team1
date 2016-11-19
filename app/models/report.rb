@@ -19,7 +19,7 @@ class Report < ApplicationRecord
     if user
       user.first_name + ' ' + user.last_name
     else
-      'Anonyomous'
+      'Anonymous'
     end
   end
 
