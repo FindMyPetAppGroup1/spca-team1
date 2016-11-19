@@ -1,8 +1,0 @@
-<h1>All Reports</h1>
-
-<% @reports.each do |q| %>
-  
-<%= image_tag q.photo1.url(:thumb), class: 'report-thumbnail' if q.photo1.present? %>
-  <%= link_to q.name, report_path(q) %>
-  <hr>
-<% end %>
