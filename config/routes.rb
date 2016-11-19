@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create] do
     delete :destroy, on: :collection
   end
+  get '/auth/facebook', as: :sign_in_facebook
+  get '/auth/facebook/callback' => 'callbacks#facebook'
 
 end
