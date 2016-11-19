@@ -9,6 +9,11 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class='container-fluid'>
+      <ul>
+        <li><%= link_to 'Home', home_path %></li>
+      </ul>
+      <%= yield %>
+    </div>
   </body>
 </html>
