@@ -10,31 +10,6 @@
 
   <body>
 
-    <div class='container-fluid'>
-      <ul>
-        <li><%= link_to 'Home', home_path %></li>
-      </ul>
-      <%= yield %>
-    </div>
-
-
-            <ul>
-              <% if user_signed_in? %>
-                <li>
-                  <p>Hello <%= current_user.first_name %></p>
-                </li>
-                <li>
-                  <%= button_to 'Sign out',
-                    sessions_path,
-                    method: :delete
-                    %>
-                  </li>
-              <% else %>
-                <li><%= link_to 'Sign up', new_user_path %></li>
-                <li><%= link_to 'Sign In', new_session_path %></li>
-              <% end %>
-
-
     <%= yield %>
   </body>
 </html>

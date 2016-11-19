@@ -1,1 +1,33 @@
-<h1> welcome </h1>
+
+<div class = 'container'>
+ <div class="row">
+  <div class ='sidebar col-md-3'>
+   <h2>Sidebar</h2>
+   <div class='container-fluid'>
+     <ul>
+       <li><%= link_to 'Home', root_path %></li>
+       <% if user_signed_in? %>
+         <li>
+           <p>Hello <%= current_user.first_name %></p>
+         </li>
+         <li>
+           <%= button_to 'Sign out',
+             sessions_path,
+             method: :delete
+             %>
+           </li>
+       <% else %>
+         <li><%= link_to 'Sign up', new_user_path %></li>
+         <li><%= link_to 'Sign In', new_session_path %></li>
+       <% end %>
+     </ul>
+   </div>
+  </div>
+
+  <div class='map-view col-md-9'>
+    <div id="map-container">
+      <div id="map-canvas"></div>
+    </div>
+  </div>
+ </div>
+</div>
