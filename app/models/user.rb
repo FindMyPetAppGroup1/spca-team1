@@ -1,13 +1,5 @@
 class User < ApplicationRecord
-  # if you want to store a temporary value in an ActiveRecord object then you
-  # can add an attr_accessor. This won't go to the database if there is no
-  # matching column name in the database table.
-  # attr_accessor :password, :password_confirmation
-
-  # More info: http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
-  # has_secure_password will take the `password` given to the user object and
-  # it will generate `password_digest`. So you must have `password_digest`
-  # column in your users table.
+  has_many :reports, dependent: :nullify
   has_secure_password
 
 
