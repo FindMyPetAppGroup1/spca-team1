@@ -10,6 +10,11 @@ class Report < ApplicationRecord
   validates :longitude, presence: true
   validates :report_type, presence: true
 
+  mount_uploader: :photo1, ImageUploader
+  mount_uploader: :photo2, ImageUploader
+  mount_uploader: :photo3, ImageUploader
+
+
   def user_full_name
     if user
       user.first_name + ' ' + user.last_name

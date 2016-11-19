@@ -46,7 +46,7 @@ gem 'cancancan'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem "twitter"
-gem 'carrierwave'
+gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem 'mini_magick'
 
 
