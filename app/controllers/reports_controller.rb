@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
     @report = Report.new report_params
     @report.user = current_user
     if @report.save
-      redirect_to @report
+      redirect_to report_path(@report)
     else
       render :new
     end
@@ -37,7 +37,7 @@ class ReportsController < ApplicationController
   def update
     # find report is called
     if @report.update report_params
-      redirect_to @report
+      redirect_to report_path(@report)
     else
       render :edit
     end

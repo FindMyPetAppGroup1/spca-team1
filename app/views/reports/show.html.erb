@@ -1,0 +1,28 @@
+<h1>Reports Show Page</h1>
+
+  <div class="col-xs-10 col-sm-11 report-show">
+    <h1><%= @report.name %></h1>
+    <p><%= @report.pet_type %></p>
+
+      <%= link_to 'edit', edit_report_path(@report) %>
+
+      <%= link_to 'delete', report_path(@report),
+                            method: :delete,
+                            data: { confirm: 'Are you sure?' } %>
+
+
+    <section>
+      <% if @report.photo1.present? %>
+        <%= image_tag @report.photo1.url(:medium) %>
+      <% end %>
+    </section>
+    <section>
+      <% if @report.photo2.present? %>
+        <%= image_tag @report.photo2.url(:medium) %>
+      <% end %>
+    </section>
+    <section>
+      <% if @report.photo3.present? %>
+        <%= image_tag @report.photo3.url(:medium) %>
+      <% end %>
+    </section>
