@@ -1,16 +1,8 @@
 class User < ApplicationRecord
   has_many :reports, dependent: :destroy
+  has_many :messengers, dependent: :destroy
+  
   has_secure_password
-
-
-
-  # Rails allows us to store Hashes and Arrays and other objects as TExt in the database
-  # Rails will ad special meta data about the objects being stored which will make come back
-  # in the same fashion when you retrieve it within Rails from the database
-  # serialize :oauth_raw_data, Hash
-
-
-
 
   before_validation :downcase_email
   # before_create :generate_api_key
