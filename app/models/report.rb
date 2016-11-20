@@ -1,6 +1,7 @@
 class Report < ApplicationRecord
   belongs_to :user
-  has_many :messages, dependent: :destroy
+  # has_many :messages, dependent: :destroy
+  has_many :messengers, dependent: :destroy
 
   validates :name, presence: true
   validates :pet_type, presence: true

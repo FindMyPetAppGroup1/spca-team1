@@ -18,11 +18,12 @@ class ReportsController < ApplicationController
 
   def show
     # find_report gets called here
+
       respond_to do |format|
       format.html { render }
       format.text { render }
       format.xml  { render xml: @report }
-      format.json { render json: @report.to_json }
+      format.json { render json: @report.to_json(include: :messengers)}
     end
   end
 
@@ -57,6 +58,16 @@ class ReportsController < ApplicationController
   def destroy
     @report.destroy
     redirect_to reports_path
+  end
+
+  #this is a custom action, it will be used to enable searching for reports in the immediate area
+  def find_search(typetar, datetar)
+    reports = Report.join(:report)where("report.type in (?) AND last_seen_date IN (?)",typetar,datetar)
+    render json: reports.to_json
+  end
+
+  def rough_search(typetar, datetar)
+   reports = Report.join(:report)where("report.type in (?) OR last_seen_date IN (?)",typetar,datetar)
   end
 
   private
