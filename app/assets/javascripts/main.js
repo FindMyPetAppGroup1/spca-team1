@@ -6,6 +6,7 @@ var allView = ['#menu-main','#listReport','#listMessage','#setting','#about'
 
 var userID;
 var bufferedData;
+var currentPage;
 
 $(function(){ // on Ready
   initialize();
@@ -22,11 +23,29 @@ var initialize = function(){
   showObject('#menu-main')
   //set all click action
  setMenu();
- setBack();
+ setControllerButton();
  setAction();
 }
 
+var showReport = function(id,bln){
+  //bln determin lost of found, true for found, false for lost
+  //currentPage
+  //use ajax to get report using report id
+  bufferedData = report2
+  if(bln){
+    to = '#showReportFound';
+    tmp = '#showReportFoundData';
+    target = "#reportShow";
+  } else{
+    to = '#showReportLost';
+    tmp = '#showReportLostData';
+    target = "#reportShow";
+  }
+  hideObject(currentPage);
+  showObject(to);
+  currentPage = to
 
+}
 var renderUserInfo = function(){
   //initialize user info from ajax
   bufferedData = user;
@@ -127,6 +146,7 @@ var setDelegate = function(delegateTar,target,func,fro,to){
     showObject(to);
   });
 }
+
 var setRedirectWithFunction = function(target,fro,to,func){
   //set redirect function for a button
   $(target).click(function(){
@@ -141,6 +161,7 @@ var hideObject= function(target){
 }
 var showObject= function(target){
   $(target).show();
+  currentPage = target;
 }
 var renderLists = function(reports,template,list){
   var reportTemplate = $(template).html();
@@ -218,11 +239,17 @@ var addMessage = function(){
   renderLists(messages,'#message-summary','#list-message');
 }
 
-var setBack = function(){
+var setControllerButton = function(){
   $('.button-back').click(function(){
     $(this).parent().parent().hide();
     $('#menu-main').show();
   })
+
+  $('.button-facebook').click(function(){
+    //ajax?
+    //share to facebook
+  })
+
   $('#button-MessageFound').click(function(){
     //before changing, bufferedData stored the report object
     bufferedData = bufferedData['id'];
@@ -250,7 +277,7 @@ var setMenu = function(){
   setRedirectWithFunction('#button-notification','#setting','#setting',notificationFunc);
   setRedirectWithFunction('#button-location','#setting','#setting',locationFunc);
 }
-
+// fake datas
 var report1 = {
   'id' : 1,
   "pet_type":'dog',
