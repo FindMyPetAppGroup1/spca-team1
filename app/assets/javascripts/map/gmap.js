@@ -2,6 +2,10 @@ $(window).load(function() {
   loadScript();
 });
 
+$(document).ready(function(){
+  // placeReports();
+});
+
 var map;
 
 // var chicago = {lat: 41.85, lng: -87.65};
@@ -89,8 +93,7 @@ var map;
 //   });
 //
 // }
-var faisalabad = {lat:31.4181, lng:73.0776};
-
+var faisalabad = {lat:49.2827291, lng:-123.12073750000002};
 function addYourLocationButton(map, marker)
 {
     var controlDiv = document.createElement('div');
@@ -208,6 +211,24 @@ function initialize() {
   // Try HTML5 geolocation.
 
 }
+
+// function placeReports(){
+//   var reports = <%=raw @markers.to_json %>;
+//
+//   for(var i = 0; i < reports.length; i++){
+//
+//     var marker = new google.maps.Marker({
+//         flat: true,
+//         map: map,
+//         optimized: false,
+//         position: new google.maps.LatLng(reports[i].latitude, reports[i].longitude),
+//         title: 'I might be here',
+//         visible: true,
+//         animation: google.maps.Animation.DROP
+//       });
+//   }
+// }
+
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);

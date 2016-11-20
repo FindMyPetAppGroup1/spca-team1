@@ -40,7 +40,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'friendly_id'
 gem 'simple_form'
-
+gem 'underscore-rails'
 
 gem 'faker'
 

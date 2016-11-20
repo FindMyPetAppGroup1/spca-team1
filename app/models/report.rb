@@ -1,4 +1,5 @@
 class Report < ApplicationRecord
+  geocoded_by :last_seen_address
   belongs_to :user
   has_many :messages, dependent: :destroy
 
@@ -9,6 +10,8 @@ class Report < ApplicationRecord
   validates :latitude, presence: true
   validates :longitude, presence: true
   validates :report_type, presence: true
+
+  after_validation :geocode
 
   mount_uploader :photo1, ImageUploader
   mount_uploader :photo2, ImageUploader
@@ -21,6 +24,15 @@ class Report < ApplicationRecord
     else
       'Anonymous'
     end
+  end
+
+  def self.markers_near(lat, long, radius)
+    reports = Report.near([lat, long], radius)
+    result = Gmaps4rails.build_markers(reports) do |rep, marker|
+      marker.lat rep.latitude
+      marker.lng rep.longitude
+    end
+    result
   end
 
 end
