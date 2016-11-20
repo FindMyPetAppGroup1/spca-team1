@@ -9,15 +9,15 @@ var bufferedData;
 var currentPage;
 
 $(function(){ // on Ready
-  initialize();
+  initMenu();
 });
 
-var initialize = function(){
+var initMenu = function(){
   //initialize value
   renderUserInfo();
   //hide all views
   allView.forEach(function(view){
-    hideObject(view);
+    // hideObject(view);
   })
   //list all views need to be visiable at begining
   showObject('#menu-main')
@@ -137,7 +137,7 @@ var setRedirect = function(target,fro,to){
     showObject(to);
   });
 }
-var setDelegate = function(delegateTar,target,func,fro,to){
+var setDeligate = function(delegateTar,target,func,fro,to){
   $(delegateTar).on('click',target,function(){
     //store id to bufferedData
     bufferedData = $(this).data('id');
@@ -157,7 +157,8 @@ var setRedirectWithFunction = function(target,fro,to,func){
 }
 
 var hideObject= function(target){
-  $(target).hide();
+  // $(target).hide();
+  console.log("hiding");
 }
 var showObject= function(target){
   $(target).show();
