@@ -76,6 +76,10 @@ $button-radius: 4px;
   }
   .login-form {
     margin: auto;
+    h2 {
+      color: white;
+      text-align: center;
+    }
     p {
       color: white;
       text-align: center;
@@ -98,15 +102,15 @@ $button-radius: 4px;
     .facebook {
       background-color: rgb(57, 72, 172);
       text-align: center;
-      box-shadow: 1px 2px 5px rgba(#838383, 0.48);
+      box-shadow: 1px 2px 5px rgba(#6275b0, 0.48);
     }
     .submit {
-      box-shadow: 1px 2px 5px rgba(#838383, 0.48);
+      box-shadow: 1px 2px 5px rgba(#4a5caa, 0.48);
       background-color: rgb(228, 145, 59);
       text-align: center;
       min-width: 400px;
       cursor: pointer;
-      margin-bottom: 10px;g
+      margin-bottom: 10px;
     }
   }
 }
