@@ -6,7 +6,7 @@ var allView = ['#menu-main','#listReport','#listMessage','#setting','#about'
 var userID;
 var bufferedData;
 
-$(function(){
+$(function(){ // on Ready
   initialize();
 });
 
@@ -49,17 +49,19 @@ var setAction = function(){
   //set message
 
 
+
   //set deligate
   setDeligate('#list-lost','li',getReportLost,'#listReport','#showReportLost');
   setDeligate('#list-found','li',getReportFound,'#listReport','#showReportFound');
   setDeligate('#list-message','li',getMessage,'#listMessage','#showMessage');
   setDeligate('#list-filterd','li',getReportFound,'#listFilterdReport','#showReportFound');
 
+
 }
 
 var signoutFunc = function(){
   console.log('signout');
-  //connect to controler and redirect?
+
 }
 
 var notificationFunc = function(){
@@ -115,8 +117,8 @@ var setRedirect = function(target,fro,to){
     showObject(to);
   });
 }
-var setDeligate = function(deligateTar,target,func,fro,to){
-  $(deligateTar).on('click',target,function(){
+var setDelegate = function(delegateTar,target,func,fro,to){
+  $(delegateTar).on('click',target,function(){
     //store id to bufferedData
     bufferedData = $(this).data('id');
     func();
