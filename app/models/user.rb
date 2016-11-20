@@ -7,7 +7,8 @@ class User < ApplicationRecord
   # Rails allows us to store Hashes and Arrays and other objects as TExt in the database
   # Rails will ad special meta data about the objects being stored which will make come back
   # in the same fashion when you retrieve it within Rails from the database
-  # serialize :oauth_raw_data, Hash
+
+  serialize :oauth_raw_data, Hash
 
 
 
@@ -22,17 +23,17 @@ class User < ApplicationRecord
 
   validates :email, presence: true,
                     uniqueness: { case_sensitive: false },
-                    format: VALID_EMAIL_REGEX #,
-                    # unless: :from_oauth?
+                    format: VALID_EMAIL_REGEX,
+                    unless: :from_oauth?
 
   def full_name
     "#{first_name} #{last_name}".strip.squeeze(' ').titleize
   end
 
   #
-  # def from_oauth?
-  #   provider.present? && uid.present?
-  # end
+  def from_oauth?
+    provider.present? && uid.present?
+  end
 
   # def self.find_from_oauth(oauth_data)
   #   User.where(provider: oauth_data['provider'],
