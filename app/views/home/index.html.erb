@@ -1,22 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="bootstrap.min.css"/>
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <link rel="stylesheet" href="index.css"/>
+    <script src="jquery-3.1.1.js" type="text/javascript"></script>
+    <script src="mustache.js" type="text/javascript"></script>
+    <script src="main.js" type="text/javascript"></script>
 
-<div class = 'container-fluid'>
- <div class="row">
+    <meta charset="utf-8">
+    <title>FindMyPet</title>
+  </head>
 
-   <!-- 👇 START OF SIDEBAR -->
+  <body>
+    <!--
+    - mainMenu
+    - settingMenu
+    - listReport
+    - listMessage
+    - showMessage
+    new Message
 
-  <div class ='sidebar col-xs-12 col-md-3'>
+    newReportFound
+    previewReportFound
+    completeReportFound
+    showReportFound
+    editReportFound
+
+    newReportLost
+    previewReportLost
+    completeReportLost
+    showReportLost
+    editReportLost -->
+
+
+
     <section id="menu-main">
       <div id='userInfoData'>
       </div>
+
       <div>
-        <label class='seperate'>MAKE A REPORT</label>
+      <label class='seperate'>MAKE A REPORT</label>
       </div>
       <div>
         <a id="button-newLost" href="#" class="btn btn-primary btn-block btn-lg">Lost Pet</a>
         <a id="button-newFound" href="#" class="btn btn-primary btn-block btn-lg">Found/Sighted Pet</a>
       </div>
       <div>
-        <label class='seperate'>Account</label>
+      <label class='seperate'>Account</label>
       </div>
       <div>
         <a id="button-listReport" href="#" class="btn btn-primary btn-block btn-lg">My Report</a>
@@ -25,14 +56,21 @@
         <a id="button-about" href="#" class="btn btn-primary btn-block btn-lg">About find my pet</a>
       </div>
     </section>
+    <section id='listFilterdReport'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> MY Messages
+      </div>
+      <ul id='list-filterd'>
+      </ul>
+    </section>
     <section id='listReport'>
       <div class='menu-control'>
         <a class='button-back'>BACK</a> MY REPORT
       </div>
-      <label class='seperate'>MAKE A REPORT</label>
+      <label class='seperate'>LOST REPORT</label>
       <ul id='list-lost'>
       </ul>
-      <label class='seperate'>MAKE A REPORT</label>
+      <label class='seperate'>FOUND REPORT</label>
       <ul id='list-found'>
       </ul>
     </section>
@@ -74,6 +112,7 @@
         <a class='button-back'>BACK</a> MY REPORT
       </div>
       <div id='previewReportFoundData'>
+
       </div>
       <a id="button-sumbitPreviewReportFound" href="#" class="btn btn-primary btn-block btn-lg">Comfirm</a>
     </section>
@@ -91,6 +130,8 @@
       </div>
       <div id='showReportFoundData'>
       </div>
+      <a id="button-reportAnotherFound" href="#" class="btn btn-primary btn-block btn-lg">Report</a>
+      <a id="button-trackPet" href="#" class="btn btn-primary btn-block btn-lg">Track Pet</a>
       <a id="button-MessageFound" href="#" class="btn btn-primary btn-block btn-lg">Message</a>
     </section>
     <section id='editReportFound'>
@@ -144,59 +185,49 @@
     <section class='footnote'>
       <p>FindMyPet V1.0</p>
     </section>
-  </div>
+    <!-- template list:
+      newmessage
+      editReportFound
+    -->
 
-  <!-- END OF SIDEBAR ☝️ -->
+    <script id="showMessage" type="x-tmpl-mustache">
+      <img src={{photo1}}>
+      <p>{{body}}</p>
+    </script>
+    <script id="report-summary" type="x-tmpl-mustache">
+      <li data-id={{id}}>
+        <p>{{note}}</p>
+        <hr>
+      </li>
+    </script>
+    <script id="message-summary" type="x-tmpl-mustache">
+      <li data-id={{id}}>
+        <img src={{photo1}}>
+        <p>{{body}}</p>
+        <hr>
+      </li>
+    </script>
 
-  <!-- 👨 MUSTACHE TEMPLATES -->
+    <script id="reportShow" type="x-tmpl-mustache">
+      <img data-id={{id}} scr={{photo}}>
+      <p>Pet Type: {{pet_type}}</p>
+      <p>Breed : {{breed}}</p>
+      <p>Name : {{name}}</p>
+      <p>Sex : {{sex}} </p>
+      <p>Coulour : {{color}} </p>
+      <p>Age : {{age}} </p>
+      <p>Last Seen : {{last_seen_address}} </p>
+      <p>Note : {{note}} </p>
+    </script>
 
-  <script id="showMessage" type="x-tmpl-mustache">
-  <img src={{photo1}}>
-  <p>{{body}}</p>
-</script>
-<script id="report-summary" type="x-tmpl-mustache">
-  <li data-id={{id}}>
-    <p>{{note}}</p>
-    <hr>
-  </li>
-</script>
-<script id="message-summary" type="x-tmpl-mustache">
-  <li data-id={{id}}>
-    <img src={{photo1}}>
-    <p>{{body}}</p>
-    <hr>
-  </li>
-</script>
+    <script id="user-info" type="x-tmpl-mustache">
+      <div>
+        <img src = {{avator}}>
+        <p>Hello: {{first_name}}
+      </div>
+    </script>
 
-<script id="reportShow" type="x-tmpl-mustache">
-  <img data-id={{id}} scr={{photo}}>
-  <p>Pet Type: {{pet_type}}</p>
-  <p>Breed : {{breed}}</p>
-  <p>Name : {{name}}</p>
-  <p>Sex : {{sex}} </p>
-  <p>Coulour : {{color}} </p>
-  <p>Age : {{age}} </p>
-  <p>Last Seen : {{last_seen_address}} </p>
-  <p>Note : {{note}} </p>
-</script>
-
-<script id="user-info" type="x-tmpl-mustache">
-  <div>
-    <img src = {{avator}}>
-    <p>Hello: {{first_name}}
-  </div>
-</script>
-
-<!-- 👨 END OF MUSTACHE TEMPLATES -->
-
-<!-- 🗺 MAP VIEW -->
-
-  <div class='map-view nopadding col-xs-12 col-md-9'>
-    <div id="map-container">
-      <div id="map-canvas"></div>
-    </div>
-  </div>
-
-  <!-- END OF MAP VIEW -->
- </div>
-</div>
+    <script>
+    </script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 // all views
 var allView = ['#menu-main','#listReport','#listMessage','#setting','#about'
-,'#newReportFound','#previewReportFound','#completeReportFound','#showReportFound','#editReportFound','#newReportLost','#previewReportLost','#completeReportLost','#showReportLost','#editReportLost','#showMessage']
+,'#newReportFound','#previewReportFound','#completeReportFound','#showReportFound','#editReportFound','#newReportLost','#previewReportLost','#completeReportLost','#showReportLost','#editReportLost','#showMessage','#listFilterdReport']
 
 
 var userID;
@@ -37,6 +37,9 @@ var setAction = function(){
   setRedirectWithFunction('#button-sumbitNewReportFound','#newReportFound','#previewReportFound',renderPreviewFound);
   setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#completeReportFound',getReportId);
   setRedirectWithFunction('#button-sumbitCompleteReportFound','#completeReportFound','#showReportFound',getReportFound);
+  setRedirectWithFunction('#button-reportAnotherFound','#showReportFound','#newReportFound',newLinkedFoundReport);
+  setRedirectWithFunction('#button-trackPet','#showReportFound','#listFilterdReport',getLinkedReport);
+
   //set message
 
   //lost route
@@ -50,6 +53,8 @@ var setAction = function(){
   setDeligate('#list-lost','li',getReportLost,'#listReport','#showReportLost');
   setDeligate('#list-found','li',getReportFound,'#listReport','#showReportFound');
   setDeligate('#list-message','li',getMessage,'#listMessage','#showMessage');
+  setDeligate('#list-filterd','li',getReportFound,'#listFilterdReport','#showReportFound');
+
 }
 
 var signoutFunc = function(){
@@ -67,6 +72,10 @@ var locationFunc = function(){
   console.log('location');
 }
 
+var newLinkedFoundReport = function(){
+  //bufferedData was holding a report before
+  bufferedData = bufferedData['id'];
+}
 
 var getReportLost = function(){
   console.log('lost:'+bufferedData);
@@ -78,6 +87,7 @@ var getReportLost = function(){
   //javascript for putting a pin on map
   renderMustache("#reportShow",'#showReportLostData');
 }
+
 var getReportFound = function(){
   console.log('found:'+bufferedData);
   console.log('get found report');
@@ -159,6 +169,7 @@ var renderPreviewLost = function(){
 }
 
 var renderPreviewFound = function(){
+  //bufferedData might hold the case id if it is a linked report
   //use jquery to access fiends from edit/new form
   bufferedData = report1;
 
@@ -187,6 +198,15 @@ var addReport = function(){
   //use ajax to get a list of my found report
   reports = [report1,report2];
   renderLists(reports,'#report-summary','#list-found');
+}
+
+var getLinkedReport = function(){
+  //use ajax to get linked report with same case id
+  reports = [report1,report2];
+  renderFilterReports(reports);
+}
+var renderFilterReports = function(reports){
+  renderLists(reports,'#report-summary','#list-filterd');
 }
 
 var addMessage = function(){
