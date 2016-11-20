@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root 'home#index'
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create]do
+    resources :reports, only: [:show]
+  end
   resources :sessions, only: [:new, :create] do
     delete :destroy, on: :collection
   end
