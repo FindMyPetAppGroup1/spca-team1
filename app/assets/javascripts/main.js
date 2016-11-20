@@ -11,10 +11,10 @@ var pinLostAssetLoc = '';
 var pinFoundAssetLoc = '';
 
 $(function(){
-  initiMenu();
+  initialize();
 });
 
-var initiMenu = function(){
+var initialize = function(){
   //initialize value
   renderUserInfo();
   //hide all views

@@ -1,180 +1,185 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="bootstrap.min.css"/>
-    <link rel="stylesheet" href="font-awesome.min.css">
-    <link rel="stylesheet" href="index.css"/>
-    <script src="jquery-3.1.1.js" type="text/javascript"></script>
-    <script src="mustache.js" type="text/javascript"></script>
-    <script src="main.js" type="text/javascript"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXclu8PhDGVun2bDikmbNE5YUUNRFG204&callback=initMap"
+ type="text/javascript"></script>
+<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+<script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
 
-    <meta charset="utf-8">
-    <title>FindMyPet</title>
-  </head>
+<div class = 'container-fluid'>
+ <div class="row">
+  <!-- 👇 START OF SIDEBAR -->
+  <div id='menu-main' class='sidebar nopadding col-xs-12 col-md-4'>
+    <% if user_signed_in? %>
+      <section class='side-section side-user'>
+        <% if current_user.avatar.present? %>
+          <%= image_tag current_user.avatar %>
+        <% end %>
+        <%= current_user.full_name %>
+      </section>
+    <% end %>
+    <p class="side-heading">Make a Report</p>
+    <section id="button-newLost" class="side-section side-lost-report">
+      <p class="side-links">Lost Pet</p>
+    </section>
+    <section id="button-newFound" class="side-section side-lost-report">
+      <p class="side-links">Found/Sighted Pet</p>
+    </section>
+    <p class="side-heading">Account</p>
+    <section id="button-listReport" class="side-section side-lost-report">
+      <p class="side-links">My Report</p>
+    </section>
+    <section id="button-listMessage" class="side-section side-lost-report">
+      <p class="side-links">Messages</p>
+    </section>
+    <section id="button-setting" class="side-section side-lost-report">
+      <p class="side-links">Settings</p>
+    </section>
+    <section id="button-about" class="side-section side-lost-report">
+      <p class="side-links">About find my pet</p>
+    </section>
+    <p class="side-footer"><%= fa_icon 'paw' %> Find my Pet V.01 </p>
+    <!-- <section id="menu-main">
+      <div id='userInfoData'>
+      </div>
+      <div>
+      <label class='seperate'>MAKE A REPORT</label>
+      </div>
+      <div>
+        <a id="button-newLost" href="#" class="btn btn-primary btn-block btn-lg">Lost Pet</a>
+        <a id="button-newFound" href="#" class="btn btn-primary btn-block btn-lg">Found/Sighted Pet</a>
+      </div>
+      <div>
+      <label class='seperate'>Account</label>
+      </div>
+      <div>
+        <a id="button-listReport" href="#" class="btn btn-primary btn-block btn-lg">My Report</a>
+        <a id="button-listMessage" href="#" class="btn btn-primary btn-block btn-lg">Messages</a>
+        <a id="button-setting" href="#" class="btn btn-primary btn-block btn-lg">Settings</a>
+        <a id="button-about" href="#" class="btn btn-primary btn-block btn-lg">About find my pet</a>
+      </div>
+    </section>
 
-  <body>
-    <section id='menu'>
-      <section id="menu-main">
-        <div id='userInfoData'>
-        </div>
+    <section id='listFilterdReport'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> MY Messages
+      </div>
+      <ul id='list-filterd'>
+      </ul>
+    </section>
+    <section id='listReport'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      <label class='seperate'>LOST REPORT</label>
+      <ul id='list-lost'>
+      </ul>
+      <label class='seperate'>FOUND REPORT</label>
+      <ul id='list-found'>
+      </ul>
+    </section>
+    <section id='listMessage'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> MY Messages
+      </div>
+      <label class='seperate'>Lost Pet</label>
+      <ul id='list-message'>
+      </ul>
+    </section>
+    <section id='setting'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> Setting
+      </div>
+      <a id="button-location" href="#" class="btn btn-primary btn-block btn-lg">Location</a>
+      <a id="button-notification" href="#" class="btn btn-primary btn-block btn-lg">Notification</a>
+      <a id="button-signout" href="#" class="btn btn-primary btn-block btn-lg">Sign Out</a>
+    </section>
+    <section id='about'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      ABOUT
+    </section>
+    <section id='newReportFound'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      <div class = 'ReportLostForm'>
+        NEW REPORT
+      </div>
+      <a id="button-sumbitNewReportFound" href="#" class="btn btn-primary btn-block btn-lg">Preivew</a>
+    </section>
+    <section id='previewReportFound'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      <div id='previewReportFoundData'>
+      </div>
+      <a id="button-sumbitPreviewReportFound" href="#" class="btn btn-primary btn-block btn-lg">Comfirm</a>
+    </section>
+    <section id='completeReportFound'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      compelte
+      <a id="button-sumbitCompleteReportFound" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
+    </section>
+    <section id='showReportFound'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      <div id='showReportFoundData'>
+      </div>
+      <a id="button-reportAnotherFound" href="#" class="btn btn-primary btn-block btn-lg">Report</a>
+      <a id="button-trackPet" href="#" class="btn btn-primary btn-block btn-lg">Track Pet</a>
+      <a id="button-MessageFound" href="#" class="btn btn-primary btn-block btn-lg">Message</a>
+    </section>
+    <section id='editReportFound'>
+    </section>
+    <section id='newReportLost'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      <div class = 'ReportLostForm'>
+        NEW REPORT
+      </div>
+      <a id="button-sumbitNewReportLost" href="#" class="btn btn-primary btn-block btn-lg">Preivew</a>
+    </section>
+    <section id='previewReportLost'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      <div id='previewReportLostData'>
+      </div>
+      <a id="button-sumbitPreviewReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
+    </section>
+    <section id='completeReportLost'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      complete
+      <a id="button-sumbitCompleteReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
+    </section>
+    <section id='showReportLost'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      <div id='showReportLostData'>
+      </div>
+      <a id="button-MessageLost" href="#" class="btn btn-primary btn-block btn-lg">Message</a>
+    </section>
+    <section id='editReportLost'>
+    </section>
+    <section id='showMessage'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      show Message
+      <div class='messageData'>
+      </div>
+    </section>
+    <section class='footnote'>
+      <p>FindMyPet V1.0</p>
+    </section>
+    <!---->
 
-        <div>
-        <label class='seperate'>MAKE A REPORT</label>
-        </div>
-        <div>
-          <a id="button-newLost" href="#" class="btn btn-primary btn-block btn-lg">Lost Pet</a>
-          <a id="button-newFound" href="#" class="btn btn-primary btn-block btn-lg">Found/Sighted Pet</a>
-        </div>
-        <div>
-        <label class='seperate'>Account</label>
-        </div>
-        <div>
-          <a id="button-listReport" href="#" class="btn btn-primary btn-block btn-lg">My Report</a>
-          <a id="button-listMessage" href="#" class="btn btn-primary btn-block btn-lg">Messages</a>
-          <a id="button-setting" href="#" class="btn btn-primary btn-block btn-lg">Settings</a>
-          <a id="button-about" href="#" class="btn btn-primary btn-block btn-lg">About find my pet</a>
-        </div>
-      </section>
-      <section id='listFilterdReport'>
-        <div class='menu-control'>
-          <a class='button-back'>BACK</a> MY Messages
-        </div>
-        <ul id='list-filterd'>
-        </ul>
-      </section>
-      <section id='listReport'>
-        <div class='menu-control'>
-          <a class='button-back'>BACK</a> MY REPORT
-        </div>
-        <label class='seperate'>LOST REPORT</label>
-        <ul id='list-lost'>
-        </ul>
-        <label class='seperate'>FOUND REPORT</label>
-        <ul id='list-found'>
-        </ul>
-      </section>
-      <section id='listMessage'>
-        <div class='menu-control'>
-          <a class='button-back'>BACK</a> MY Messages
-        </div>
-        <label class='seperate'>Lost Pet</label>
-        <ul id='list-message'>
-        </ul>
-      </section>
-      <section id='setting'>
-        <div class='menu-control'>
-          <a class='button-back'>BACK</a> Setting
-        </div>
-        <a id="button-location" href="#" class="btn btn-primary btn-block btn-lg">Location</a>
-        <a id="button-notification" href="#" class="btn btn-primary btn-block btn-lg">Notification</a>
-        <a id="button-signout" href="#" class="btn btn-primary btn-block btn-lg">Sign Out</a>
-      </section>
-      <section id='about'>
-        <div class='menu-control'>
-          <a class='button-back'>BACK</a> MY REPORT
-        </div>
-        ABOUT
-      </section>
-
-      <section id='newReportFound'>
-        <div class='report-control'>
-          <a class='button-back'>BACK</a> MY REPORT
-        </div>
-        <div class = 'ReportLostForm'>
-          NEW REPORT
-        </div>
-        <a id="button-sumbitNewReportFound" href="#" class="btn btn-primary btn-block btn-lg">Preivew</a>
-      </section>
-
-      <section id='previewReportFound'>
-        <div class='report-control'>
-          <a class='button-back'>BACK</a> MY REPORT
-        </div>
-        <div id='previewReportFoundData'>
-
-        </div>
-        <a id="button-sumbitPreviewReportFound" href="#" class="btn btn-primary btn-block btn-lg">Comfirm</a>
-      </section>
-
-      <section id='completeReportFound'>
-        <div class='report-control'>
-          <a class='button-back'>BACK</a> Lost Pet
-        </div>
-        <img id='pinImageLost'>
-        compelte a found report
-        <a id="button-sumbitCompleteReportFound" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
-      </section>
-      <section id='showReportFound'>
-        <div class='report-control'>
-          <a class='button-back'>BACK</a> Lost Pet
-          <a class='button-facebook'>Share</a>
-        </div>
-        <div id='showReportFoundData'>
-        </div>
-        <a id="button-reportAnotherFound" href="#" class="btn btn-primary btn-block btn-lg">Report</a>
-        <a id="button-trackPet" href="#" class="btn btn-primary btn-block btn-lg">Track Pet</a>
-        <a href="#" class="button-newMessage btn btn-primary btn-block btn-lg">Message</a>
-      </section>
-
-      <section id='editReportFound'>
-      </section>
-      <section id='newMessage'>
-        <img id='messageIMG'>
-        <textarea id='messageBody'></textarea>
-        <a id='button-sendMessage' href="#" class=" btn btn-primary btn-block btn-lg">Send</a>
-      </section>
-      <section id='newReportLost'>
-        <div class='report-control'>
-          <a class='button-back'>BACK</a> MY REPORT
-        </div>
-        <div class = 'ReportLostForm'>
-          NEW REPORT
-        </div>
-        <a id="button-sumbitNewReportLost" href="#" class="btn btn-primary btn-block btn-lg">Preivew</a>
-      </section>
-
-      <section id='previewReportLost'>
-        <div class='report-control'>
-          <a class='button-back'>BACK</a> Lost Pet
-        </div>
-        <div id='previewReportLostData'>
-        </div>
-        <a id="button-sumbitPreviewReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
-      </section>
-      <section id='completeReportLost'>
-        <div class='report-control'>
-          <a class='button-back'>BACK</a> Lost Pet
-        </div>
-        <img id='pinImageLost'>
-        completed a report
-        <a id="button-sumbitCompleteReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
-      </section>
-      <section id='showReportLost'>
-        <div class='report-control'>
-          <a class='button-back'>BACK</a> Lost Pet
-          <a class='button-facebook'>Share</a>
-        </div>
-        <div id='showReportLostData'>
-        </div>
-        <a href="#" class="button-newMessage btn btn-primary btn-block btn-lg">Message</a>
-      </section>
-      <section id='editReportLost'>
-      </section>
-
-      <section id='showMessage'>
-        <div class='menu-control'>
-          <a class='button-back'>BACK</a> Lost Pet
-        </div>
-        show Message
-        <div class='messageData'>
-        </div>
-      </section>
-
-      <section class='footnote'>
-        <p>FindMyPet V1.0</p>
-      </section>
-
-  </section>
     <script id="showMessage" type="x-tmpl-mustache">
       <img src={{photo1}}>
       <p>{{body}}</p>
@@ -211,8 +216,99 @@
         <p>Hello: {{first_name}}
       </div>
     </script>
+  </div>
 
-    <script>
-    </script>
-  </body>
-</html>
+  <!-- END OF SIDEBAR ☝️ -->
+
+  <!-- 👨 MUSTACHE TEMPLATES -->
+
+  <script id="showMessage" type="x-tmpl-mustache">
+    <img src={{photo1}}>
+    <p>{{body}}</p>
+  </script>
+  <script id="report-summary" type="x-tmpl-mustache">
+    <li data-id={{id}}>
+      <p>{{note}}</p>
+      <hr>
+    </li>
+  </script>
+  <script id="message-summary" type="x-tmpl-mustache">
+    <li data-id={{id}}>
+      <img src={{photo1}}>
+      <p>{{body}}</p>
+      <hr>
+    </li>
+  </script>
+
+  <script id="reportShow" type="x-tmpl-mustache">
+    <img data-id={{id}} scr={{photo}}>
+    <p>Pet Type: {{pet_type}}</p>
+    <p>Breed : {{breed}}</p>
+    <p>Name : {{name}}</p>
+    <p>Sex : {{sex}} </p>
+    <p>Coulour : {{color}} </p>
+    <p>Age : {{age}} </p>
+    <p>Last Seen : {{last_seen_address}} </p>
+    <p>Note : {{note}} </p>
+  </script>
+
+  <script id="user-info" type="x-tmpl-mustache">
+    <div>
+      <img src = {{avator}}>
+      <p>Hello: {{first_name}}
+    </div>
+  </script>
+
+<!-- 👨 END OF MUSTACHE TEMPLATES -->
+
+<!-- 🗺 MAP VIEW -->
+
+  <div class='map-view nopadding col-xs-12 col-md-8'>
+    <div id="map-container">
+      <div id="map-canvas"></div>
+    </div>
+  </div>
+
+  <!-- END OF MAP VIEW -->
+ </div>
+</div>
+
+<script>
+//create map
+function initMap(){
+  var latitude = 49.2827291;
+  var longitude = -123.12073750000002;
+  handler = Gmaps.build('Google');
+  handler.buildMap({
+      provider: {
+        mapTypeControl: false,
+        streetViewControl: false,
+        zoom: 14,
+        center: {lat: latitude, lng: longitude},
+      },
+      internal: {id: 'map-canvas'}}, function(){
+    // markers = handler.addMarkers([
+    //   {
+    //     "lat": latitude,
+    //     "lng": longitude,
+    //     "picture": {
+    //       "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+    //       "width":  32,
+    //       "height": 32
+    //     },
+    //     "infowindow": "hello!"
+    //   }
+    // ]);
+    var markers = handler.addMarkers(<%=raw @markers.to_json %>);
+    if(markers.length != 0){
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+     }
+    var geoloccontrol = new klokantech.GeolocationControl(handler.map.serviceObject.data.map, 18);
+    // if(navigator.geolocation)
+    //   navigator.geolocation.getCurrentPosition(displayOnMap);
+  });
+}
+// in listener
+//
+</script>
