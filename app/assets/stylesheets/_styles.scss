@@ -66,6 +66,10 @@ $button-radius: 4px;
   }
   .login-form {
     margin: auto;
+    p {
+      color: white;
+      text-align: center;
+    }
     &-button {
       min-width: 200px;
       background: white;
@@ -76,6 +80,9 @@ $button-radius: 4px;
       &:first-child {
         margin-bottom: 3em;
       }
+      a {
+      color: white;
+    }
     }
 
     .facebook {
@@ -88,6 +95,8 @@ $button-radius: 4px;
       background-color: rgb(228, 145, 59);
       text-align: center;
       min-width: 400px;
+      cursor: pointer;
+      margin-bottom: 10px;
     }
   }
 }
