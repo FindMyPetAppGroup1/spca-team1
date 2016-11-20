@@ -1,17 +1,20 @@
 // all views
 var allView = ['#menu-main','#listReport','#listMessage','#setting','#about'
-,'#newReportFound','#previewReportFound','#completeReportFound','#showReportFound','#editReportFound','#newReportLost','#previewReportLost','#completeReportLost','#showReportLost','#editReportLost','#showMessage','#listFilterdReport']
+,'#newReportFound','#previewReportFound','#completeReportFound','#showReportFound','#editReportFound','#newReportLost','#previewReportLost','#completeReportLost','#showReportLost','#editReportLost','#showMessage','#listFilterdReport','#newMessage']
 
 
 var userID;
 var bufferedData;
 var currentPage;
+var prevPage;
+var pinLostAssetLoc = '';
+var pinFoundAssetLoc = '';
 
 $(function(){
-  initialize();
+  initiMenu();
 });
 
-var initialize = function(){
+var initiMenu = function(){
   //initialize value
   renderUserInfo();
   //hide all views
@@ -21,6 +24,8 @@ var initialize = function(){
   //list all views need to be visiable at begining
   showObject('#menu-main')
   //set all click action
+  $('#pinImageLost')
+  $('#pinImageFound')
  setMenu();
  setControllerButton();
  setAction();
@@ -42,38 +47,12 @@ var showReport = function(id,bln){
   }
   hideObject(currentPage);
   showObject(to);
-  currentPage = to
-
 }
 var renderUserInfo = function(){
   //initialize user info from ajax
   bufferedData = user;
   renderMustache('#user-info','#userInfoData');
   userID = 1;
-}
-var setAction = function(){
-  //found route
-  setRedirectWithFunction('#button-sumbitNewReportFound','#newReportFound','#previewReportFound',renderPreviewFound);
-  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#completeReportFound',getReportId);
-  setRedirectWithFunction('#button-sumbitCompleteReportFound','#completeReportFound','#showReportFound',getReportFound);
-  setRedirectWithFunction('#button-reportAnotherFound','#showReportFound','#newReportFound',newLinkedFoundReport);
-  setRedirectWithFunction('#button-trackPet','#showReportFound','#listFilterdReport',getLinkedReport);
-
-  //set message
-
-  //lost route
-  setRedirectWithFunction('#button-sumbitNewReportLost','#newReportLost','#previewReportLost',renderPreviewLost);
-  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#completeReportLost',getReportId);
-  setRedirectWithFunction('#button-sumbitCompleteReportLost','#completeReportLost','#showReportLost',getReportLost);
-  //set message
-
-
-  //set deligate
-  setDeligate('#list-lost','li',getReportLost,'#listReport','#showReportLost');
-  setDeligate('#list-found','li',getReportFound,'#listReport','#showReportFound');
-  setDeligate('#list-message','li',getMessage,'#listMessage','#showMessage');
-  setDeligate('#list-filterd','li',getReportFound,'#listFilterdReport','#showReportFound');
-
 }
 
 var signoutFunc = function(){
@@ -117,7 +96,14 @@ var getReportFound = function(){
   //javascript for putting a pin on map
   renderMustache("#reportShow",'#showReportFoundData');
 }
+var sendMessage = function(){
+  var reportID = bufferedData;
+  bufferedData = messageBody.val();
+  //ajax post to db
 
+  hideObject(currentPage);
+  showObject('#menu-main');
+}
 var getMessage = function(){
   console.log('get:'+bufferedData);
   console.log('show message');
@@ -238,8 +224,10 @@ var addMessage = function(){
 
 var setControllerButton = function(){
   $('.button-back').click(function(){
-    $(this).parent().parent().hide();
-    $('#menu-main').show();
+    // $(this).parent().parent().hide();
+    // $('#menu-main').show();
+    hideObject(currentPage);
+    showObject('#menu-main');
   })
 
   $('.button-facebook').click(function(){
@@ -247,17 +235,17 @@ var setControllerButton = function(){
     //share to facebook
   })
 
-  $('#button-MessageFound').click(function(){
+  $('.button-newMessage').click(function(){
+    //set the message image to report photo1
+    $('#messageIMG')
+
     //before changing, bufferedData stored the report object
     bufferedData = bufferedData['id'];
     //after changing, bufferedData holds the report id
     console.log('redirect to message with case id = '+bufferedData);
-  })
-  $('#button-MessageLost').click(function(){
-    //before changing, bufferedData stored the report object
-    bufferedData = bufferedData['id'];
-    //after changing, bufferedData holds the report id
-    console.log('redirect to message with case id = '+bufferedData);
+
+    hideObject(currentPage);
+    showObject('#newMessage');
   })
 }
 
@@ -274,7 +262,31 @@ var setMenu = function(){
   setRedirectWithFunction('#button-notification','#setting','#setting',notificationFunc);
   setRedirectWithFunction('#button-location','#setting','#setting',locationFunc);
 }
-// fake datas
+
+var setAction = function(){
+  //found route
+  setRedirectWithFunction('#button-sumbitNewReportFound','#newReportFound','#previewReportFound',renderPreviewFound);
+  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#completeReportFound',getReportId);
+  setRedirectWithFunction('#button-sumbitCompleteReportFound','#completeReportFound','#showReportFound',getReportFound);
+  setRedirectWithFunction('#button-reportAnotherFound','#showReportFound','#newReportFound',newLinkedFoundReport);
+  setRedirectWithFunction('#button-trackPet','#showReportFound','#listFilterdReport',getLinkedReport);
+
+  //set message
+  setRedirectWithFunction('#button-sendMessage','#newMessage','#menu-main',sendMessage);
+
+  //lost route
+  setRedirectWithFunction('#button-sumbitNewReportLost','#newReportLost','#previewReportLost',renderPreviewLost);
+  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#completeReportLost',getReportId);
+  setRedirectWithFunction('#button-sumbitCompleteReportLost','#completeReportLost','#showReportLost',getReportLost);
+
+  //set deligate
+  setDeligate('#list-lost','li',getReportLost,'#listReport','#showReportLost');
+  setDeligate('#list-found','li',getReportFound,'#listReport','#showReportFound');
+  setDeligate('#list-message','li',getMessage,'#listMessage','#showMessage');
+  setDeligate('#list-filterd','li',getReportFound,'#listFilterdReport','#showReportFound');
+
+}
+
 var report1 = {
   'id' : 1,
   "pet_type":'dog',
