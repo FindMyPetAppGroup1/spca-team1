@@ -1,3 +1,9 @@
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXclu8PhDGVun2bDikmbNE5YUUNRFG204&callback=initMap"
+ type="text/javascript"></script>
+<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+<script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
+
 <div class = 'container-fluid'>
  <div class="row">
    <!-- 👇 START OF SIDEBAR -->
@@ -267,3 +273,52 @@
   <!-- END OF MAP VIEW -->
  </div>
 </div>
+
+<script>
+
+//create map
+function initMap(){
+  var latitude = 49.2827291;
+  var longitude = -123.12073750000002;
+
+
+  handler = Gmaps.build('Google');
+  handler.buildMap({
+      provider: {
+        mapTypeControl: false,
+        streetViewControl: false,
+        zoom: 14,
+        center: {lat: latitude, lng: longitude},
+
+      },
+      internal: {id: 'map-canvas'}}, function(){
+    // markers = handler.addMarkers([
+    //   {
+    //     "lat": latitude,
+    //     "lng": longitude,
+    //     "picture": {
+    //       "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+    //       "width":  32,
+    //       "height": 32
+    //     },
+    //     "infowindow": "hello!"
+    //   }
+    // ]);
+
+    var markers = handler.addMarkers(<%=raw @markers.to_json %>);
+
+    if(markers.length != 0){
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+     }
+
+    var geoloccontrol = new klokantech.GeolocationControl(handler.map.serviceObject.data.map, 18);
+    // if(navigator.geolocation)
+    //   navigator.geolocation.getCurrentPosition(displayOnMap);
+  });
+}
+
+// in listener
+//
+
+</script>
