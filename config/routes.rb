@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     delete :destroy, on: :collection
   end
   resources :reports do
-    resources :messengers only:[:create, :show]
+    resources :messengers, only: [:create, :show]
     get :find_search
     get :rough_search
   end
