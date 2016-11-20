@@ -1,17 +1,22 @@
 class Report < ApplicationRecord
   geocoded_by :last_seen_address
   belongs_to :user
-  has_many :messages, dependent: :destroy
+  # has_many :messages, dependent: :destroy
+  has_many :messengers, dependent: :destroy
 
-  validates :name, presence: true
+
+
+  # validates :name, presence: true
   validates :pet_type, presence: true
   validates :last_seen_date, presence: true
-  validates :last_seen_address, presence: true
-  validates :latitude, presence: true
-  validates :longitude, presence: true
+  # validates :last_seen_address, presence: true
+  # validates :latitude, presence: true
+  # validates :longitude, presence: true
   validates :report_type, presence: true
 
+
   after_validation :geocode
+
 
   mount_uploader :photo1, ImageUploader
   mount_uploader :photo2, ImageUploader

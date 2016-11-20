@@ -1,29 +1,27 @@
-<div class="row">
-  <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-    <h1>Sign Up</h1>
-    <%= @user.errors.full_messages.join(', ') %>
-    <%= form_for @user do |f| %>
-      <div class="form-group">
-        <%= f.label :first_name %>
-        <%= f.text_field :first_name, class: "form-control" %>
+<div class="sign-in-bg">
+  <div class="container-fluid">
+    <div class="inner-container">
+      <div class="sign-in-logo">
+        <%= image_tag 'logo@2x.png' %>
       </div>
-      <div class="form-group">
-        <%= f.label :last_name %>
-        <%= f.text_field :last_name, class: "form-control" %>
+      <div class="login-form">
+          <%= link_to sign_in_facebook_path do %>
+            <div class="login-form-button facebook">
+              <span class="icon-big"><%= fa_icon 'facebook-official' %></span> Sign up with Facebook
+            </div>
+          <% end %>
+          <p>Or with Email</p>
+          <%= form_for @user do |f| %>
+            <%= f.text_field :first_name, placeholder: 'First Name' %><br />
+            <%= f.text_field :last_name, placeholder: 'Last Name' %><br />
+            <%= f.email_field :email, placeholder: 'Email' %><br />
+            <%= f.password_field :password, placeholder: 'Password' %><br />
+            <%= f.submit 'Sign Up', class: 'login-form-button submit' %>
+          <% end %>
+          <p>
+            <%= link_to "Already registered? Sign in here.",  new_session_path %>
+          </p>
+        </div>
       </div>
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, class: "form-control" %>
-      </div>
-      <%= f.submit class: "btn btn-default" %>
-    <% end %>
   </div>
 </div>
