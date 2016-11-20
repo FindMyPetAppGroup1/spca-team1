@@ -266,7 +266,9 @@
 
   <div class='map-view nopadding col-xs-12 col-md-8'>
     <div id="map-container">
-      <div id="map-canvas"></div>
+        <div id="map-canvas"></div>
+          <div id="legend"><h3>Pets</h3></div>
+
     </div>
   </div>
 
@@ -275,12 +277,37 @@
 </div>
 
 <script>
+var addLegend = function () {
+  var iconBase = '';
+  var icons = {
+    lost: {
+      name: 'Lost',
+      icon: iconBase + 'http://storage8.static.itmages.com/i/16/1120/h_1479684823_4696094_cedddc5c3a.png'
+    },
+    sighted: {
+      name: 'Sighted',
+      icon: iconBase + 'http://storage6.static.itmages.com/i/16/1120/h_1479684799_7772859_c01f214934.png'
+    },
+  };
+  var legend = document.getElementById('legend');
+
+  for (var key in icons) {
+    console.log(key);
+    var type = icons[key];
+    var name = type.name;
+    var icon = type.icon;
+    var div = document.createElement('div');
+    div.innerHTML = '<img src="' + icon + '"> ' + name;
+    legend.appendChild(div);
+  }
+//
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+}
 
 //create map
 function initMap(){
   var latitude = 49.2827291;
   var longitude = -123.12073750000002;
-
 
   handler = Gmaps.build('Google');
   handler.buildMap({
@@ -311,10 +338,12 @@ function initMap(){
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
      }
-
-    var geoloccontrol = new klokantech.GeolocationControl(handler.map.serviceObject.data.map, 18);
+    map = (handler.map.serviceObject.data.map);
+    var geoloccontrol = new klokantech.GeolocationControl(map, 18);
     // if(navigator.geolocation)
     //   navigator.geolocation.getCurrentPosition(displayOnMap);
+
+    addLegend();
   });
 }
 
