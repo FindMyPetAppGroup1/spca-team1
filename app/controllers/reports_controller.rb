@@ -35,11 +35,9 @@ class ReportsController < ApplicationController
 
     # This index is for displaying 'List view' of all reports (in a certain area)
     @reports = Report.order(created_at: :DESC)
-    format.html { render }
-    format.text { render }
-    format.xml  { render xml: @reports }
-    format.json { render json: @reports.to_json }
-    end
+    
+    render json: { reports: @reports}
+
   end
 
   def edit
@@ -61,15 +59,15 @@ class ReportsController < ApplicationController
   end
 
   #this is a custom action, it will be used to enable searching for reports in the immediate area
-  def find_search
-    typetar = params[]
-    reports = Report.join(:report)where("report.type in (?) AND last_seen_date IN (?)",typetar,datetar)
-    render json: reports.to_json
-  end
+  # def find_search
+  #   typetar = params[]
+  #   reports = Report.join(:report)where("report.type in (?) AND last_seen_date IN (?)",typetar,datetar)
+  #   render json: reports.to_json
+  # end
 
-  def rough_search(typetar, datetar)
-   reports = Report.join(:report)where("report.type in (?) OR last_seen_date IN (?)",typetar,datetar)
-  end
+  # def rough_search(typetar, datetar)
+  #  reports = Report.join(:report)where("report.type in (?) OR last_seen_date IN (?)",typetar,datetar)
+  # end
 
   def create_report_with_new_case_id
     # @report = Report.new
@@ -105,4 +103,5 @@ class ReportsController < ApplicationController
   def find_report
     @report = Report.find params[:id]
   end
+
 end
