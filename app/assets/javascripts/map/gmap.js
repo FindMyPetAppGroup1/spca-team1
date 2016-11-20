@@ -8,43 +8,173 @@ var map;
 
 
 // function CenterControl(controlDiv, map) {
-//
-//   // Set CSS for the control border.
-//   var controlUI = document.createElement('div');
-//   controlUI.style.backgroundColor = '#fff';
-//   controlUI.style.border = '2px solid #fff';
-//   controlUI.style.borderRadius = '3px';
-//   controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-//   controlUI.style.cursor = 'pointer';
-//   controlUI.style.marginBottom = '22px';
-//   controlUI.style.textAlign = 'center';
-//   controlUI.title = 'Click to recenter the map';
-//   controlDiv.appendChild(controlUI);
-//
-//   // Set CSS for the control interior.
-//   var controlText = document.createElement('div');
-//   controlText.style.color = 'rgb(25,25,25)';
-//   controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-//   controlText.style.fontSize = '16px';
-//   controlText.style.lineHeight = '38px';
-//   controlText.style.paddingLeft = '5px';
-//   controlText.style.paddingRight = '5px';
-//   controlText.innerHTML = 'Center Map';
-//   controlUI.appendChild(controlText);
-//
-//   // Setup the click event listeners: simply set the map to Chicago.
+
+  // Set CSS for the control border.
+  // var controlUI = document.createElement('div');
+  // controlUI.style.width = '35px';
+  // controlUI.style.height = '35px';
+  // controlUI.style.backgroundColor = 'blue';
+  // controlUI.style.border = '15px solid #fff';
+  // controlUI.style.borderRadius = '35px';
+  // controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  // controlUI.style.cursor = 'pointer';
+  // controlUI.style.marginBottom = '22px';
+  // controlUI.style.marginRight = '10px';
+  // controlUI.title = 'Click to recenter the map';
+  // controlDiv.appendChild(controlUI);
+  // var controlUI = document.createElement('div');
+  // controlUI.style.width = '45px';
+  // controlUI.style.height = '45px';
+  // controlUI.style.backgroundColor = '#fff';
+  // controlUI.style.border = '2px solid #fff';
+  // controlUI.style.borderRadius = '45px';
+  // controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  // controlUI.style.cursor = 'pointer';
+  // controlUI.style.marginBottom = '22px';
+  // controlUI.style.marginRight = '10px';
+  // controlUI.style.textAlign = 'center';
+  // controlUI.title = 'Click to recenter the map';
+  // controlDiv.appendChild(controlUI);
+
+  // // Set CSS for the control interior.
+  // var controlText = document.createElement('div');
+  // controlText.position = "relative";
+  // controlText.style.width = '25px';
+  // controlText.style.height = '25px';
+  // controlText.style.backgroundColor = 'blue';
+  // controlText.style.borderRadius = '25px;'
+  // controlText.style.paddingLeft = '50px';
+  // controlText.style.paddingRight = '50px';
+  // controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
 //   controlUI.addEventListener('click', function() {
-//     map.setCenter(chicago);
+//     if (navigator.geolocation) {
+//       navigator.geolocation.getCurrentPosition(function(position) {
+//         var pos = {
+//           lat: position.coords.latitude,
+//           lng: position.coords.longitude
+//         };
+//         // var marker = new google.maps.Marker({
+//         //   position: pos,
+//         //   map: map,
+//         //   title: 'You are here!',
+//         //   animation: google.maps.Animation.DROP
+//         // });
+//         var image = new google.maps.MarkerImage(
+//   							'http://plebeosaur.us/etc/map/bluedot_retina.png',
+//   							null, // size
+//   							null, // origin
+//   							new google.maps.Point( 8, 8 ), // anchor (move to center of marker)
+//   							new google.maps.Size( 17, 17 ) // scaled size (required for Retina display icon)
+//   			        );
+//         var myMarker = new google.maps.Marker({
+//           flat: true,
+//           icon: image,
+//           map: map,
+//           optimized: false,
+//           position: pos,
+//           title: 'I might be here',
+//           visible: true
+//         });
+//         map.setCenter(pos);
+//       }, function() {
+//         handleLocationError(true, myMarker, map.getCenter());
+//       });
+//     } else {
+//       // Browser doesn't support Geolocation
+//       handleLocationError(false, myMarker, map.getCenter());
+//     }
+//
 //   });
 //
 // }
+var faisalabad = {lat:31.4181, lng:73.0776};
 
+function addYourLocationButton(map, marker)
+{
+    var controlDiv = document.createElement('div');
+
+    var firstChild = document.createElement('button');
+    firstChild.style.backgroundColor = '#fff';
+    firstChild.style.border = 'none';
+    firstChild.style.outline = 'none';
+    firstChild.style.width = '28px';
+    firstChild.style.height = '28px';
+    firstChild.style.borderRadius = '2px';
+    firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+    firstChild.style.cursor = 'pointer';
+    firstChild.style.marginRight = '10px';
+    firstChild.style.padding = '0px';
+    firstChild.title = 'Your Location';
+    controlDiv.appendChild(firstChild);
+
+    var secondChild = document.createElement('div');
+    secondChild.style.margin = '5px';
+    secondChild.style.width = '18px';
+    secondChild.style.height = '18px';
+    secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-1x.png)';
+    secondChild.style.backgroundSize = '180px 18px';
+    secondChild.style.backgroundPosition = '0px 0px';
+    secondChild.style.backgroundRepeat = 'no-repeat';
+    secondChild.id = 'you_location_img';
+    firstChild.appendChild(secondChild);
+
+    google.maps.event.addListener(map, 'dragend', function() {
+        $('#you_location_img').css('background-position', '0px 0px');
+    });
+
+    firstChild.addEventListener('click', function() {
+        var imgX = '0';
+        var animationInterval = setInterval(function(){
+            if(imgX == '-18') imgX = '0';
+            else imgX = '-18';
+            $('#you_location_img').css('background-position', imgX+'px 0px');
+        }, 500);
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+              var image = new google.maps.MarkerImage(
+            							'http://plebeosaur.us/etc/map/bluedot_retina.png',
+            							null, // size
+            							null, // origin
+            							new google.maps.Point( 8, 8 ), // anchor (move to center of marker)
+            							new google.maps.Size( 17, 17 ) // scaled size (required for Retina display icon)
+            			        );
+              var marker = new google.maps.Marker({
+                  flat: true,
+                  icon: image,
+                  map: map,
+                  optimized: false,
+                  position: latlng,
+                  title: 'I might be here',
+                  visible: true
+                });
+
+                map.setCenter(latlng);
+                clearInterval(animationInterval);
+                $('#you_location_img').css('background-position', '-144px 0px');
+            });
+        }
+        else{
+            clearInterval(animationInterval);
+            $('#you_location_img').css('background-position', '0px 0px');
+        }
+    });
+
+    controlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+}
 
 function initialize() {
 
   var mapOptions = {
     center: new google.maps.LatLng(49.2827291, -123.12073750000002),
     zoom: 14,
+    zoomControlOptions: {
+                   style: google.maps.ZoomControlStyle.SMALL
+               },
     mapTypeId: google.maps.MapTypeId.NORMAL,
     mapTypeControl: false,
     panControl: true,
@@ -54,14 +184,15 @@ function initialize() {
   };
   // initializing map
   map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
-
+// var geoloccontrol = new klokantech.GeolocationControl(map, 10);
   //test custom button
   // var centerControlDiv = document.createElement('div');
   // var centerControl = new CenterControl(centerControlDiv, map);
-  //
-  // centerControlDiv.index = 1;
-  // map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
+  // centerControlDiv.index = 1;
+  // map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+
+   addYourLocationButton(map);
   // geocoding
   var geocoding  = new google.maps.Geocoder();
   $("#submit_button_geocoding").click(function(){
@@ -75,42 +206,7 @@ function initialize() {
   // var infoWindow = new google.maps.InfoWindow({map: map});
 
   // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      // var marker = new google.maps.Marker({
-      //   position: pos,
-      //   map: map,
-      //   title: 'You are here!',
-      //   animation: google.maps.Animation.DROP
-      // });
-      var image = new google.maps.MarkerImage(
-							'http://plebeosaur.us/etc/map/bluedot_retina.png',
-							null, // size
-							null, // origin
-							new google.maps.Point( 8, 8 ), // anchor (move to center of marker)
-							new google.maps.Size( 17, 17 ) // scaled size (required for Retina display icon)
-			        );
-      var myMarker = new google.maps.Marker({
-        flat: true,
-        icon: image,
-        map: map,
-        optimized: false,
-        position: pos,
-        title: 'I might be here',
-        visible: true
-      });
-      map.setCenter(pos);
-    }, function() {
-      handleLocationError(true, myMarker, map.getCenter());
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, myMarker, map.getCenter());
-  }
+
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
