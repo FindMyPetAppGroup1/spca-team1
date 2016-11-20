@@ -5,19 +5,12 @@
         <%= image_tag 'logo@2x.png' %>
       </div>
       <div class="login-form">
-          <%= link_to sign_in_facebook_path do %>
-            <div class="login-form-button facebook">
-              Sign up with Facebook
-            </div>
-          <% end %>
-          Or with email
-
-          <%= link_to new_user_path do %>
-            <div class="login-form-button submit">
-              Sign Up
-            </div>
-          <% end %>
-        </div>
+        <%= form_tag sessions_path do %>
+          <%= email_field_tag :email %><br />
+          <%= password_field_tag :password %><br />
+          <%= submit_tag 'Sign In', class: 'login-form-button submit' %>
+        <% end %>
       </div>
+    </div>
   </div>
 </div>
