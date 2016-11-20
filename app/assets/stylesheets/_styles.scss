@@ -1,0 +1,93 @@
+$main-font: 'Quicksand';
+$lightgrey: rgb(142, 142, 142);
+
+$button-radius: 4px;
+
+.container {
+  font-family: $main-font;
+}
+
+.container-fluid {
+  font-family: $main-font;
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.inner-container {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.sign-in-bg {
+  /* IE10+ */
+  background-image: -ms-linear-gradient(top, #00AEFC 0%, #A0C7E1 100%);
+
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(top, #00AEFC 0%, #A0C7E1 100%);
+
+  /* Opera */
+  background-image: -o-linear-gradient(top, #00AEFC 0%, #A0C7E1 100%);
+
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #00AEFC), color-stop(100, #A0C7E1));
+
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(top, #00AEFC 0%, #A0C7E1 100%);
+
+  /* W3C Markup */
+  background-image: linear-gradient(to bottom, #00AEFC 0%, #A0C7E1 100%);
+
+  min-width: 100%;
+  margin: 0;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  position: fixed;
+
+  img {
+    max-width: 200px;
+  }
+
+  input {
+    min-width: 400px;
+    background: white;
+    border-radius: $button-radius;
+    margin: auto;
+    padding: 10px 20px;
+    color: $lightgrey;
+    border: 0;
+    margin-bottom: 10px;
+  }
+  //
+  .sign-in-logo {
+    margin: auto;
+  }
+  .login-form {
+    margin: auto;
+    &-button {
+      min-width: 200px;
+      background: white;
+      border-radius: $button-radius;
+      margin: auto;
+      padding: 10px 20px;
+      color: white;
+      &:first-child {
+        margin-bottom: 3em;
+      }
+    }
+
+    .facebook {
+      background-color: rgb(57, 72, 172);
+      text-align: center;
+      box-shadow: 1px 2px 5px rgba(#838383, 0.48);
+    }
+    .submit {
+      box-shadow: 1px 2px 5px rgba(#838383, 0.48);
+      background-color: rgb(228, 145, 59);
+      text-align: center;
+      min-width: 400px;
+    }
+  }
+}
