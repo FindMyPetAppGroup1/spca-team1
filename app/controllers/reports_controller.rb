@@ -61,7 +61,8 @@ class ReportsController < ApplicationController
   end
 
   #this is a custom action, it will be used to enable searching for reports in the immediate area
-  def find_search(typetar, datetar)
+  def find_search
+    typetar = params[]
     reports = Report.join(:report)where("report.type in (?) AND last_seen_date IN (?)",typetar,datetar)
     render json: reports.to_json
   end

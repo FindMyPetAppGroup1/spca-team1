@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   end
   resources :reports do
     resources :messengers only:[:create, :show]
+    get :find_search
+    get :rough_search
   end
   get '/auth/facebook', as: :sign_in_facebook
   get '/auth/facebook/callback' => 'callbacks#facebook'
+
 
 end
