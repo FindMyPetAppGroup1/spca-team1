@@ -5,11 +5,13 @@
         <%= image_tag 'logo@2x.png' %>
       </div>
       <div class="login-form">
+        <h2>Sign in</h2>
         <%= form_tag sessions_path do %>
           <%= email_field_tag :email %><br />
           <%= password_field_tag :password %><br />
           <%= submit_tag 'Sign In', class: 'login-form-button submit' %>
         <% end %>
+        <p><%= link_to "Back to Sign Up",  new_user_path %></p>
       </div>
     </div>
   </div>

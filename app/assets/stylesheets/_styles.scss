@@ -1,6 +1,7 @@
 $main-font: 'Quicksand';
 $lightgrey: rgb(142, 142, 142);
-
+$orange: #fbaa47;
+$facebook: #3d5b94;
 $button-radius: 4px;
 
 .container {
@@ -76,6 +77,10 @@ $button-radius: 4px;
   }
   .login-form {
     margin: auto;
+    h2 {
+      color: white;
+      text-align: center;
+    }
     p {
       color: white;
       text-align: center;
@@ -96,17 +101,17 @@ $button-radius: 4px;
     }
 
     .facebook {
-      background-color: rgb(57, 72, 172);
+      background-color: $facebook;
       text-align: center;
-      box-shadow: 1px 2px 5px rgba(#838383, 0.48);
+      box-shadow: 1px 2px 5px rgba(#6275b0, 0.48);
     }
     .submit {
-      box-shadow: 1px 2px 5px rgba(#838383, 0.48);
-      background-color: rgb(228, 145, 59);
+      box-shadow: 1px 2px 5px rgba(#848ba7, 0.48);
+      background-color: $orange;
       text-align: center;
       min-width: 400px;
       cursor: pointer;
-      margin-bottom: 10px;g
+      margin-bottom: 10px;
     }
   }
 }
@@ -179,4 +184,9 @@ $button-radius: 4px;
    #map-canvas div.gmnoprint[title="I might be here"] {
      margin:-10px 0 0 -10px;
    }
+ }
+
+ .icon-big {
+   font-size: 1.4em;
+   padding-right: 0.7em;
  }
