@@ -71,6 +71,17 @@ class ReportsController < ApplicationController
    reports = Report.join(:report)where("report.type in (?) OR last_seen_date IN (?)",typetar,datetar)
   end
 
+  def create_report_with_new_case_id
+    # @report = Report.new
+    # @report = report.case_id
+  end
+
+  def create_report_with_current_case_id
+    # @report = Report.new
+    # @report = report.current_case_id
+    # current_case_id must be a method in ApplicationController
+  end
+
   private
 
   def report_params

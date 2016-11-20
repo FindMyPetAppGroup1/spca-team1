@@ -18,4 +18,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  # def current_case_id
+  #   @current_case_id = ||= Report.find(session[:report_id])
+  # end
+  # helper_method :current_case_id
+
 end
