@@ -7,5 +7,5 @@ class Messenger < ApplicationRecord
   def user_full_name
    user ? user.full_name : "Anonymous"
   end
-  
+
 end

@@ -14,6 +14,12 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def current_user_info
+    render json: { info: current_user, reports: current_user.reports }
+  end
+
+
   def user_params
      params.require(:user).permit([:first_name,
                                                 :last_name,

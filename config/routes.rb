@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root 'home#index'
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create] do
+    resources :reports, only: [:show]
+  end
+
   resources :sessions, only: [:new, :create] do
     delete :destroy, on: :collection
   end
@@ -11,6 +14,9 @@ Rails.application.routes.draw do
     get :find_search
     get :rough_search
   end
+
+  get 'users/current_user_info' => 'users#current_user_info'
+
   get '/auth/facebook', as: :sign_in_facebook
   get '/auth/facebook/callback' => 'callbacks#facebook'
 
