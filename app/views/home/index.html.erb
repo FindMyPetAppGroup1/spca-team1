@@ -1,6 +1,9 @@
 
 <div class = 'container-fluid'>
  <div class="row">
+
+   <!-- 👇 START OF SIDEBAR -->
+
   <div class ='sidebar col-xs-12 col-md-3'>
     <section id="menu-main">
       <div id='userInfoData'>
@@ -104,49 +107,96 @@
     </section>
 
     <section id='previewReportLost'>
-       <div class='report-control'>
-         <a class='button-back'>BACK</a> Lost Pet
-       </div>
-       <div id='previewReportLostData'>
-       </div>
-       <a id="button-sumbitPreviewReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
-     </section>
-     <section id='completeReportLost'>
-       <div class='report-control'>
-         <a class='button-back'>BACK</a> Lost Pet
-       </div>
-       complete
-       <a id="button-sumbitCompleteReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
-     </section>
-     <section id='showReportLost'>
-       <div class='report-control'>
-         <a class='button-back'>BACK</a> Lost Pet
-       </div>
-       <div id='showReportLostData'>
-       </div>
-       <a id="button-MessageLost" href="#" class="btn btn-primary btn-block btn-lg">Message</a>
-     </section>
-     <section id='editReportLost'>
-     </section>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      <div id='previewReportLostData'>
+      </div>
+      <a id="button-sumbitPreviewReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
+    </section>
+    <section id='completeReportLost'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      complete
+      <a id="button-sumbitCompleteReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
+    </section>
+    <section id='showReportLost'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      <div id='showReportLostData'>
+      </div>
+      <a id="button-MessageLost" href="#" class="btn btn-primary btn-block btn-lg">Message</a>
+    </section>
+    <section id='editReportLost'>
+    </section>
 
-     <section id='showMessage'>
-       <div class='menu-control'>
-         <a class='button-back'>BACK</a> Lost Pet
-       </div>
-       show Message
-       <div class='messageData'>
-       </div>
-     </section>
+    <section id='showMessage'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      show Message
+      <div class='messageData'>
+      </div>
+    </section>
 
-     <section class='footnote'>
-       <p>FindMyPet V1.0</p>
-     </section>
+    <section class='footnote'>
+      <p>FindMyPet V1.0</p>
+    </section>
   </div>
+
+  <!-- END OF SIDEBAR ☝️ -->
+
+  <!-- 👨 MUSTACHE TEMPLATES -->
+
+  <script id="showMessage" type="x-tmpl-mustache">
+  <img src={{photo1}}>
+  <p>{{body}}</p>
+</script>
+<script id="report-summary" type="x-tmpl-mustache">
+  <li data-id={{id}}>
+    <p>{{note}}</p>
+    <hr>
+  </li>
+</script>
+<script id="message-summary" type="x-tmpl-mustache">
+  <li data-id={{id}}>
+    <img src={{photo1}}>
+    <p>{{body}}</p>
+    <hr>
+  </li>
+</script>
+
+<script id="reportShow" type="x-tmpl-mustache">
+  <img data-id={{id}} scr={{photo}}>
+  <p>Pet Type: {{pet_type}}</p>
+  <p>Breed : {{breed}}</p>
+  <p>Name : {{name}}</p>
+  <p>Sex : {{sex}} </p>
+  <p>Coulour : {{color}} </p>
+  <p>Age : {{age}} </p>
+  <p>Last Seen : {{last_seen_address}} </p>
+  <p>Note : {{note}} </p>
+</script>
+
+<script id="user-info" type="x-tmpl-mustache">
+  <div>
+    <img src = {{avator}}>
+    <p>Hello: {{first_name}}
+  </div>
+</script>
+
+<!-- 👨 END OF MUSTACHE TEMPLATES -->
+
+<!-- 🗺 MAP VIEW -->
 
   <div class='map-view nopadding col-xs-12 col-md-9'>
     <div id="map-container">
       <div id="map-canvas"></div>
     </div>
   </div>
+
+  <!-- END OF MAP VIEW -->
  </div>
 </div>
