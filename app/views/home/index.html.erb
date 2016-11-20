@@ -1,31 +1,149 @@
 
 <div class = 'container-fluid'>
  <div class="row">
-  <div class ='sidebar col-md-3'>
-   <h2>Sidebar</h2>
-   <div class='container-fluid'>
-     <ul>
-       <li><%= link_to 'Home', root_path %></li>
-       <% if user_signed_in? %>
-         <li>
-           <p>Hello <%= current_user.first_name %></p>
-         </li>
-         <li>
-           <%= button_to 'Sign out',
-             sessions_path,
-             method: :delete
-             %>
-           </li>
-       <% else %>
-         <li><%= link_to 'Sign up', new_user_path %></li>
-         <li><%= link_to 'Sign In', new_session_path %></li>
-         <li><%= link_to 'Sign In With Facebook', sign_in_facebook_path %></li>
-       <% end %>
-     </ul>
-   </div>
+  <div class ='sidebar col-xs-12 col-md-3'>
+    <section id="menu-main">
+      <div id='userInfoData'>
+      </div>
+      <div>
+        <label class='seperate'>MAKE A REPORT</label>
+      </div>
+      <div>
+        <a id="button-newLost" href="#" class="btn btn-primary btn-block btn-lg">Lost Pet</a>
+        <a id="button-newFound" href="#" class="btn btn-primary btn-block btn-lg">Found/Sighted Pet</a>
+      </div>
+      <div>
+        <label class='seperate'>Account</label>
+      </div>
+      <div>
+        <a id="button-listReport" href="#" class="btn btn-primary btn-block btn-lg">My Report</a>
+        <a id="button-listMessage" href="#" class="btn btn-primary btn-block btn-lg">Messages</a>
+        <a id="button-setting" href="#" class="btn btn-primary btn-block btn-lg">Settings</a>
+        <a id="button-about" href="#" class="btn btn-primary btn-block btn-lg">About find my pet</a>
+      </div>
+    </section>
+    <section id='listReport'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      <label class='seperate'>MAKE A REPORT</label>
+      <ul id='list-lost'>
+      </ul>
+      <label class='seperate'>MAKE A REPORT</label>
+      <ul id='list-found'>
+      </ul>
+    </section>
+    <section id='listMessage'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> MY Messages
+      </div>
+      <label class='seperate'>Lost Pet</label>
+      <ul id='list-message'>
+      </ul>
+    </section>
+    <section id='setting'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> Setting
+      </div>
+      <a id="button-location" href="#" class="btn btn-primary btn-block btn-lg">Location</a>
+      <a id="button-notification" href="#" class="btn btn-primary btn-block btn-lg">Notification</a>
+      <a id="button-signout" href="#" class="btn btn-primary btn-block btn-lg">Sign Out</a>
+    </section>
+    <section id='about'>
+      <div class='menu-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      ABOUT
+    </section>
+
+    <section id='newReportFound'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      <div class = 'ReportLostForm'>
+        NEW REPORT
+      </div>
+      <a id="button-sumbitNewReportFound" href="#" class="btn btn-primary btn-block btn-lg">Preivew</a>
+    </section>
+
+    <section id='previewReportFound'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      <div id='previewReportFoundData'>
+      </div>
+      <a id="button-sumbitPreviewReportFound" href="#" class="btn btn-primary btn-block btn-lg">Comfirm</a>
+    </section>
+
+    <section id='completeReportFound'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      compelte
+      <a id="button-sumbitCompleteReportFound" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
+    </section>
+    <section id='showReportFound'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> Lost Pet
+      </div>
+      <div id='showReportFoundData'>
+      </div>
+      <a id="button-MessageFound" href="#" class="btn btn-primary btn-block btn-lg">Message</a>
+    </section>
+    <section id='editReportFound'>
+    </section>
+
+    <section id='newReportLost'>
+      <div class='report-control'>
+        <a class='button-back'>BACK</a> MY REPORT
+      </div>
+      <div class = 'ReportLostForm'>
+        NEW REPORT
+      </div>
+      <a id="button-sumbitNewReportLost" href="#" class="btn btn-primary btn-block btn-lg">Preivew</a>
+    </section>
+
+    <section id='previewReportLost'>
+       <div class='report-control'>
+         <a class='button-back'>BACK</a> Lost Pet
+       </div>
+       <div id='previewReportLostData'>
+       </div>
+       <a id="button-sumbitPreviewReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
+     </section>
+     <section id='completeReportLost'>
+       <div class='report-control'>
+         <a class='button-back'>BACK</a> Lost Pet
+       </div>
+       complete
+       <a id="button-sumbitCompleteReportLost" href="#" class="btn btn-primary btn-block btn-lg">Confirm</a>
+     </section>
+     <section id='showReportLost'>
+       <div class='report-control'>
+         <a class='button-back'>BACK</a> Lost Pet
+       </div>
+       <div id='showReportLostData'>
+       </div>
+       <a id="button-MessageLost" href="#" class="btn btn-primary btn-block btn-lg">Message</a>
+     </section>
+     <section id='editReportLost'>
+     </section>
+
+     <section id='showMessage'>
+       <div class='menu-control'>
+         <a class='button-back'>BACK</a> Lost Pet
+       </div>
+       show Message
+       <div class='messageData'>
+       </div>
+     </section>
+
+     <section class='footnote'>
+       <p>FindMyPet V1.0</p>
+     </section>
   </div>
 
-  <div class='map-view nopadding col-md-9'>
+  <div class='map-view nopadding col-xs-12 col-md-9'>
     <div id="map-container">
       <div id="map-canvas"></div>
     </div>
