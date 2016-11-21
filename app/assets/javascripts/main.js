@@ -225,9 +225,14 @@ var renderPreviewFound = function(){
     pet_type: $('#found_pet_type option:selected').text(),
     last_seen_address: $('#pac-report-input').val(),
     last_seen_date: $('#found_last_seen_date').val(),
+<<<<<<< a1500758eeabe5cf7f9d5d4d3b27eddacd66f4ac
     color: $('#color').val(),
     note: $('#found_note').val(),
     related_id: caseid
+=======
+    color: $('#color option:selected').val(),
+    note: $('#found_note').val()
+>>>>>>> routes fixed
   };
   lostOrFound = "Found";
   tmp = "#reportShowFound";
@@ -241,14 +246,21 @@ var postReport = function(){
   data = {};
   data.report=bufferedData;
   data.report.report_type = lostOrFound;
+  console.log(lostOrFound);
   //
   //use ajax to get report id from using report details
   //or use ajax to get user.report.last?
 
   //before running ajax, bufferedData stored a report detail
   $.post('http://localhost:3000/reports',data, function(data){
-    bufferedData = data.report.id
+    info = data;
+    if(lostOrFound == 'Lost'){
+      renderMustache("#reportShowLost",'#showReportLostData');
+    } else {
+      renderMustache("#reportShowFound",'#showReportFoundData');
+    }
   });
+
   //after running ajax, bufferedData will store a report id
   console.log('pass to db');
   //javascript for putting a pin on map
@@ -353,7 +365,7 @@ var setMenu = function(){
 var setAction = function(){
   //found route
   setRedirectWithFunction('#button-sumbitNewReportFound','#newReportFound','#previewReportFound',renderPreviewFound);
-  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#completeReportFound',postReport);
+  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#showReportFound',postReport);
   setRedirectWithFunction('#button-sumbitCompleteReportFound','#completeReportFound','#showReportFound',getReportFound);
   setRedirectWithFunction('#button-reportAnotherFound','#showReportFound','#newReportFound',newLinkedFoundReport);
   setRedirectWithFunction('#button-trackPet','#showReportFound','#listFilterdReport',getLinkedReport);
@@ -363,7 +375,7 @@ var setAction = function(){
 
   //lost route
   setRedirectWithFunction('#button-sumbitNewReportLost','#newReportLost','#previewReportLost',renderPreviewLost);
-  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#completeReportLost',postReport);
+  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#showReportLost',postReport);
   setRedirectWithFunction('#button-sumbitCompleteReportLost','#completeReportLost','#showReportLost',getReportLost);
 
   //set deligate
