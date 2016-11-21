@@ -19,7 +19,7 @@ var initialize = function(){
   renderUserInfo();
   //hide all views
   allView.forEach(function(view){
-    hideObject(view);
+    hideObject(view,"");
   })
   //list all views need to be visiable at begining
   showObject('#menu-main')
@@ -47,8 +47,8 @@ var showReport = function(id,bln){
       tmp = '#showReportLostData';
       target = "#reportShowLost";
     }
-    hideObject(currentPage);
-    showObject(to);
+    hideObject(currentPage,to);
+    // showObject(to);
   })
 }
 var renderUserInfo = function(){
@@ -137,8 +137,8 @@ var sendMessage = function(){
   bufferedData.report_id = reportID;
   //ajax post to db
   $.post('http://localhost:3000/messengers',bufferedData, function(data){bufferedData = data});
-  hideObject(currentPage);
-  showObject('#menu-main');
+  hideObject(currentPage,'#menu-main');
+  // showObject('#menu-main');
 }
 var getMessage = function(){
   $.get('http://localhost:3000/messengers/'+bufferedData, function(data){
@@ -155,8 +155,8 @@ var getMessage = function(){
 var setRedirect = function(target,fro,to){
   //set redirect function for a button
   $(target).click(function(){
-    hideObject(fro);
-    showObject(to);
+    hideObject(fro,to);
+    // showObject(to);
   });
 }
 var setDeligate = function(deligateTar,target,func,fro,to){
@@ -164,8 +164,8 @@ var setDeligate = function(deligateTar,target,func,fro,to){
     //store id to bufferedData
     bufferedData = $(this).data('id');
     func();
-    hideObject(fro);
-    showObject(to);
+    hideObject(fro,to);
+    // showObject(to);
   });
 }
 
@@ -173,16 +173,20 @@ var setRedirectWithFunction = function(target,fro,to,func){
   //set redirect function for a button
   $(target).click(function(){
     func();
-    hideObject(fro);
-    showObject(to);
+    hideObject(fro,to);
+    // showObject(to);
   });
 }
 
-var hideObject= function(target){
-  $(target).hide();
+var hideObject= function(targetHide,targetShow){
+  // $(target).hide();
+  var CHGTIME = 300;
+  $(targetHide).hide("slide", { direction: "left" }, CHGTIME);
+  setTimeout(function(){ showObject(targetShow); }, CHGTIME);
 }
 var showObject= function(target){
-  $(target).show();
+  // $(target).show();
+  $(target).show("slide", { direction: "left" }, 300);
   currentPage = target;
 }
 var renderLists = function(reports,template,list){
@@ -235,7 +239,9 @@ var renderPreviewFound = function(){
     last_seen_date: $('#found_last_seen_date').val(),
     color: $('#color option:selected').val(),
     note: $('#found_note').val(),
-    related_id: caseid
+    related_id: caseid,
+    photo1:{url: 'https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-1/c1.0.160.160/p160x160/15192637_1749164858742227_7162022063224977887_n.jpg?oh=971bad07f44110434d4ab5d82e0eaab1&oe=58C59F60'
+    }
   };
   lostOrFound = "Found";
   tmp = "#reportShowFound";
@@ -317,20 +323,20 @@ var setControllerButton = function(){
   $('.button-back').click(function(){
     // $(this).parent().parent().hide();
     // $('#menu-main').show();
-    hideObject(currentPage);
-    showObject('#menu-main');
+    hideObject(currentPage,'#menu-main');
+    // showObject('#menu-main');
   })
   $('.button-backNewFound').click(function(){
     // $(this).parent().parent().hide();
     // $('#menu-main').show();
-    hideObject(currentPage);
-    showObject('#newReportFound');
+    hideObject(currentPage,'#newReportFound');
+    // showObject('#newReportFound');
   })
   $('.button-backNewLost').click(function(){
     // $(this).parent().parent().hide();
     // $('#menu-main').show();
-    hideObject(currentPage);
-    showObject('#newReportLost');
+    hideObject(currentPage,'#newReportLost');
+    // showObject('#newReportLost');
   })
 
   $('.button-facebook').click(function(){
@@ -347,8 +353,8 @@ var setControllerButton = function(){
     //after changing, bufferedData holds the report id
     console.log('redirect to message with case id = '+bufferedData);
 
-    hideObject(currentPage);
-    showObject('#newMessage');
+    hideObject(currentPage,'#newMessage');
+    // showObject('#newMessage');
   })
 }
 

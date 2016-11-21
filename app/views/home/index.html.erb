@@ -1,5 +1,6 @@
 <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
 <script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <div class = 'container-fluid'>
  <div class="row">
@@ -104,7 +105,7 @@
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
         <p class="form-heading">Completed</p>
       </div>
-      <img id='pinImageLost'>
+      <img id='pinImageLost' src='https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-1/c1.0.160.160/p160x160/15192637_1749164858742227_7162022063224977887_n.jpg?oh=971bad07f44110434d4ab5d82e0eaab1&oe=58C59F60'/>
       <section id="button-sumbitCompleteReportFound" class="side-section side-lost-report">
         <p class="side-links">Confirm</p>
       </section>
@@ -159,7 +160,6 @@
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
          <p class="form-heading">Compelted</p>
       </div>
-      <img id='pinImageLost'>
       completed a report
       <section id="button-sumbitCompleteReportLost" class="side-section side-lost-report">
         <p class="side-links">Confirm</p>
@@ -227,7 +227,7 @@
     </script>
 
     <script id="reportShowFound" type="x-tmpl-mustache">
-      <img data-id={{id}} scr={{photo}}>
+      <img data-id={{id}} src={{photo1.url}}>
       <p><span class='blue-text'>Pet Type:</span> {{pet_type}}</p>
       <p><span class='blue-text'>Colour:</span> {{color}} </p>
       <p><span class='blue-text'>Last Seen date:</span> {{last_seen_date}}</p>
@@ -236,7 +236,7 @@
     </script>
 
     <script id="reportShowLost" type="x-tmpl-mustache">
-      <img data-id={{id}} scr={{photo}}>
+      <img data-id={{id}} src={{photo1.url}}>
       <p><span class='blue-text'>Pet Type:</span> {{pet_type}}</p>
       <p><span class='blue-text'>Breed:</span> {{breed}}</p>
       <p><span class='blue-text'>Name:</span> {{name}}</p>
