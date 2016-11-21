@@ -11,6 +11,7 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     @report.user = current_user
     @report.save
+
     render json: { report: @report}
   end
 
