@@ -9,13 +9,14 @@ var currentPage;
 var prevPage;
 var pinLostAssetLoc = '';
 var pinFoundAssetLoc = '';
-
+var $DOMAIN;
 $(function(){
   initialize();
 });
 
 var initialize = function(){
   //initialize value
+  $DOMAIN = $("#domainurl").attr('val');
   renderUserInfo();
   //hide all views
   allView.forEach(function(view){
@@ -36,7 +37,7 @@ var showReport = function(id,bln){
   //currentPage
   //use ajax to get report using report id
   caseid = id;
-  $.get('http://localhost:3000/reports/'+id, function(data){
+  $.get($DOMAIN+"/reports/"+id, function(data){
     bufferedData = info.report
     if(bln){
       to = '#showReportFound';
@@ -61,7 +62,7 @@ var renderUserInfo = function(){
 var signoutFunc = function(){
   console.log('signout');
   $.ajax({
-    url: 'http://localhost:3000/sessions',
+    url: $DOMAIN+"/sessions",
     type: 'delete'
   });
 }
@@ -96,7 +97,7 @@ var newLinkedFoundReport = function(){
 }
 
 var getReportLost = function(){
-  $.get('http://localhost:3000/reports/'+bufferedData, function(data){
+  $.get($DOMAIN+"/reports/"+bufferedData, function(data){
     info = data;
     bufferedData = data.report;
     caseid = bufferedData.id;
@@ -116,7 +117,7 @@ var getReportLost = function(){
 
 var getReportFound = function(){
 
-  $.get('http://localhost:3000/reports/'+bufferedData, function(data){
+  $.get($DOMAIN+"/reports/"+bufferedData, function(data){
   info = data;
   bufferedData = data.report;
   caseid = bufferedData.id;
@@ -136,12 +137,12 @@ var sendMessage = function(){
   bufferedData.messenger.body = $("#messageBody").val();
   bufferedData.report_id = reportID;
   //ajax post to db
-  $.post('http://localhost:3000/messengers',bufferedData, function(data){bufferedData = data});
+  $.post($DOMAIN+"/messengers",bufferedData, function(data){bufferedData = data});
   hideObject(currentPage,'#menu-main');
   // showObject('#menu-main');
 }
 var getMessage = function(){
-  $.get('http://localhost:3000/messengers/'+bufferedData, function(data){
+  $.get($DOMAIN+"/messengers/"+bufferedData, function(data){
   info = data;
   bufferedData = info.messenger;
   })
@@ -239,9 +240,9 @@ var renderPreviewFound = function(){
     last_seen_date: $('#found_last_seen_date').val(),
     color: $('#color option:selected').val(),
     note: $('#found_note').val(),
-    related_id: caseid,
-    photo1:{url: 'https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-1/c1.0.160.160/p160x160/15192637_1749164858742227_7162022063224977887_n.jpg?oh=971bad07f44110434d4ab5d82e0eaab1&oe=58C59F60'
-    }
+    related_id: caseid
+    // photo1:{url: 'https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-1/c1.0.160.160/p160x160/15192637_1749164858742227_7162022063224977887_n.jpg?oh=971bad07f44110434d4ab5d82e0eaab1&oe=58C59F60'
+    // }
   };
   lostOrFound = "Found";
   tmp = "#reportShowFound";
@@ -261,7 +262,7 @@ var postReport = function(){
   //or use ajax to get user.report.last?
 
   //before running ajax, bufferedData stored a report detail
-  $.post('http://localhost:3000/reports',data, function(data){
+  $.post($DOMAIN+"/reports",data, function(data){
     info = data;
     addMarker(data.report);
     if(lostOrFound == 'Lost'){
@@ -278,7 +279,7 @@ var postReport = function(){
 var addReport = function(){
   var reportlist;
   //use ajax to get alist of my lost report
-  $.get('http://localhost:3000/reports/user/lost',function(data){
+  $.get($DOMAIN+"/reports/user/lost",function(data){
     // reportlist=;
     renderLists(data.reports,'#report-summary','#list-lost');
 
@@ -288,7 +289,7 @@ var addReport = function(){
 
   //use ajax to get a list of my found report
 
-  $.get('http://localhost:3000/reports/user/found',function(data){
+  $.get($DOMAIN+"/reports/user/found",function(data){
     // reportlist=data.reports;
     renderLists(data.reports,'#report-summary','#list-found');
   });
@@ -299,7 +300,7 @@ var addReport = function(){
 var getLinkedReport = function(){
   // data.case_id = bufferedData.id;
   //use ajax to get linked report with same case id
-  $.get('http://localhost:3000/reports/case/linked',{related_id:caseid},function(data){
+  $.get($DOMAIN+"/reports/case/linked",{related_id:caseid},function(data){
     bufferedData = data.reports
     renderFilterReports(bufferedData);
   });
@@ -311,7 +312,7 @@ var renderFilterReports = function(reports){
 var addMessage = function(){
   // var messages;
   //use ajax to get a list of my message-summary
-  $.get('http://localhost:3000/messengers', function(data){
+  $.get($DOMAIN+"/messengers", function(data){
     // bufferedData = data.messenger;
     renderLists(data.messenger,'#message-summary','#list-message');
   });
