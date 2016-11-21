@@ -120,6 +120,7 @@ var getReportFound = function(){
   caseid = bufferedData.id;
   console.log('found:'+bufferedData);
   console.log('get found report');
+  showMarker(bufferedData);
   //before running ajax, bufferedData stored the report id
   //use ajax to update bufferedData, report.find(bufferedData)
 
@@ -254,6 +255,7 @@ var postReport = function(){
   //before running ajax, bufferedData stored a report detail
   $.post('http://localhost:3000/reports',data, function(data){
     info = data;
+    addMarker(data.report);
     if(lostOrFound == 'Lost'){
       renderMustache("#reportShowLost",'#showReportLostData');
     } else {
