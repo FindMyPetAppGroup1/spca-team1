@@ -32,7 +32,7 @@ var initialize = function(){
 }
 
 var showReport = function(id,bln){
-  //bln determin lost of found, true for found, false for lost
+  //bln determin lost or found, true for found, false for lost
   //currentPage
   //use ajax to get report using report id
   $.get('http://localhost:3000/reports/'+id, function(data){
@@ -40,11 +40,11 @@ var showReport = function(id,bln){
     if(bln){
       to = '#showReportFound';
       tmp = '#showReportFoundData';
-      target = "#reportShow";
+      target = "#reportShowFound";
     } else{
       to = '#showReportLost';
       tmp = '#showReportLostData';
-      target = "#reportShow";
+      target = "#reportShowLost";
     }
     hideObject(currentPage);
     showObject(to);
@@ -190,7 +190,7 @@ var renderPreviewLost = function(){
   //use jquery to access fiends from edit/new form
   bufferedData = report1;
   lostOrFound="Lost";
-  tmp = "#reportShow";
+  tmp = "#reportShowLost";
   target = '#previewReportLostData';
 
   //javascript for putting a pin on map?
@@ -207,7 +207,7 @@ var renderPreviewFound = function(){
     note: $('#found_note').val()
   };
   lostOrFound = "Found";
-  tmp = "#reportShow";
+  tmp = "#reportShowFound";
   target = '#previewReportFoundData';
   //javascript for putting a pin on map?
   renderMustache(tmp,target);
