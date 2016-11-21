@@ -16,8 +16,8 @@ $(function(){
 
 var initialize = function(){
   //initialize value
-  // $DOMAIN = $("#domainurl").attr('val');
-  $DOMAIN = 'http://localhost:3000/'
+  $DOMAIN = $("#domainurl").attr('val');
+  // $DOMAIN = 'http://localhost:3000/'
   renderUserInfo();
   //hide all views
   allView.forEach(function(view){
