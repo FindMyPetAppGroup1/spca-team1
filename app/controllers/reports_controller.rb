@@ -10,9 +10,8 @@ class ReportsController < ApplicationController
     report_params
     @report = Report.new(report_params)
     @report.user = current_user
-    if @report.save
-      render json: { report: @report}
-    end
+    @report.save
+    render json: { report: @report}
   end
 
 
@@ -77,12 +76,12 @@ class ReportsController < ApplicationController
   #this is a custom action, it will be used to enable searching for reports in the immediate area
   def find_search
     typetar = params[]
-    reports = Report.join(:report)where("report.type in (?) AND last_seen_date IN (?)",typetar,datetar)
+    reports = Report.join(:report).where("report.type in (?) AND last_seen_date IN (?)",typetar,datetar)
     render json: reports.to_json
   end
 
   def rough_search(typetar, datetar)
-   reports = Report.join(:report)where("report.type in (?) OR last_seen_date IN (?)",typetar,datetar)
+   reports = Report.join(:report).where("report.type in (?) OR last_seen_date IN (?)",typetar,datetar)
   end
 
   def create_report_with_new_case_id
