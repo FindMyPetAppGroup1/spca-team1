@@ -128,7 +128,7 @@
         <p class="side-links">Track</p>
       </section>
 
-      <section id="button-sendMessage" class="side-section side-lost-report">
+      <section class="side-section side-lost-report button-newMessage">
         <p class="side-links">Message</p>
       </section>
     </section>
@@ -172,6 +172,9 @@
       </div>
       <div id='showReportLostData' class="report">
       </div>
+      <section class="side-section side-lost-report button-newMessage">
+        <p class="side-links">Message</p>
+      </section>
 
     </section>
     <section id='editReportLost'>
@@ -181,7 +184,7 @@
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
         <p class="form-heading">My Message</p>
       </div>
-      <div class='messageData'>
+      <div id='messageData'>
       </div>
     </section>
     <section id='listFilterdReport'>
@@ -208,8 +211,7 @@
   </div>
 
   <!-- sidebar template -->
-    <script id="showMessage" type="x-tmpl-mustache">
-      <img src={{photo1}}>
+    <script id="showMessageTMP" type="x-tmpl-mustache">
       <p>{{body}}</p>
     </script>
 
@@ -332,7 +334,6 @@ function initSearch() {
   //   mapTypeId: 'roadmap'
   // });
   // Create the search box and link it to the UI element.
-
  var input = document.getElementById('pac-input');
  var formInput = document.getElementById('pac-report-input');
  var formInputLost = document.getElementById('pac-report-input-lost');
@@ -349,6 +350,7 @@ function initSearch() {
    searchBox.setBounds(map.getBounds());
  });
 
+$("#search-container").show();
  // Listen for the event fired when the user selects a prediction and retrieve
        // more details for that place.
  searchBox.addListener('places_changed', function() {

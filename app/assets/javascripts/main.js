@@ -16,6 +16,7 @@ $(function(){
 
 var initialize = function(){
   //initialize value
+  $("#search-container").hide();
   $DOMAIN = $("#domainurl").attr('val');
   // $DOMAIN = 'http://localhost:3000/'
   renderUserInfo();
@@ -136,7 +137,8 @@ var sendMessage = function(){
   var reportID = bufferedData;
   bufferedData = {messenger:{},report_id:''};
   bufferedData.messenger.body = $("#messageBody").val();
-  bufferedData.report_id = reportID;
+  $("#messageBody").val("");
+  bufferedData.report_id = caseid;
   //ajax post to db
   $.post($DOMAIN+"/messengers",bufferedData, function(data){bufferedData = data});
   hideObject(currentPage,'#menu-main');
@@ -146,12 +148,12 @@ var getMessage = function(){
   $.get($DOMAIN+"/messengers/"+bufferedData, function(data){
   info = data;
   bufferedData = info.messenger;
-  })
   console.log('get:'+bufferedData);
   console.log('show message');
   //before running ajax, bufferedData stored the message id
   //use ajax to get message, message.find(bufferedData)
-  renderMustache("#showMessage",'#messageData');
+  renderMustache("#showMessageTMP",'#messageData');
+  })
 }
 
 var setRedirect = function(target,fro,to){
@@ -351,7 +353,7 @@ var setControllerButton = function(){
     $('#messageIMG')
 
     //before changing, bufferedData stored the report object
-    bufferedData = bufferedData.report.id;
+    bufferedData = bufferedData.id;
     //after changing, bufferedData holds the report id
     console.log('redirect to message with case id = '+bufferedData);
 
