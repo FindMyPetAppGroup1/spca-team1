@@ -1,7 +1,8 @@
 <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
 <script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
-<div id='domainurl' val= "<%= ENV['DOMAIN_URL'] %>" >
-</div>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<div id='domainurl' val= "<%= ENV['DOMAIN_URL'] %>" ></div>
 <div class = 'container-fluid'>
  <div class="row">
   <div id='menu' class='sidebar nopadding col-xs-12 col-md-4'>
@@ -105,7 +106,7 @@
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
         <p class="form-heading">Completed</p>
       </div>
-      <img id='pinImageLost'>
+      <img id='pinImageFound' src="<%= asset_url('icon_report_found_sm.png', digest: false) %>">
       <section id="button-sumbitCompleteReportFound" class="side-section side-lost-report">
         <p class="side-links">Confirm</p>
       </section>
@@ -160,8 +161,7 @@
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
          <p class="form-heading">Compelted</p>
       </div>
-      <img id='pinImageLost'>
-      completed a report
+      <img id='pinImageLost' src="<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>">
       <section id="button-sumbitCompleteReportLost" class="side-section side-lost-report">
         <p class="side-links">Confirm</p>
       </section>
@@ -228,7 +228,7 @@
     </script>
 
     <script id="reportShowFound" type="x-tmpl-mustache">
-      <img data-id={{id}} scr={{photo}}>
+      <img data-id={{id}} src={{photo1.url}}>
       <p><span class='blue-text'>Pet Type:</span> {{pet_type}}</p>
       <p><span class='blue-text'>Colour:</span> {{color}} </p>
       <p><span class='blue-text'>Last Seen date:</span> {{last_seen_date}}</p>
@@ -237,7 +237,7 @@
     </script>
 
     <script id="reportShowLost" type="x-tmpl-mustache">
-      <img data-id={{id}} scr={{photo}}>
+      <img data-id={{id}} src={{photo1.url}}>
       <p><span class='blue-text'>Pet Type:</span> {{pet_type}}</p>
       <p><span class='blue-text'>Breed:</span> {{breed}}</p>
       <p><span class='blue-text'>Name:</span> {{name}}</p>

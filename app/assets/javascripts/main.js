@@ -17,10 +17,11 @@ $(function(){
 var initialize = function(){
   //initialize value
   $DOMAIN = $("#domainurl").attr('val');
+  // $DOMAIN = 'http://localhost:3000/'
   renderUserInfo();
   //hide all views
   allView.forEach(function(view){
-    hideObject(view);
+    hideObject(view,"");
   })
   //list all views need to be visiable at begining
   showObject('#menu-main')
@@ -48,8 +49,8 @@ var showReport = function(id,bln){
       tmp = '#showReportLostData';
       target = "#reportShowLost";
     }
-    hideObject(currentPage);
-    showObject(to);
+    hideObject(currentPage,to);
+    // showObject(to);
   })
 }
 var renderUserInfo = function(){
@@ -138,8 +139,8 @@ var sendMessage = function(){
   bufferedData.report_id = reportID;
   //ajax post to db
   $.post($DOMAIN+"/messengers",bufferedData, function(data){bufferedData = data});
-  hideObject(currentPage);
-  showObject('#menu-main');
+  hideObject(currentPage,'#menu-main');
+  // showObject('#menu-main');
 }
 var getMessage = function(){
   $.get($DOMAIN+"/messengers/"+bufferedData, function(data){
@@ -156,8 +157,8 @@ var getMessage = function(){
 var setRedirect = function(target,fro,to){
   //set redirect function for a button
   $(target).click(function(){
-    hideObject(fro);
-    showObject(to);
+    hideObject(fro,to);
+    // showObject(to);
   });
 }
 var setDeligate = function(deligateTar,target,func,fro,to){
@@ -165,8 +166,8 @@ var setDeligate = function(deligateTar,target,func,fro,to){
     //store id to bufferedData
     bufferedData = $(this).data('id');
     func();
-    hideObject(fro);
-    showObject(to);
+    hideObject(fro,to);
+    // showObject(to);
   });
 }
 
@@ -174,16 +175,22 @@ var setRedirectWithFunction = function(target,fro,to,func){
   //set redirect function for a button
   $(target).click(function(){
     func();
-    hideObject(fro);
-    showObject(to);
+    hideObject(fro,to);
+    // showObject(to);
   });
 }
 
-var hideObject= function(target){
-  $(target).hide();
+var hideObject= function(targetHide,targetShow){
+  // $(target).hide();
+  var CHGTIME = 300;
+  // $(targetHide).hide("slide", { direction: "left" }, 0);
+  $(targetHide).slideUp('fast');
+  // setTimeout(function(){ showObject(targetShow); }, CHGTIME);
+  showObject(targetShow);
 }
 var showObject= function(target){
-  $(target).show();
+  // $(target).show();
+  $(target).show("slide", { direction: "left" }, 300);
   currentPage = target;
 }
 var renderLists = function(reports,template,list){
@@ -318,20 +325,20 @@ var setControllerButton = function(){
   $('.button-back').click(function(){
     // $(this).parent().parent().hide();
     // $('#menu-main').show();
-    hideObject(currentPage);
-    showObject('#menu-main');
+    hideObject(currentPage,'#menu-main');
+    // showObject('#menu-main');
   })
   $('.button-backNewFound').click(function(){
     // $(this).parent().parent().hide();
     // $('#menu-main').show();
-    hideObject(currentPage);
-    showObject('#newReportFound');
+    hideObject(currentPage,'#newReportFound');
+    // showObject('#newReportFound');
   })
   $('.button-backNewLost').click(function(){
     // $(this).parent().parent().hide();
     // $('#menu-main').show();
-    hideObject(currentPage);
-    showObject('#newReportLost');
+    hideObject(currentPage,'#newReportLost');
+    // showObject('#newReportLost');
   })
 
   $('.button-facebook').click(function(){
@@ -348,8 +355,8 @@ var setControllerButton = function(){
     //after changing, bufferedData holds the report id
     console.log('redirect to message with case id = '+bufferedData);
 
-    hideObject(currentPage);
-    showObject('#newMessage');
+    hideObject(currentPage,'#newMessage');
+    // showObject('#newMessage');
   })
 }
 
@@ -370,7 +377,7 @@ var setMenu = function(){
 var setAction = function(){
   //found route
   setRedirectWithFunction('#button-sumbitNewReportFound','#newReportFound','#previewReportFound',renderPreviewFound);
-  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#showReportFound',postReport);
+  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#completeReportFound',postReport);
   setRedirectWithFunction('#button-sumbitCompleteReportFound','#completeReportFound','#showReportFound',getReportFound);
   setRedirectWithFunction('#button-reportAnotherFound','#showReportFound','#newReportFound',newLinkedFoundReport);
   setRedirectWithFunction('#button-trackPet','#showReportFound','#listFilterdReport',getLinkedReport);
@@ -380,7 +387,7 @@ var setAction = function(){
 
   //lost route
   setRedirectWithFunction('#button-sumbitNewReportLost','#newReportLost','#previewReportLost',renderPreviewLost);
-  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#showReportLost',postReport);
+  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#completeReportLost',postReport);
   setRedirectWithFunction('#button-sumbitCompleteReportLost','#completeReportLost','#showReportLost',getReportLost);
 
   //set deligate
