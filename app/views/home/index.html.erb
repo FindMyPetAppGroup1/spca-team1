@@ -37,7 +37,8 @@
 
     <section id='listReport'>
       <div class='report-control form-header'>
-        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a><p class="form-heading">My Reports</p>
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        <p class="form-heading">My Reports</p>
       </div>
       <p class="report-heading side-links">Lost Pet</p>
       <ul id='list-lost' class="side-section">
@@ -49,15 +50,18 @@
 
     <section id='listMessage'>
       <div class='menu-control'>
-        <a class='button-back'>BACK</a> MY Messages
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        <p class="form-heading">My Messages</p>
+
       </div>
       <p class="side-heading">Lost Pet</p>
-      <ul id='list-message'>
+      <ul id='list-message' class="side-section">
       </ul>
     </section>
     <section id='setting'>
       <div class='menu-control'>
-        <a class='button-back'>BACK</a> Setting
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        Setting
       </div>
       <section id="button-location" class="side-section side-lost-report">
         <p class="side-links">Location</p>
@@ -71,7 +75,8 @@
     </section>
     <section id='about'>
       <div class='menu-control'>
-        <a class='button-back'>BACK</a> MY REPORT
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        <p class="form-heading">My Report</p>
       </div>
       ABOUT
     </section>
@@ -85,7 +90,8 @@
     </section>
     <section id='previewReportFound'>
       <div class='report-control'>
-        <a class='button-back'>BACK</a> MY REPORT
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        <p class="form-heading">Preview Report</p>
       </div>
       <div id='previewReportFoundData'>
       </div>
@@ -95,7 +101,8 @@
     </section>
     <section id='completeReportFound'>
       <div class='report-control'>
-        <a class='button-back'>BACK</a>Found Pet
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        <p class="form-heading">Completed</p>
       </div>
       <img id='pinImageLost'>
       <section id="button-sumbitCompleteReportFound" class="side-section side-lost-report">
@@ -105,17 +112,29 @@
 
     <section id='showReportFound'>
       <div class='report-control form-header'>
-        <a class='button-back'><%= fa_icon 'chevron-left', style: 'color: #00AEFC' %></a><p class="form-heading">Found Pet</p>
+        <a class='button-back'><%= fa_icon 'chevron-left', style: 'color: #00AEFC' %></a> class="form-heading">Found Pet</p>
       </div>
 
       <div id='showReportFoundData' class="report">
       </div>
+
+      <section id="button-reportAnotherFound" class="side-section side-lost-report">
+        <p class="side-links">Report</p>
+      </section>
+
+      <section id="button-trackPet" class="side-section side-lost-report">
+        <p class="side-links">Track</p>
+      </section>
+
+      <section id="button-sendMessage" class="side-section side-lost-report">
+        <p class="side-links">Message</p>
+      </section>
     </section>
     <section id='editReportFound'>
     </section>
     <section id='newReportLost'>
       <div class='report-control form-header'>
-        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a><p class="form-heading">Lost Report</p>
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a> class="form-heading">Lost Report</p>
       </div>
       <div class = 'ReportLostForm'>
         <%= render 'lost_report_form' %>
@@ -126,7 +145,8 @@
     </section>
     <section id='previewReportLost'>
       <div class='report-control'>
-        <a class='button-back'>BACK</a> Lost Pet
+        <a class='button-backNewLost'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        <p class="form-heading">Preview Report</p>
       </div>
       <div id='previewReportLostData'>
       </div>
@@ -136,7 +156,8 @@
     </section>
     <section id='completeReportLost'>
       <div class='report-control'>
-        <a class='button-back'>BACK</a> Lost Pet
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+         <p class="form-heading">Compelted</p>
       </div>
       <img id='pinImageLost'>
       completed a report
@@ -146,7 +167,7 @@
     </section>
     <section id='showReportLost'>
       <div class='report-control form-header'>
-        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a><p class="form-heading">Lost Report</p>
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a> class="form-heading">Lost Report</p>
       </div>
       <div id='showReportLostData' class="report">
       </div>
@@ -156,21 +177,24 @@
     </section>
     <section id='showMessage'>
       <div class='menu-control'>
-        <a class='button-back'>BACK</a> Message
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        <p class="form-heading">My Message</p>
       </div>
       <div class='messageData'>
       </div>
     </section>
     <section id='listFilterdReport'>
       <div class='menu-control'>
-        <a class='button-back'>BACK</a> Filter Report
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        <p class="form-heading">Reports</p>
       </div>
-      <ul id='list-filterd'>
+      <ul id='list-filterd' class="side-section">
       </ul>
     </section>
     <section id='newMessage'>
       <div class='menu-control'>
-        <a class='button-back'>BACK</a> MY Messages
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
+        <p class="form-heading">New Messages</p>
       </div>
       <img id='messageIMG'>
       <textarea id='messageBody'></textarea>

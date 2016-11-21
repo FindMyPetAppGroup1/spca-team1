@@ -37,9 +37,9 @@ class ReportsController < ApplicationController
   end
 
   def linked_reports
-    # p params[:case_id]
-    # @reports = Report.where(case_id: nil)
-    @reports = Report.where(case_id: params[:case_id])
+    id = params[:related_id]
+    @reports = Report.where('id = ? or related_id = ?',id,"#{id}")
+    # @reports = Report.where(case_id: params[:case_id])
     render json: { reports: @reports}
   end
   def index
@@ -113,7 +113,8 @@ class ReportsController < ApplicationController
                                     :latitude,
                                     :longitude,
                                     :note,
-                                    :report_type])
+                                    :report_type,
+                                    :related_id])
   end
 
   def find_report

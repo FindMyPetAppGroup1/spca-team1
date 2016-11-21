@@ -3,7 +3,7 @@ var allView = ['#menu-main','#listReport','#listMessage','#setting','#about'
 ,'#newReportFound','#previewReportFound','#completeReportFound','#showReportFound','#editReportFound','#newReportLost','#previewReportLost','#completeReportLost','#showReportLost','#editReportLost','#showMessage','#listFilterdReport','#newMessage']
 
 var lostOrFound;
-var userID;
+var caseid;
 var bufferedData;
 var currentPage;
 var prevPage;
@@ -35,6 +35,7 @@ var showReport = function(id,bln){
   //bln determin lost or found, true for found, false for lost
   //currentPage
   //use ajax to get report using report id
+  caseid = id;
   $.get('http://localhost:3000/reports/'+id, function(data){
     bufferedData = info.report
     if(bln){
@@ -54,7 +55,7 @@ var renderUserInfo = function(){
   //initialize user info from ajax
   bufferedData = user;
   renderMustache('#user-info','#userInfoData');
-  userID = 1;
+
 }
 
 var signoutFunc = function(){
@@ -75,15 +76,25 @@ var locationFunc = function(){
   console.log('location');
 }
 
+var resetReportForm = function(){
+  caseid = 0;
+
+  $('#pac-report-input').val(""),
+  $('#found_last_seen_date').val(""),
+  $('#found_note').val("")
+
+}
 var newLinkedFoundReport = function(){
   //bufferedData was holding a report before
   bufferedData = bufferedData['id'];
+  caseid = bufferedData
 }
 
 var getReportLost = function(){
   $.get('http://localhost:3000/reports/'+bufferedData, function(data){
     info = data;
     bufferedData = data.report;
+    caseid = bufferedData.id;
     console.log('lost:'+bufferedData);
     console.log('get lost report');
     //before running ajax, bufferedData stored the report id
@@ -101,7 +112,7 @@ var getReportFound = function(){
   $.get('http://localhost:3000/reports/'+bufferedData, function(data){
   info = data;
   bufferedData = data.report;
-
+  caseid = bufferedData.id;
   console.log('found:'+bufferedData);
   console.log('get found report');
   //before running ajax, bufferedData stored the report id
@@ -215,7 +226,8 @@ var renderPreviewFound = function(){
     last_seen_address: $('#pac-report-input').val(),
     last_seen_date: $('#found_last_seen_date').val(),
     color: $('#color').val(),
-    note: $('#found_note').val()
+    note: $('#found_note').val(),
+    related_id: caseid
   };
   lostOrFound = "Found";
   tmp = "#reportShowFound";
@@ -263,11 +275,12 @@ var addReport = function(){
 }
 
 var getLinkedReport = function(){
-  data.case_id = bufferedData.id;
+  // data.case_id = bufferedData.id;
   //use ajax to get linked report with same case id
-  $.get('http://localhost:3000/reports/case/linked/',data, function(data){reports = data.reports});
-
-  renderFilterReports(reports);
+  $.get('http://localhost:3000/reports/case/linked',{related_id:caseid},function(data){
+    bufferedData = data.reports
+    renderFilterReports(bufferedData);
+  });
 }
 var renderFilterReports = function(reports){
   renderLists(reports,'#report-summary','#list-filterd');
@@ -291,6 +304,18 @@ var setControllerButton = function(){
     hideObject(currentPage);
     showObject('#menu-main');
   })
+  $('.button-backNewFound').click(function(){
+    // $(this).parent().parent().hide();
+    // $('#menu-main').show();
+    hideObject(currentPage);
+    showObject('#newReportFound');
+  })
+  $('.button-backNewLost').click(function(){
+    // $(this).parent().parent().hide();
+    // $('#menu-main').show();
+    hideObject(currentPage);
+    showObject('#newReportLost');
+  })
 
   $('.button-facebook').click(function(){
     //ajax?
@@ -313,8 +338,8 @@ var setControllerButton = function(){
 
 var setMenu = function(){
   //set all redirect function for main menu
-  setRedirect('#button-newLost','#menu-main','#newReportLost');
-  setRedirect('#button-newFound','#menu-main','#newReportFound');
+  setRedirectWithFunction('#button-newLost','#menu-main','#newReportLost',resetReportForm);
+  setRedirectWithFunction('#button-newFound','#menu-main','#newReportFound',resetReportForm);
 
   setRedirectWithFunction('#button-listReport','#menu-main','#listReport',addReport);
   setRedirectWithFunction('#button-listMessage','#menu-main','#listMessage',addMessage);
