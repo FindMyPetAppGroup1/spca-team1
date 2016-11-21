@@ -77,8 +77,8 @@
       <div class='report-control'>
         <a class='button-back'>BACK</a> MY REPORT
       </div>
-      <div class = 'ReportLostForm'>
-        NEW REPORT
+      <div class = 'ReportFoundForm'>
+        <%= render 'found_report_form' %>
       </div>
       <section id="button-sumbitNewReportFound" class="side-section side-lost-report">
         <p class="side-links">Preivew</p>
@@ -127,6 +127,7 @@
         <a class='button-back'>BACK</a> Lost Report
       </div>
       <div class = 'ReportLostForm'>
+        <%= render 'lost_report_form' %>
       </div>
       <section id="button-sumbitNewReportLost" class="side-section side-lost-report">
         <p class="side-links">Preivew</p>
@@ -220,6 +221,7 @@
       <p>Sex : {{sex}} </p>
       <p>Coulour : {{color}} </p>
       <p>Age : {{age}} </p>
+      <p>Last Seen date: {{last_seen_date}}</p>
       <p>Last Seen : {{last_seen_address}} </p>
       <p>Note : {{note}} </p>
     </script>
