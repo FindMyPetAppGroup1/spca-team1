@@ -188,7 +188,17 @@ var renderMustache = function(tmp,target){
 
 var renderPreviewLost = function(){
   //use jquery to access fiends from edit/new form
-  bufferedData = report1;
+  bufferedData = {
+    breed: $('#lost_breed option:selected').text(),
+    color: $('#lost_colour option:selected').val(),
+    name: $('#lost_name').val(),
+    age: $('#lost_age').val(),
+    sex: $('#lost_sex option:selected').text(),
+    pet_type: $('#lost_pet_type option:selected').text(),
+    last_seen_address: $('#pac-report-input-lost').val(),
+    last_seen_date: $('#last_seen_date-lost').val(),
+    note: $('#lost_note').val()
+  }
   lostOrFound="Lost";
   tmp = "#reportShowLost";
   target = '#previewReportLostData';

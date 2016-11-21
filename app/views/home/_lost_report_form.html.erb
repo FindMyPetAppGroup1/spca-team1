@@ -3,37 +3,41 @@
   <form class="form">
     <div class="form-group">
       <label for="pet_type">Pet Type</label><br />
-      <select name="pet_type">
+      <select name="pet_type" id='lost_pet_type'>
         <option value="Dog">Dog</option>
-        <option value="Dog">Cat</option>
+        <option value="Cat">Cat</option>
       </select>
     </div>
     <div class="form-group">
       <label for="breed">Breed</label><br />
-      <select name="breed">
-        <option value="Dog">Yorkshire Terrier</option>
-        <option value="Dog">Golden Retriever</option>
+      <select name="breed" id='lost_breed'>
+        <option>Yorkshire Terrier</option>
+        <option>Golden Retriever</option>
       </select>
     </div>
     <div class="form-group">
       <label for="name">Name</label><br />
-      <input type="text" name="name" />
+      <input type="text" name="name" id='lost_name' />
     </div>
     <div class="form-group">
       <label for="sex">Sex</label><br />
-      <select name="sex">
-        <option value="Dog">Female</option>
+      <select name="sex" id='lost_sex'>
+        <option>Male</option>
+        <option>Female</option>
       </select>
     </div>
     <div class="form-group">
       <label for="colour">Colour</label><br />
-      <select name="colour">
+      <select name="colour" id='lost_colour'>
+        <option value="orange">Orange</option>
         <option value="brown">Brown</option>
+        <option value="black">Black</option>
+        <option value="white">White</option>
       </select>
     </div>
     <div class="form-group">
       <label for="age">Age</label><br />
-      <input type="text" name="age" />
+      <input type="text" name="age" id='lost_age' />
     </div>
     <div class="form-group">
       <label for="last_seen_address">Last Seen at</label><br />
@@ -41,12 +45,12 @@
     </div>
     <div class="form-group">
       <label for="last_seen_date">Date & Time</label><br />
-      <input type="date" name="last_seen_date" />
+      <input type="date" name="last_seen_date" id='last_seen_date-lost'/>
     </div>
     <div class="form-group">
       <label for="Note">Note</label><br />
-      <textarea name="note" /></textarea>
+      <textarea name="note" id='lost_note' /></textarea>
     </div>
-    <button id="button-sumbitNewReportLost" class="button blue">Preview Your Report</button>
+    <!-- <button type="submit" id="button-sumbitNewReportLost" class="button blue">Preview Your Report</button> -->
   </form>
 </div>
