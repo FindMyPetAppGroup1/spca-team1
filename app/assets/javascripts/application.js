@@ -13,6 +13,7 @@
 //= require gmaps/google
 //= require jquery
 //= require jquery_ujs
+//= require tether
 //= require bootstrap-sprockets
 //= require underscore
 //= require turbolinks
