@@ -81,7 +81,7 @@
         <%= render 'found_report_form' %>
       </div>
       <section id="button-sumbitNewReportFound" class="side-section side-lost-report">
-        <p class="side-links">Preivew</p>
+        <p class="side-links">Preview</p>
       </section>
     </section>
     <section id='previewReportFound'>
@@ -91,7 +91,7 @@
       <div id='previewReportFoundData'>
       </div>
       <section id="button-sumbitPreviewReportFound" class="side-section side-lost-report">
-        <p class="side-links">Comfirm</p>
+        <p class="side-links">Confirm</p>
       </section>
     </section>
     <section id='completeReportFound'>
@@ -130,7 +130,7 @@
         <%= render 'lost_report_form' %>
       </div>
       <section id="button-sumbitNewReportLost" class="side-section side-lost-report">
-        <p class="side-links">Preivew</p>
+        <p class="side-links">Preview</p>
       </section>
     </section>
     <section id='previewReportLost'>
@@ -213,7 +213,16 @@
       </li>
     </script>
 
-    <script id="reportShow" type="x-tmpl-mustache">
+    <script id="reportShowFound" type="x-tmpl-mustache">
+      <img data-id={{id}} scr={{photo}}>
+      <p>Pet Type: {{pet_type}}</p>
+      <p>Colour : {{color}} </p>
+      <p>Last Seen date : {{last_seen_date}}</p>
+      <p>Last Seen At: {{last_seen_address}} </p>
+      <p>Note : {{note}} </p>
+    </script>
+
+    <script id="reportShowLost" type="x-tmpl-mustache">
       <img data-id={{id}} scr={{photo}}>
       <p>Pet Type: {{pet_type}}</p>
       <p>Breed : {{breed}}</p>
@@ -222,9 +231,12 @@
       <p>Colour : {{color}} </p>
       <p>Age : {{age}} </p>
       <p>Last Seen date: {{last_seen_date}}</p>
-      <p>Last Seen : {{last_seen_address}} </p>
+      <p>Last Seen At: {{last_seen_address}} </p>
       <p>Note : {{note}} </p>
     </script>
+
+
+
 
     <script id="user-info" type="x-tmpl-mustache">
       <div>
@@ -260,7 +272,7 @@
     <p>Breed : {{breed}}</p>
     <p>Name : {{name}}</p>
     <p>Sex : {{sex}} </p>
-    <p>Coulour : {{color}} </p>
+    <p>Colour : {{color}} </p>
     <p>Age : {{age}} </p>
     <p>Last Seen : {{last_seen_address}} </p>
     <p>Note : {{note}} </p>
