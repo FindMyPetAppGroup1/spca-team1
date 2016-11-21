@@ -34,17 +34,19 @@
         <p class="side-links">About find my pet</p>
       </section>
     </section>
+
     <section id='listReport'>
-      <div class='menu-control'>
-        <a class='button-back'>BACK</a> MY REPORT
+      <div class='report-control form-header'>
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a><p class="form-heading">My Reports</p>
       </div>
-      <p class="side-links">Lost Pet</p>
-      <ul id='list-lost'>
+      <p class="report-heading side-links">Lost Pet</p>
+      <ul id='list-lost' class="side-section">
       </ul>
-      <p class="side-links">Found/Sighted Pet</p>
-      <ul id='list-found'>
+      <p class="report-heading side-links">Found/Sighted Pet</p>
+      <ul id='list-found' class="side-section">
       </ul>
     </section>
+
     <section id='listMessage'>
       <div class='menu-control'>
         <a class='button-back'>BACK</a> MY Messages
@@ -143,15 +145,12 @@
       </section>
     </section>
     <section id='showReportLost'>
-      <div class='report-control'>
-        <a class='button-back'>BACK</a> Lost Pet
-        <a class='button-facebook'>Share</a>
+      <div class='report-control form-header'>
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a><p class="form-heading">Lost Report</p>
       </div>
-      <div id='showReportLostData'>
+      <div id='showReportLostData' class="report">
       </div>
-      <section class="side-section side-lost-report button-newMessage">
-        <p class="side-links">Message</p>
-      </section>
+
     </section>
     <section id='editReportLost'>
     </section>
@@ -204,11 +203,11 @@
 
     <script id="reportShowFound" type="x-tmpl-mustache">
       <img data-id={{id}} scr={{photo}}>
-      <p>Pet Type: {{pet_type}}</p>
-      <p>Colour : {{color}} </p>
-      <p>Last Seen date : {{last_seen_date}}</p>
-      <p>Last Seen At: {{last_seen_address}} </p>
-      <p>Note : {{note}} </p>
+      <p><span class='blue-text'>Pet Type:</span> {{pet_type}}</p>
+      <p><span class='blue-text'>Colour:</span> {{color}} </p>
+      <p><span class='blue-text'>Last Seen date:</span> {{last_seen_date}}</p>
+      <p><span class='blue-text'>Last Seen At:</span> {{last_seen_address}} </p>
+      <p><span class='blue-text'>Note:</span> {{note}} </p>
     </script>
 
     <script id="reportShowLost" type="x-tmpl-mustache">
@@ -254,17 +253,6 @@
       <p>{{body}}</p>
       <hr>
     </li>
-  </script>
-
-  <script id="reportShow" type="x-tmpl-mustache">
-    <img data-id={{id}} scr={{photo}}>
-    <p><span class='blue-text'>Breed:</span> {{breed}}</p>
-    <p><span class='blue-text'>Name:</span> {{name}}</p>
-    <p><span class='blue-text'>Sex:</span> {{sex}} </p>
-    <p><span class='blue-text'>Colour:</span> {{color}} </p>
-    <p><span class='blue-text'>Age:</span> {{age}} </p>
-    <p><span class='blue-text'>Last Seen:</span> {{last_seen_address}} </p>
-    <p><span class='blue-text'>Note:</span> {{note}} </p>
   </script>
 
   <script id="user-info" type="x-tmpl-mustache">
