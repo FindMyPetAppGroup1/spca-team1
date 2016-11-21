@@ -14,6 +14,7 @@
  *= require_tree .
  *= require_self
  */
+
  body{
    margin:0px;
   font-family: 'Helvetica', sans-serif;
@@ -49,8 +50,6 @@
         border: 2px solid rgb(255, 255, 255);
         box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
         border-radius: 2px;
-        /*z-index: 0;*/
-        /*position: absolute;*/
         }
  #legend h3 {
    margin-top: 0;
@@ -136,6 +135,8 @@
           padding: 0 11px 0 13px;
           text-overflow: ellipsis;
           width: 300px;
+          border: none;
+
         }
 
         #pac-input:focus {
@@ -168,5 +169,13 @@
         #search-container{
           background-color: #fff;
           margin: 12px 12px 0 12px;
+          font-family: Arial, sans-serif;
+          /*background: #fff;*/
+          padding: 3px;
+          margin: 10px;
+          /*background-color: rgb(255, 255, 255);*/
+          border: 2px solid rgb(255, 255, 255);
+          box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+          border-radius: 2px;
 
         }
