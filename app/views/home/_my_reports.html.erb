@@ -1,46 +1,33 @@
-
-<script id="my_reports_partial" type="x-tmpl-mustache">
-<div class="form-header">
+<div class="form-header blue">
   <a class="button-back">
-    <%= fa_icon 'chevron-left', style: 'color: #00AEFC' %>
+    <%= fa_icon 'chevron-left', style: 'color: white' %>
   </a>
-  <p class="form-heading">My Report</p>
+  <p class="form-heading-reverse">My Reports</p>
 </div>
-
-<div class ='row'>
-  <div class ='col-md-4'>
-    <h4>Lost Pet</h4>
-  </div>
-  <div class ='col-md-8'>
-  </div>
+<div class ='report-heading'>
+  <p>Lost Pets</p>
 </div>
-
-<div class ='row'>
-  <div class ='col-md-4'>
-   <img data-id={{id}} scr={{photo}}>
+<div class ='row report nopadding'>
+  <div class ='col-xs nopadding'>
+   <!-- <img data-id={{id}} scr={{photo}}> -->
+   <img src="/dog.jpg";/>
   </div>
-  <div class ='col-md-8'>
-    <p>Name: {{name}}</p>
-    <p>Last seen location: {{last_seen_address}} </p>
+  <div class ='col-xs report-details'>
+    <p><span class="blue-text">Name:</span> {{name}}</p>
+    <p><span class="blue-text">Last seen location:</span> {{last_seen_address}} </p>
   </div>
 </div>
 
-<div class ='row'>
-  <div class ='col-md-4'>
-    <h4>Found Pet</h4>
+<div class ='report-heading'>
+  <p>Found Pets</p>
+</div>
+<div class ='row report nopadding'>
+  <div class ='col-xs nopadding'>
+   <!-- <img data-id={{id}} scr={{photo}}> -->
+   <img src="/dog.jpg";/>
   </div>
-  <div class ='col-md-8'>
+  <div class ='col-xs report-details'>
+    <p><span class="blue-text">Name:</span> {{name}}</p>
+    <p><span class="blue-text">Last seen location:</span> {{last_seen_address}} </p>
   </div>
 </div>
-
-<div class ='row'>
-  <div class ='col-md-4'>
-   <img data-id={{id}} scr={{photo}}>
-  </div>
-  <div class ='col-md-8'>
-    <p>Name:{{name}}</p>
-    <p>Last seen location:{{last_seen_address}} </p>
-  </div>
-</div>
-
-</script>
