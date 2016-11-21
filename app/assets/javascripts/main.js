@@ -90,7 +90,7 @@ var getReportLost = function(){
     //use ajax to update bufferedData, report.find(bufferedData)
 
     //javascript for putting a pin on map
-    renderMustache("#reportShow",'#showReportLostData');
+    renderMustache("#reportShowLost",'#showReportLostData');
   })
 
 
@@ -108,7 +108,7 @@ var getReportFound = function(){
   //use ajax to update bufferedData, report.find(bufferedData)
 
   //javascript for putting a pin on map
-  renderMustache("#reportShow",'#showReportFoundData');
+  renderMustache("#reportShowFound",'#showReportFoundData');
   })
 }
 var sendMessage = function(){
@@ -204,6 +204,7 @@ var renderPreviewFound = function(){
     pet_type: $('#found_pet_type option:selected').text(),
     last_seen_address: $('#pac-report-input').val(),
     last_seen_date: $('#found_last_seen_date').val(),
+    color: $('#color').val(),
     note: $('#found_note').val()
   };
   lostOrFound = "Found";
