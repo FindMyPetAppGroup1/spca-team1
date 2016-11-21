@@ -3,3 +3,6 @@
 
 ENV['FACEBOOK_KEY'] = 	'???'
 ENV['FACEBOOK_SECRET'] = '???'
+
+ENV["email_user_name"] = "???"
+ENV["email_password"]  = "???"

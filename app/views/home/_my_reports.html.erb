@@ -1,0 +1,46 @@
+
+<script id="my_reports_partial" type="x-tmpl-mustache">
+<div class="form-header">
+  <a class="button-back">
+    <%= fa_icon 'chevron-left', style: 'color: #00AEFC' %>
+  </a>
+  <p class="form-heading">My Report</p>
+</div>
+
+<div class ='row'>
+  <div class ='col-md-4'>
+    <h4>Lost Pet</h4>
+  </div>
+  <div class ='col-md-8'>
+  </div>
+</div>
+
+<div class ='row'>
+  <div class ='col-md-4'>
+   <img data-id={{id}} scr={{photo}}>
+  </div>
+  <div class ='col-md-8'>
+    <p>Name: {{name}}</p>
+    <p>Last seen location: {{last_seen_address}} </p>
+  </div>
+</div>
+
+<div class ='row'>
+  <div class ='col-md-4'>
+    <h4>Found Pet</h4>
+  </div>
+  <div class ='col-md-8'>
+  </div>
+</div>
+
+<div class ='row'>
+  <div class ='col-md-4'>
+   <img data-id={{id}} scr={{photo}}>
+  </div>
+  <div class ='col-md-8'>
+    <p>Name:{{name}}</p>
+    <p>Last seen location:{{last_seen_address}} </p>
+  </div>
+</div>
+
+</script>
