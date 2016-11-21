@@ -1,13 +1,16 @@
-console.log('hey');
 // all views
 var allView = ['#menu-main','#listReport','#listMessage','#setting','#about'
-,'#newReportFound','#previewReportFound','#completeReportFound','#showReportFound','#editReportFound','#newReportLost','#previewReportLost','#completeReportLost','#showReportLost','#editReportLost','#showMessage','#listFilterdReport']
+,'#newReportFound','#previewReportFound','#completeReportFound','#showReportFound','#editReportFound','#newReportLost','#previewReportLost','#completeReportLost','#showReportLost','#editReportLost','#showMessage','#listFilterdReport','#newMessage']
 
 var lostOrFound;
 var userID;
 var bufferedData;
+var currentPage;
+var prevPage;
+var pinLostAssetLoc = '';
+var pinFoundAssetLoc = '';
 
-$(function(){ // on Ready
+$(function(){
   initialize();
 });
 
@@ -21,32 +24,31 @@ var initialize = function(){
   //list all views need to be visiable at begining
   showObject('#menu-main')
   //set all click action
+  $('#pinImageLost')
+  $('#pinImageFound')
  setMenu();
- setBack();
+ setControllerButton();
  setAction();
 }
 
-
 var showReport = function(id,bln){
-  //bln determin lost of found, true for found, false for lost
+  //bln determin lost or found, true for found, false for lost
   //currentPage
   //use ajax to get report using report id
-  $.get('http://localhost:3000/reports/1', function(data){
-  info = data
-  bufferedData = info.report
+  $.get('http://localhost:3000/reports/'+id, function(data){
+    bufferedData = info.report
+    if(bln){
+      to = '#showReportFound';
+      tmp = '#showReportFoundData';
+      target = "#reportShowFound";
+    } else{
+      to = '#showReportLost';
+      tmp = '#showReportLostData';
+      target = "#reportShowLost";
+    }
+    hideObject(currentPage);
+    showObject(to);
   })
-
-  if(bln){
-    to = '#showReportFound';
-    tmp = '#showReportFoundData';
-    target = "#reportShow";
-  } else{
-    to = '#showReportLost';
-    tmp = '#showReportLostData';
-    target = "#reportShow";
-  }
-  hideObject(currentPage);
-  showObject(to);
 }
 var renderUserInfo = function(){
   //initialize user info from ajax
@@ -54,36 +56,9 @@ var renderUserInfo = function(){
   renderMustache('#user-info','#userInfoData');
   userID = 1;
 }
-var setAction = function(){
-  //found route
-  setRedirectWithFunction('#button-sumbitNewReportFound','#newReportFound','#previewReportFound',renderPreviewFound);
-  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#completeReportFound',getReportId);
-  setRedirectWithFunction('#button-sumbitCompleteReportFound','#completeReportFound','#showReportFound',getReportFound);
-  setRedirectWithFunction('#button-reportAnotherFound','#showReportFound','#newReportFound',newLinkedFoundReport);
-  setRedirectWithFunction('#button-trackPet','#showReportFound','#listFilterdReport',getLinkedReport);
-
-  //set message
-
-  //lost route
-  setRedirectWithFunction('#button-sumbitNewReportLost','#newReportLost','#previewReportLost',renderPreviewLost);
-  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#completeReportLost',getReportId);
-  setRedirectWithFunction('#button-sumbitCompleteReportLost','#completeReportLost','#showReportLost',getReportLost);
-  //set message
-
-
-
-  //set deligate
-  setDeligate('#list-lost','li',getReportLost,'#listReport','#showReportLost');
-  setDeligate('#list-found','li',getReportFound,'#listReport','#showReportFound');
-  setDeligate('#list-message','li',getMessage,'#listMessage','#showMessage');
-  setDeligate('#list-filterd','li',getReportFound,'#listFilterdReport','#showReportFound');
-
-
-}
 
 var signoutFunc = function(){
   console.log('signout');
-
   $.ajax({
     url: 'http://localhost:3000/sessions',
     type: 'delete'
@@ -106,40 +81,41 @@ var newLinkedFoundReport = function(){
 }
 
 var getReportLost = function(){
-  $.get('http://localhost:3000/reports/1', function(data){
-  info = data;
-  bufferedData = data;
+  $.get('http://localhost:3000/reports/'+bufferedData, function(data){
+    info = data;
+    bufferedData = data.report;
+    console.log('lost:'+bufferedData);
+    console.log('get lost report');
+    //before running ajax, bufferedData stored the report id
+    //use ajax to update bufferedData, report.find(bufferedData)
+
+    //javascript for putting a pin on map
+    renderMustache("#reportShow",'#showReportLostData');
   })
 
-  console.log('lost:'+bufferedData);
-  console.log('get lost report');
-  //before running ajax, bufferedData stored the report id
-  //use ajax to update bufferedData, report.find(bufferedData)
-  bufferedData = report1;
 
-  //javascript for putting a pin on map
-  renderMustache("#reportShow",'#showReportLostData');
 }
 
 var getReportFound = function(){
-  $.get('http://localhost:3000/reports/1', function(data){
+
+  $.get('http://localhost:3000/reports/'+bufferedData, function(data){
   info = data;
-  bufferedData = data;
-  })
+  bufferedData = data.report;
+
   console.log('found:'+bufferedData);
   console.log('get found report');
   //before running ajax, bufferedData stored the report id
   //use ajax to update bufferedData, report.find(bufferedData)
-  bufferedData = report1;
 
   //javascript for putting a pin on map
   renderMustache("#reportShow",'#showReportFoundData');
+  })
 }
-
 var sendMessage = function(){
   var reportID = bufferedData;
-  bufferedData.messenger.body = messageBody.val();
-  bufferedData.report_id = report_id;
+  bufferedData = {messenger:{},report_id:''};
+  bufferedData.messenger.body = $("#messageBody").val();
+  bufferedData.report_id = reportID;
   //ajax post to db
   $.post('http://localhost:3000/messengers',bufferedData, function(data){bufferedData = data});
   hideObject(currentPage);
@@ -149,8 +125,7 @@ var getMessage = function(){
   $.get('http://localhost:3000/messengers/'+bufferedData, function(data){
   info = data;
   bufferedData = info.messenger;
-})
-
+  })
   console.log('get:'+bufferedData);
   console.log('show message');
   //before running ajax, bufferedData stored the message id
@@ -165,8 +140,8 @@ var setRedirect = function(target,fro,to){
     showObject(to);
   });
 }
-var setDelegate = function(delegateTar,target,func,fro,to){
-  $(delegateTar).on('click',target,function(){
+var setDeligate = function(deligateTar,target,func,fro,to){
+  $(deligateTar).on('click',target,function(){
     //store id to bufferedData
     bufferedData = $(this).data('id');
     func();
@@ -174,6 +149,7 @@ var setDelegate = function(delegateTar,target,func,fro,to){
     showObject(to);
   });
 }
+
 var setRedirectWithFunction = function(target,fro,to,func){
   //set redirect function for a button
   $(target).click(function(){
@@ -188,15 +164,18 @@ var hideObject= function(target){
 }
 var showObject= function(target){
   $(target).show();
+  currentPage = target;
 }
 var renderLists = function(reports,template,list){
   var reportTemplate = $(template).html();
   var reportList = $(list);
   Mustache.parse(reportTemplate);
-  var reportHTML = reports
+  if(reports && reports.length){
+    var reportHTML = reports
     .map(function (report) {
       return Mustache.render(reportTemplate, report);
     }).join('');
+  }
   reportList.html(reportHTML);
 }
 
@@ -211,7 +190,7 @@ var renderPreviewLost = function(){
   //use jquery to access fiends from edit/new form
   bufferedData = report1;
   lostOrFound="Lost";
-  tmp = "#reportShow";
+  tmp = "#reportShowLost";
   target = '#previewReportLostData';
 
   //javascript for putting a pin on map?
@@ -221,44 +200,59 @@ var renderPreviewLost = function(){
 var renderPreviewFound = function(){
   //bufferedData might hold the case id if it is a linked report
   //use jquery to access fiends from edit/new form
-  bufferedData = report1;
+  bufferedData = {
+    pet_type: $('#found_pet_type option:selected').text(),
+    last_seen_address: $('#pac-report-input').val(),
+    last_seen_date: $('#found_last_seen_date').val(),
+    note: $('#found_note').val()
+  };
   lostOrFound = "Found";
-  tmp = "#reportShow";
+  tmp = "#reportShowFound";
   target = '#previewReportFoundData';
-
   //javascript for putting a pin on map?
   renderMustache(tmp,target);
 }
 
 var postReport = function(){
   //use ajax to pass report info to rails for save
-  data =[];
-  data.report=report4;
+  data = {};
+  data.report=bufferedData;
   data.report.report_type = lostOrFound;
   //
-  $.post('http://localhost:3000/reports',data, function(data){
-    bufferedData = data.report.id
-  });
   //use ajax to get report id from using report details
   //or use ajax to get user.report.last?
 
   //before running ajax, bufferedData stored a report detail
-  bufferedData = 1;
+  $.post('http://localhost:3000/reports',data, function(data){
+    bufferedData = data.report.id
+  });
   //after running ajax, bufferedData will store a report id
-
+  console.log('pass to db');
   //javascript for putting a pin on map
 }
 var addReport = function(){
+  var reportlist;
   //use ajax to get alist of my lost report
-  reports = [report1,report2];
-  renderLists(reports,'#report-summary','#list-lost');
+  $.get('http://localhost:3000/reports/user/lost',function(data){
+    // reportlist=;
+    renderLists(data.reports,'#report-summary','#list-lost');
+
+  });
+
+  // reports = [report1,report2];
+
   //use ajax to get a list of my found report
-  reports = [report1,report2];
-  renderLists(reports,'#report-summary','#list-found');
+
+  $.get('http://localhost:3000/reports/user/found',function(data){
+    // reportlist=data.reports;
+    renderLists(data.reports,'#report-summary','#list-found');
+  });
+  // reports = [report1,report2];
+
 }
 
 var getLinkedReport = function(){
-  data.case_id = bufferedData.id
+  data.case_id = bufferedData.id;
   //use ajax to get linked report with same case id
   $.get('http://localhost:3000/reports/case/linked/',data, function(data){reports = data.reports});
 
@@ -269,32 +263,40 @@ var renderFilterReports = function(reports){
 }
 
 var addMessage = function(){
-  var messages;
+  // var messages;
   //use ajax to get a list of my message-summary
   $.get('http://localhost:3000/messengers', function(data){
-    bufferedData = data;
+    // bufferedData = data.messenger;
+    renderLists(data.messenger,'#message-summary','#list-message');
   });
   //messages = [message1,message2];
-  console.log(bufferedData[0]);
-  renderLists(bufferedData,'#message-summary','#list-message');
+
 }
 
-var setBack = function(){
+var setControllerButton = function(){
   $('.button-back').click(function(){
-    $(this).parent().parent().hide();
-    $('#menu-main').show();
+    // $(this).parent().parent().hide();
+    // $('#menu-main').show();
+    hideObject(currentPage);
+    showObject('#menu-main');
   })
-  $('#button-MessageFound').click(function(){
+
+  $('.button-facebook').click(function(){
+    //ajax?
+    //share to facebook
+  })
+
+  $('.button-newMessage').click(function(){
+    //set the message image to report photo1
+    $('#messageIMG')
+
     //before changing, bufferedData stored the report object
-    bufferedData = bufferedData['id'];
+    bufferedData = bufferedData.report.id;
     //after changing, bufferedData holds the report id
     console.log('redirect to message with case id = '+bufferedData);
-  })
-  $('#button-MessageLost').click(function(){
-    //before changing, bufferedData stored the report object
-    bufferedData = bufferedData['id'];
-    //after changing, bufferedData holds the report id
-    console.log('redirect to message with case id = '+bufferedData);
+
+    hideObject(currentPage);
+    showObject('#newMessage');
   })
 }
 
@@ -312,7 +314,6 @@ var setMenu = function(){
   setRedirectWithFunction('#button-location','#setting','#setting',locationFunc);
 }
 
-
 var setAction = function(){
   //found route
   setRedirectWithFunction('#button-sumbitNewReportFound','#newReportFound','#previewReportFound',renderPreviewFound);
@@ -322,7 +323,7 @@ var setAction = function(){
   setRedirectWithFunction('#button-trackPet','#showReportFound','#listFilterdReport',getLinkedReport);
 
   //set message
-  setRedirectWithFunction('#button-sendMessage','#newMessage','#menu-main',sendMessage);
+  setRedirectWithFunction('.button-sendMessage','#newMessage','#menu-main',sendMessage);
 
   //lost route
   setRedirectWithFunction('#button-sumbitNewReportLost','#newReportLost','#previewReportLost',renderPreviewLost);
@@ -338,7 +339,6 @@ var setAction = function(){
 }
 
 var report1 = {
-  'id' : 1,
   "pet_type":'dog',
   'breed' : 'breed1',
   'name' : 'name',
@@ -352,7 +352,6 @@ var report1 = {
 }
 
 var report2 = {
-  'id' : 2,
   "pet_type":'dog2',
   'name' : 'name2',
   'breed' : 'breed2',
@@ -366,7 +365,6 @@ var report2 = {
 }
 
 var report3 = {
-  'id' : 3,
   "pet_type":'dog2',
   'name' : 'name2',
   'breed' : 'breed2',
@@ -409,7 +407,7 @@ var report4 =   {
   latitude: 1231243.2132,
   longitude: 123454.32,
   note: '12345',
-  report_type: '12345'
+  report_type: 'Lost'
 }
 
 var message_test = {

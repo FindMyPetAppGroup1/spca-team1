@@ -1,0 +1,57 @@
+<div class="form-header">
+  <a class="button-back" href="#">
+    <%= fa_icon 'chevron-left', style: 'color: #00AEFC' %>
+  </a>
+  <p class="form-heading">Lost Pet</p>
+</div>
+<div class="form-body">
+  <form class="form">
+    <div class="form-group">
+      <label for="pet_type">Pet Type</label><br />
+      <select name="pet_type">
+        <option value="Dog">Dog</option>
+        <option value="Dog">Cat</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="breed">Breed</label><br />
+      <select name="breed">
+        <option value="Dog">Yorkshire Terrier</option>
+        <option value="Dog">Golden Retriever</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="name">Name</label><br />
+      <input type="text" name="name" />
+    </div>
+    <div class="form-group">
+      <label for="sex">Sex</label><br />
+      <select name="sex">
+        <option value="Dog">Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="colour">Colour</label><br />
+      <select name="colour">
+        <option value="brown">Brown</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="age">Age</label><br />
+      <input type="text" name="age" />
+    </div>
+    <div class="form-group">
+      <label for="last_seen_address">Last Seen at</label><br />
+      <input id="pac-report-input-lost" type="text" name="last_seen_address" />
+    </div>
+    <div class="form-group">
+      <label for="last_seen_date">Date & Time</label><br />
+      <input type="date" name="last_seen_date" />
+    </div>
+    <div class="form-group">
+      <label for="Note">Note</label><br />
+      <textarea name="note" /></textarea>
+    </div>
+    <button id="button-sumbitNewReportLost" class="button blue">Preview Your Report</button>
+  </form>
+</div>

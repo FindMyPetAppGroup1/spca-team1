@@ -1,0 +1,31 @@
+<div class="form-header">
+  <a class="button-back">
+    <%= fa_icon 'chevron-left', style: 'color: #00AEFC' %>
+  </a>
+  <p class="form-heading">Found Pet</p>
+</div>
+<div class="form-body">
+  <form class="form">
+
+    <div class="form-group">
+      <label for="pet_type">Pet Type</label><br />
+      <select id="found_pet_type">
+        <option value="Dog">Dog</option>
+        <option value="Dog">Cat</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="last_seen_address">Last Seen at</label><br />
+      <input id="pac-report-input" type="text" name="last_seen_address" />
+    </div>
+    <div class="form-group">
+      <label for="last_seen_date">Date & Time</label><br />
+      <input type="date" id="found_last_seen_date" />
+    </div>
+    <div class="form-group">
+      <label for="Note">Note</label><br />
+      <textarea id="found_note" /></textarea>
+    </div>
+
+  </form>
+</div>
