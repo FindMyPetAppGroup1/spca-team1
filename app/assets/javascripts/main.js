@@ -112,7 +112,6 @@ var getReportFound = function(){
   })
 }
 var sendMessage = function(){
-  debugger
   var reportID = bufferedData;
   bufferedData = {messenger:{},report_id:''};
   bufferedData.messenger.body = $("#messageBody").val();

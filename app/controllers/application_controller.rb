@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def authenticate_user
-    redirect_to new_session_path, alert: 'please sign in' unless user_signed_in?
+    redirect_to new_user_path, alert: 'please sign in' unless user_signed_in?
   end
 
   def user_signed_in?
