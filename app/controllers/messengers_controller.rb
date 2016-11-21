@@ -2,20 +2,25 @@ class MessengersController < ApplicationController
 
   def create
     @report           = Report.find params[:report_id]
-    messenger_params  = params.require(:messenger).permit(:body, :photo1)
+    messenger_params  = params.require(:messenger).permit(:body)
     @messenger        = Messenger.new messenger_params
     @messenger.report = @report
     @messenger.user   = current_user
     @messenger.photo1 = @report.photo1
     if @messenger.save
-      redirect_to report_path(@report), notice: 'Message created!'
-    else
-      render 'reports/show'
+      render json: {messenger: @messenger}
     end
   end
 
+  def index
+      render json: { messenger: current_user.messengers}
+  end
+
+
+
   def show
-    
+    @messenger = Messenger.find(params[:id])
+      render json: { messenger: @messenger}
   end
 
   def destroy
@@ -26,4 +31,5 @@ class MessengersController < ApplicationController
   else
    redirect_to root_path, alert: "access denied"
   end
+end
 end
