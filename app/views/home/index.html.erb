@@ -1,5 +1,6 @@
-<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
-<script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
+<%= javascript_include_tag "//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js" %>
+<%= javascript_include_tag src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"%>
+
 <div id='domainurl' val= "<%= ENV['DOMAIN_URL'] %>" >
 </div>
 <div class = 'container-fluid'>
@@ -527,7 +528,5 @@ function clearMarkers() {
 // in listener
 //
 
-</script>
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXclu8PhDGVun2bDikmbNE5YUUNRFG204&libraries=places&callback=initMap"
- type="text/javascript"></script>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyBXclu8PhDGVun2bDikmbNE5YUUNRFG204&libraries=places&callback=initMap"
+ type="text/javascript" %>
