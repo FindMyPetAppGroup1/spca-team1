@@ -1,5 +1,5 @@
 class AddCaseToReport < ActiveRecord::Migration[5.0]
   def change
-    add_reference :reports, :case, foreign_key: true
+    add_column :reports, :related_id, :string
   end
 end
