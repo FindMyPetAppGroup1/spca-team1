@@ -111,6 +111,7 @@ var getReportFound = function(){
   renderMustache("#reportShow",'#showReportFoundData');
 }
 var sendMessage = function(){
+  debugger
   var reportID = bufferedData;
   bufferedData = {messenger:{},report_id:''};
   bufferedData.messenger.body = $("#messageBody").val();
@@ -231,6 +232,7 @@ var addReport = function(){
   $.get('http://localhost:3000/reports/user/lost',function(data){
     // reportlist=;
     renderLists(data.reports,'#report-summary','#list-lost');
+
   });
 
   // reports = [report1,report2];
