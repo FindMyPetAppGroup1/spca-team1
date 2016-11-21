@@ -8,8 +8,6 @@ class MessengersController < ApplicationController
     @messenger.user   = current_user
     @messenger.photo1 = @report.photo1
     if @messenger.save
-
-      MessagesMailer.notify_reporter(@report).deliver_now
       render json: {messenger: @messenger}
     else
       render 'reports/show'

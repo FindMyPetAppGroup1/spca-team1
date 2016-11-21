@@ -1,6 +1,7 @@
 <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
 <script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
-
+<div id='domainurl' val= "<%= ENV['DOMAIN_URL'] %>" >
+</div>
 <div class = 'container-fluid'>
  <div class="row">
   <div id='menu' class='sidebar nopadding col-xs-12 col-md-4'>
@@ -485,18 +486,18 @@ function addMarker(mark){
   console.log(mark.report_type);
   if (mark.report_type == "Lost"){
     newMarker.picture = {
-      "url": "http://localhost:3000/assets/icon_report_lost_red_active_sm.png",
+      "url": "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>",
       "width": 22,
       "height": 32
     };
-    newMarker.icon = "http://localhost:3000/assets/icon_report_lost_red_active_sm.png";
+    newMarker.icon = "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>";
   } else {
     newMarker.picture = {
-      "url": "http://localhost:3000/assets/icon_report_found_sm.png",
+      "url": "<%= asset_url('icon_report_found_sm.png', digest: false) %>",
       "width": 23,
       "height": 32
     };
-    newMarker.icon = "http://localhost:3000/assets/icon_report_found_sm.png";
+    newMarker.icon = "<%= asset_url('icon_report_found_sm.png', digest: false) %>";
   }
   newMarker.setMap(map);
   console.log(newMarker);
