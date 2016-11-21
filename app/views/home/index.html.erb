@@ -323,7 +323,6 @@
 var markers = [];
 var map;
 
-
 function initSearch() {
   // var map = new google.maps.Map(document.getElementById('map'), {
   //   center: {lat: -33.8688, lng: 151.2195},
@@ -331,11 +330,13 @@ function initSearch() {
   //   mapTypeId: 'roadmap'
   // });
   // Create the search box and link it to the UI element.
+
  var input = document.getElementById('pac-input');
  var formInput = document.getElementById('pac-report-input');
  var formInputLost = document.getElementById('pac-report-input-lost');
 
  var searchContainer = document.getElementById('search-container');
+
  var searchBox = new google.maps.places.SearchBox(input);
  var formSearchBox = new google.maps.places.SearchBox(formInput);
  var formLostSearchBox = new google.maps.places.SearchBox(formInputLost);
@@ -439,7 +440,7 @@ function initMap(){
 
       },
       internal: {id: 'map-canvas'}}, function(){
-
+        console.log(<%=raw @markers.to_json %>);
     markers = handler.addMarkers(<%=raw @markers.to_json %>);
 
     if(markers.length != 0){
@@ -463,8 +464,49 @@ function setMapOnAll(map) {
   }
 }
 
-function addMarker(id, lost){
+function addMarker(mark){
 
+  var newMarker = new google.maps.Marker({
+    position: new google.maps.LatLng(mark.latitude, mark.longitude),
+    title: mark.last_seen_date,
+    lat: mark.latitude,
+    lng: mark.longitude,
+    id: mark.id
+  });
+  //
+  // var newMarker = new google.maps.Marker({
+  //   id: mark.id,
+  //   position:
+  //   lat: mark.latitude,
+  //   lng: mark.longitude,
+  //   marker_title: mark.last_seen_date
+  // });
+  console.log(mark.report_type);
+  if (mark.report_type == "Lost"){
+    newMarker.picture = {
+      "url": "http://localhost:3000/assets/icon_report_lost_red_active_sm.png",
+      "width": 22,
+      "height": 32
+    };
+    newMarker.icon = "http://localhost:3000/assets/icon_report_lost_red_active_sm.png";
+  } else {
+    newMarker.picture = {
+      "url": "http://localhost:3000/assets/icon_report_found_sm.png",
+      "width": 23,
+      "height": 32
+    };
+    newMarker.icon = "http://localhost:3000/assets/icon_report_found_sm.png";
+  }
+  newMarker.setMap(map);
+  console.log(newMarker);
+  //  markers = handler.addMarkers(newMarker);
+  //  showMarkers();
+   showMarker(newMarker);
+}
+
+function showMarker(mark){
+  map.setZoom(17);
+  map.panTo(new google.maps.LatLng(mark.lat, mark.lng));
 }
 
 function showMarkers() {

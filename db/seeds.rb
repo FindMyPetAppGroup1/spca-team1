@@ -12,8 +12,8 @@
    last_seen_date: Faker::Date.between(90.days.ago, Date.today),
    last_seen_address: Faker::Address.street_address,
    latitude: rand(49.2726202..49.2926202),
-   longitude: rand(-123.1418923..-123.1218923),
-   report_type: %w(lost sighted).sample
+   longitude: rand(-123.141823..-123.1218923),
+   report_type: %w(Lost Sighted).sample
    })
 end
 
