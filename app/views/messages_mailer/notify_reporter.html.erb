@@ -1,0 +1,7 @@
+<p>Hello <%= @user.full_name %>,</p>
+<p>Thank you for creating a report for <%= @report.name %>.</p>
+<p>Report: <%= @report.report_type %></p>
+<p><%= @report.name %> was last seen: <%= @report.last_seen_date %> on <%= @report.last_seen_address %></p>
+<%= link_to 'Click here to view your report', report_url(@report) %>
+<p>Regards,</p>
+<p>Find My Pet Team</p>
