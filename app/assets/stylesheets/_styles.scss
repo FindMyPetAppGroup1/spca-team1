@@ -5,6 +5,7 @@ $sidebar-background: #eaeaea;
 $sidebar-text: #a5a5a5;
 $text: #656565;
 $orange: #fbaa47;
+$blue: #00AEFC;
 $facebook: #3d5b94;
 $button-radius: 4px;
 $box-shadow: 1px 2px 5px rgba(#848ba7, 0.48);
@@ -211,9 +212,9 @@ to {
 
 .side {
   &-heading {
-    padding: 0.5em 0.75em 0.5em 3.5em;
+    padding: 0.5em 0.75em 0.5em 4.2em;
     color: $text;
-    font-size: 0.8em;
+    font-size: 0.7em;
     text-transform: uppercase;
     margin-bottom: 0;
   }
@@ -239,5 +240,106 @@ to {
     color: $text;
     font-size: 1em;
     margin-bottom: 0;
+  }
+  &-footer {
+    padding: 0.5em 0.75em;
+    font-size: 0.7em;
+    color: $sidebar-text;
+    text-align: center;
+  }
+}
+select {
+  width: 100%;
+  min-height: 40px;
+  border-color: $sidebar-background;
+  border-radius: 0;
+}
+textarea {
+  width: 100%;
+  border-color: $lightgrey;
+}
+input {
+  width: 100%;
+}
+.form {
+  padding: 1.4em 3em 0.8em 3em;
+  &-heading {
+    color: $text;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: auto;
+    margin-right: auto;
+    &-reverse {
+      color: white;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+  &-header {
+    padding: 1.4em 3em 0.8em 3em;
+
+    p {
+      margin-bottom: 0;
+    }
+    display: flex;
+    min-height: 70px;
+    align-items: baseline;
+  }
+  &-body {
+    background-color: white;
+
+  }
+  &-group {
+    margin-bottom: 10px;
+  }
+}
+
+
+
+.button {
+  width: 100%;
+  background-color: rgb(228, 228, 228);
+  border-radius: 0.3em;
+  border: 0;
+  color: white;
+  height: 3em;
+  box-shadow: $box-shadow;
+  font-size: 0.8em;
+  &-back-white {
+    color: white;
+  }
+}
+
+.blue {
+  background-color: $blue;
+}
+.blue-text {
+  color: $blue;
+}
+
+.report {
+  background-color: white;
+  width: 100%;
+  padding: 0.8em 0.75em 0.8em 3em;
+  box-shadow: $box-shadow;
+  color: $sidebar-text;
+  img {
+    max-width: 100%;
+  }
+  &-heading {
+    color: $text;
+    padding: 0.8em 0.75em 0.8em 3em;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  &-details {
+    padding: 0.8em 1em;
+    color: $text;
   }
 }
