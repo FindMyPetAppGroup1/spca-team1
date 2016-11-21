@@ -7,7 +7,6 @@ class ReportsController < ApplicationController
   end
 
   def create
-    byebug
     report_params
     @report = Report.new(report_params)
     @report.user = current_user
