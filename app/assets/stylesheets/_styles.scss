@@ -307,6 +307,9 @@ input {
   height: 3em;
   box-shadow: $box-shadow;
   font-size: 0.8em;
+  &-back-white {
+    color: white;
+  }
 }
 
 .blue {

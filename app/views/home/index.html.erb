@@ -5,40 +5,41 @@
 <script src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"></script>
 
 <div class = 'container-fluid'>
- <div class="row">
-  <!-- 👇 START OF SIDEBAR -->
-  <div id='menu-main' class='sidebar nopadding col-xs-12 col-md-4'>
-    <%= render 'my_reports' %>
-    <% if user_signed_in? %>
-      <section class='side-section side-user'>
-        <% if current_user.avatar.present? %>
-          <%= image_tag current_user.avatar %>
-        <% end %>
-        <%= current_user.full_name %>
+  <div class="row">
+    <!-- 👇 START OF SIDEBAR -->
+    <div id='menu-main' class='sidebar nopadding col-xs-12 col-md-4'>
+      <%= render 'my_reports' %>
+      <% if user_signed_in? %>
+        <section class='side-section side-user'>
+          <% if current_user.avatar.present? %>
+            <%= image_tag current_user.avatar %>
+          <% end %>
+          <%= current_user.full_name %>
+        </section>
+      <% end %>
+      <p class="side-heading">Make a Report</p>
+      <section id="button-newLost" class="side-section side-lost-report">
+        <p class="side-links">Lost Pet</p>
       </section>
-    <% end %>
-    <p class="side-heading">Make a Report</p>
-    <section id="button-newLost" class="side-section side-lost-report">
-      <p class="side-links">Lost Pet</p>
-    </section>
-    <section id="button-newFound" class="side-section side-lost-report">
-      <p class="side-links">Found/Sighted Pet</p>
-    </section>
-    <p class="side-heading">Account</p>
-    <section id="button-listReport" class="side-section side-lost-report">
-      <p class="side-links">My Report</p>
-    </section>
-    <section id="button-listMessage" class="side-section side-lost-report">
-      <p class="side-links">Messages</p>
-    </section>
-    <section id="button-setting" class="side-section side-lost-report">
-      <p class="side-links">Settings</p>
-    </section>
-    <section id="button-about" class="side-section side-lost-report">
-      <p class="side-links">About find my pet</p>
-    </section>
-    <p class="side-footer"><%= fa_icon 'paw' %> Find my Pet V.01 </p>
-
+      <section id="button-newFound" class="side-section side-lost-report">
+        <p class="side-links">Found/Sighted Pet</p>
+      </section>
+      <p class="side-heading">Account</p>
+      <section id="button-listReport" class="side-section side-lost-report">
+        <p class="side-links">My Report</p>
+      </section>
+      <section id="button-listMessage" class="side-section side-lost-report">
+        <p class="side-links">Messages</p>
+      </section>
+      <section id="button-setting" class="side-section side-lost-report">
+        <p class="side-links">Settings</p>
+      </section>
+      <section id="button-about" class="side-section side-lost-report">
+        <p class="side-links">About find my pet</p>
+      </section>
+      <p class="side-footer"><%= fa_icon 'paw' %> Find my Pet V.01 </p>
+    </div>
+  </div>
     <!-- <section id="newReportLost">
       <div class="report-form-header">
         <a class="button-back"></a>
@@ -235,7 +236,8 @@
     </script>
   </div>
 
-  <!-- END OF SIDEBAR ☝️ -->
+</div>
+</div> -->
 
   <!-- 👨 MUSTACHE TEMPLATES -->
 
@@ -281,15 +283,11 @@
 
   <div class='map-view nopadding col-xs-12 col-md-8'>
     <div id="map-container">
-        <div id="map-canvas"></div>
-          <div id="legend"><h3>Pets</h3></div>
-
+      <div id="map-canvas"></div>
+      <div id="legend"><h3>Pets</h3></div>
     </div>
   </div>
-
   <!-- END OF MAP VIEW -->
- </div>
-</div>
 
 <script>
 var addLegend = function () {
@@ -330,7 +328,7 @@ function initMap(){
         mapTypeControl: false,
         streetViewControl: false,
         zoom: 14,
-        center: {lat: latitude, lng: longitude},
+        center: {lat: latitude, lng: longitude}
 
       },
       internal: {id: 'map-canvas'}}, function(){
