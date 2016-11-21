@@ -501,12 +501,18 @@ function addMarker(mark){
   console.log(newMarker);
   //  markers = handler.addMarkers(newMarker);
   //  showMarkers();
-   showMarker(newMarker);
+   showMarkerOther(newMarker);
 }
 
-function showMarker(mark){
+function showMarkerOther(mark){
+  console.log(mark);
   map.setZoom(17);
   map.panTo(new google.maps.LatLng(mark.lat, mark.lng));
+}
+function showMarker(mark){
+  console.log(mark);
+  map.setZoom(17);
+  map.panTo(new google.maps.LatLng(mark.latitude, mark.longitude));
 }
 
 function showMarkers() {
