@@ -183,8 +183,10 @@ var setRedirectWithFunction = function(target,fro,to,func){
 var hideObject= function(targetHide,targetShow){
   // $(target).hide();
   var CHGTIME = 300;
-  $(targetHide).hide("slide", { direction: "left" }, CHGTIME);
-  setTimeout(function(){ showObject(targetShow); }, CHGTIME);
+  // $(targetHide).hide("slide", { direction: "left" }, 0);
+  $(targetHide).slideUp('fast');
+  // setTimeout(function(){ showObject(targetShow); }, CHGTIME);
+  showObject(targetShow);
 }
 var showObject= function(target){
   // $(target).show();
