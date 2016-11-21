@@ -37,7 +37,7 @@ class Report < ApplicationRecord
       marker.lng rep.longitude
       marker.json({ :id => rep.id })
       marker.title "Last seen: #{rep.last_seen_date}"
-      if rep.report_type == "lost"
+      if rep.report_type == "lost" || rep.report_type == 'Lost'
         marker.picture({"url": ActionController::Base.helpers.asset_path("/assets/icon_report_lost_red_active_sm.png", :digest => false),
                         "width":  22,
                         "height": 32})

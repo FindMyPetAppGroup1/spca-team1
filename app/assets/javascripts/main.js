@@ -102,6 +102,8 @@ var getReportLost = function(){
     caseid = bufferedData.id;
     console.log('lost:'+bufferedData);
     console.log('get lost report');
+    showMarker(bufferedData);
+
     //before running ajax, bufferedData stored the report id
     //use ajax to update bufferedData, report.find(bufferedData)
 
