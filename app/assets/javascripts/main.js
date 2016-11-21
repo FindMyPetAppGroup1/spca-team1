@@ -83,7 +83,7 @@ var newLinkedFoundReport = function(){
 var getReportLost = function(){
   $.get('http://localhost:3000/reports/'+bufferedData, function(data){
     info = data;
-    bufferedData = data;
+    bufferedData = data.report;
     console.log('lost:'+bufferedData);
     console.log('get lost report');
     //before running ajax, bufferedData stored the report id
@@ -100,8 +100,8 @@ var getReportFound = function(){
 
   $.get('http://localhost:3000/reports/'+bufferedData, function(data){
   info = data;
-  bufferedData = data;
-  })
+  bufferedData = data.report;
+
   console.log('found:'+bufferedData);
   console.log('get found report');
   //before running ajax, bufferedData stored the report id
@@ -109,6 +109,7 @@ var getReportFound = function(){
 
   //javascript for putting a pin on map
   renderMustache("#reportShow",'#showReportFoundData');
+  })
 }
 var sendMessage = function(){
   debugger
@@ -200,11 +201,15 @@ var renderPreviewLost = function(){
 var renderPreviewFound = function(){
   //bufferedData might hold the case id if it is a linked report
   //use jquery to access fiends from edit/new form
-  bufferedData = report1;
+  bufferedData = {
+    pet_type: $('#found_pet_type option:selected').text(),
+    last_seen_address: $('#pac-report-input').val(),
+    last_seen_date: $('#found_last_seen_date').val(),
+    note: $('#found_note').val()
+  };
   lostOrFound = "Found";
   tmp = "#reportShow";
   target = '#previewReportFoundData';
-
   //javascript for putting a pin on map?
   renderMustache(tmp,target);
 }
@@ -212,7 +217,7 @@ var renderPreviewFound = function(){
 var postReport = function(){
   //use ajax to pass report info to rails for save
   data = {};
-  data.report=report4;
+  data.report=bufferedData;
   data.report.report_type = lostOrFound;
   //
   //use ajax to get report id from using report details
