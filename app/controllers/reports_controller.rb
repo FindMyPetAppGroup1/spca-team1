@@ -10,6 +10,7 @@ class ReportsController < ApplicationController
     @report = Report.new report_params
     @report.user = current_user
     if @report.save
+      ReportsMailer.notify_pet_owner(@report.user_id).deliver_now
       redirect_to report_path(@report)
     else
       render :new
@@ -35,7 +36,7 @@ class ReportsController < ApplicationController
 
     # This index is for displaying 'List view' of all reports (in a certain area)
     @reports = Report.order(created_at: :DESC)
-    
+
     render json: { reports: @reports}
 
   end

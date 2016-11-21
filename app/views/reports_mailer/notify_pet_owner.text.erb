@@ -1,0 +1,7 @@
+Hello <%= @user.full_name %>
+You got a new report
+Report: <%= @report.report_type %>
+<%= @report.name %> was last seen: <%= @report.last_seen_date %> in <%= @report.last_seen_address %>
+<%= report_url(@report) %>
+Regards,
+Find My Pet Team

@@ -41,6 +41,7 @@ gem 'omniauth-facebook'
 gem 'friendly_id'
 gem 'simple_form'
 gem 'underscore-rails'
+# gem 'letter_opener'
 
 gem 'faker'
 
