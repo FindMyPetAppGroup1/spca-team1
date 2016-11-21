@@ -15,8 +15,13 @@ Rails.application.routes.draw do
     get :rough_search
   end
 
-  get 'users/current_user_info' => 'users#current_user_info'
 
+  resources :messengers, only: [:create, :index, :show]
+
+  get 'users/current_user_info' => 'users#current_user_info'
+  get 'reports/user/lost' => 'reports#lost_reports'
+  get 'reports/user/found' => 'reports#found_reports'
+  get 'reports/case/linked' => 'reports#linked_reports'
   get '/auth/facebook', as: :sign_in_facebook
   get '/auth/facebook/callback' => 'callbacks#facebook'
 

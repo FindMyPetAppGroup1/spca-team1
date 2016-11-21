@@ -7,27 +7,41 @@ class ReportsController < ApplicationController
   end
 
   def create
-    @report = Report.new report_params
+    report_params
+    @report = Report.new(report_params)
     @report.user = current_user
     if @report.save
       ReportsMailer.notify_pet_owner(@report.user_id).deliver_now
-      redirect_to report_path(@report)
-    else
-      render :new
     end
+      render json: { report: @report}
   end
+
 
   def show
     # find_report gets called here
+    @report = Report.find(params[:id])
 
-      respond_to do |format|
-      format.html { render }
-      format.text { render }
-      format.xml  { render xml: @report }
-      format.json { render json: @report.to_json(include: :messengers)}
-    end
+      render json: { report: @report}
+
+  end
+  def lost_reports
+    user = current_user
+    @reports = user.reports.where(report_type: 'Lost')
+    render json: { reports: @reports}
   end
 
+  def found_reports
+    user = current_user
+    @reports = user.reports.where(report_type: 'Found')
+    render json: { reports: @reports}
+  end
+
+  def linked_reports
+    # p params[:case_id]
+    # @reports = Report.where(case_id: nil)
+    @reports = Report.where(case_id: params[:case_id])
+    render json: { reports: @reports}
+  end
   def index
     # We are not making a index action on reports, because this would
     # render a list of all reports in the database.

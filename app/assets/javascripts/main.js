@@ -2,7 +2,7 @@
 var allView = ['#menu-main','#listReport','#listMessage','#setting','#about'
 ,'#newReportFound','#previewReportFound','#completeReportFound','#showReportFound','#editReportFound','#newReportLost','#previewReportLost','#completeReportLost','#showReportLost','#editReportLost','#showMessage','#listFilterdReport','#newMessage']
 
-
+var lostOrFound;
 var userID;
 var bufferedData;
 var currentPage;
@@ -35,7 +35,11 @@ var showReport = function(id,bln){
   //bln determin lost of found, true for found, false for lost
   //currentPage
   //use ajax to get report using report id
-  bufferedData = report2
+  $.get('http://localhost:3000/reports/1', function(data){
+  info = data
+  bufferedData = info.report
+  })
+
   if(bln){
     to = '#showReportFound';
     tmp = '#showReportFoundData';
@@ -57,7 +61,10 @@ var renderUserInfo = function(){
 
 var signoutFunc = function(){
   console.log('signout');
-  //connect to controler and redirect?
+  $.ajax({
+    url: 'http://localhost:3000/sessions',
+    type: 'delete'
+  });
 }
 
 var notificationFunc = function(){
@@ -76,6 +83,11 @@ var newLinkedFoundReport = function(){
 }
 
 var getReportLost = function(){
+  $.get('http://localhost:3000/reports/1', function(data){
+  info = data;
+  bufferedData = data;
+  })
+
   console.log('lost:'+bufferedData);
   console.log('get lost report');
   //before running ajax, bufferedData stored the report id
@@ -87,6 +99,10 @@ var getReportLost = function(){
 }
 
 var getReportFound = function(){
+  $.get('http://localhost:3000/reports/1', function(data){
+  info = data;
+  bufferedData = data;
+  })
   console.log('found:'+bufferedData);
   console.log('get found report');
   //before running ajax, bufferedData stored the report id
@@ -98,18 +114,23 @@ var getReportFound = function(){
 }
 var sendMessage = function(){
   var reportID = bufferedData;
-  bufferedData = messageBody.val();
+  bufferedData.messenger.body = messageBody.val();
+  bufferedData.report_id = report_id;
   //ajax post to db
-
+  $.post('http://localhost:3000/messengers',bufferedData, function(data){bufferedData = data});
   hideObject(currentPage);
   showObject('#menu-main');
 }
 var getMessage = function(){
+  $.get('http://localhost:3000/messengers/'+bufferedData, function(data){
+  info = data;
+  bufferedData = info.messenger;
+})
+
   console.log('get:'+bufferedData);
   console.log('show message');
   //before running ajax, bufferedData stored the message id
   //use ajax to get message, message.find(bufferedData)
-  bufferedData = message1
   renderMustache("#showMessage",'#messageData');
 }
 
@@ -167,7 +188,7 @@ var renderMustache = function(tmp,target){
 var renderPreviewLost = function(){
   //use jquery to access fiends from edit/new form
   bufferedData = report1;
-
+  lostOrFound="Lost";
   tmp = "#reportShow";
   target = '#previewReportLostData';
 
@@ -179,7 +200,7 @@ var renderPreviewFound = function(){
   //bufferedData might hold the case id if it is a linked report
   //use jquery to access fiends from edit/new form
   bufferedData = report1;
-
+  lostOrFound = "Found";
   tmp = "#reportShow";
   target = '#previewReportFoundData';
 
@@ -187,8 +208,15 @@ var renderPreviewFound = function(){
   renderMustache(tmp,target);
 }
 
-var getReportId = function(){
+var postReport = function(){
   //use ajax to pass report info to rails for save
+  data =[];
+  data.report=report4;
+  data.report.report_type = lostOrFound;
+  //
+  $.post('http://localhost:3000/reports',data, function(data){
+    bufferedData = data.report.id
+  });
   //use ajax to get report id from using report details
   //or use ajax to get user.report.last?
 
@@ -208,8 +236,10 @@ var addReport = function(){
 }
 
 var getLinkedReport = function(){
+  data.case_id = bufferedData.id
   //use ajax to get linked report with same case id
-  reports = [report1,report2];
+  $.get('http://localhost:3000/reports/case/linked/',data, function(data){reports = data.reports});
+
   renderFilterReports(reports);
 }
 var renderFilterReports = function(reports){
@@ -217,9 +247,14 @@ var renderFilterReports = function(reports){
 }
 
 var addMessage = function(){
+  var messages;
   //use ajax to get a list of my message-summary
-  messages = [message1,message2];
-  renderLists(messages,'#message-summary','#list-message');
+  $.get('http://localhost:3000/messengers', function(data){
+    bufferedData = data;
+  });
+  //messages = [message1,message2];
+  console.log(bufferedData[0]);
+  renderLists(bufferedData,'#message-summary','#list-message');
 }
 
 var setControllerButton = function(){
@@ -266,7 +301,7 @@ var setMenu = function(){
 var setAction = function(){
   //found route
   setRedirectWithFunction('#button-sumbitNewReportFound','#newReportFound','#previewReportFound',renderPreviewFound);
-  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#completeReportFound',getReportId);
+  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#completeReportFound',postReport);
   setRedirectWithFunction('#button-sumbitCompleteReportFound','#completeReportFound','#showReportFound',getReportFound);
   setRedirectWithFunction('#button-reportAnotherFound','#showReportFound','#newReportFound',newLinkedFoundReport);
   setRedirectWithFunction('#button-trackPet','#showReportFound','#listFilterdReport',getLinkedReport);
@@ -276,7 +311,7 @@ var setAction = function(){
 
   //lost route
   setRedirectWithFunction('#button-sumbitNewReportLost','#newReportLost','#previewReportLost',renderPreviewLost);
-  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#completeReportLost',getReportId);
+  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#completeReportLost',postReport);
   setRedirectWithFunction('#button-sumbitCompleteReportLost','#completeReportLost','#showReportLost',getReportLost);
 
   //set deligate
@@ -342,4 +377,26 @@ var user = {
   'avator' : '',
   'first_name' :'first',
   'last_name' : 'last'
+}
+
+var report4 =   {
+  name: '12345',
+  breed: '12345',
+  pet_type: '12345',
+  age: '2',
+  color: '12345',
+  sex: '12345',
+  photo1: '12345',
+  photo2: '12345',
+  photo3: '12345',
+  last_seen_date: '12345',
+  last_seen_address: '12345',
+  latitude: 1231243.2132,
+  longitude: 123454.32,
+  note: '12345',
+  report_type: '12345'
+}
+
+var message_test = {
+  body: '12434345'
 }
