@@ -21,7 +21,13 @@ a:hover {
 }
 }
 
+li {
+  list-style-type: none;
+}
 
+ul #list-found {
+  margin: 0;
+}
 
 .inner-container {
 display: flex;
@@ -208,7 +214,9 @@ to {
 }
 
 
-
+a {
+  cursor: pointer;
+}
 
 .side {
   &-heading {
@@ -221,6 +229,7 @@ to {
   &-section {
     background-color: white;
     width: 100%;
+      cursor: pointer;
     padding: 0.8em 0.75em 0.8em 3em;
     border-bottom: 2px solid rgb(223, 223, 223);
     color: $sidebar-text;
@@ -353,6 +362,7 @@ input {
 
 .side-section li {
   list-style-type: none;
+
 }
 
 .button-back {

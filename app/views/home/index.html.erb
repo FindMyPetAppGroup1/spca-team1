@@ -41,10 +41,10 @@
         <p class="form-heading">My Reports</p>
       </div>
       <p class="report-heading side-links">Lost Pet</p>
-      <ul id='list-lost' class="side-section">
+      <ul id='list-lost'>
       </ul>
       <p class="report-heading side-links">Found/Sighted Pet</p>
-      <ul id='list-found' class="side-section">
+      <ul id='list-found'>
       </ul>
     </section>
 
@@ -211,12 +211,13 @@
       <img src={{photo1}}>
       <p>{{body}}</p>
     </script>
+
     <script id="report-summary" type="x-tmpl-mustache">
       <li data-id={{id}}>
-        <p>{{note}}</p>
-        <hr>
+        <p class='side-section'>{{note}}</p>
       </li>
     </script>
+
     <script id="message-summary" type="x-tmpl-mustache">
       <li data-id={{id}}>
         <img src={{photo1}}>
