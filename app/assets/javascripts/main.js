@@ -16,7 +16,8 @@ $(function(){
 
 var initialize = function(){
   //initialize value
-  $DOMAIN = $("#domainurl").attr('val');
+  // $DOMAIN = $("#domainurl").attr('val');
+  $DOMAIN = 'http://localhost:3000/'
   renderUserInfo();
   //hide all views
   allView.forEach(function(view){
@@ -241,8 +242,6 @@ var renderPreviewFound = function(){
     color: $('#color option:selected').val(),
     note: $('#found_note').val(),
     related_id: caseid
-    // photo1:{url: 'https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-1/c1.0.160.160/p160x160/15192637_1749164858742227_7162022063224977887_n.jpg?oh=971bad07f44110434d4ab5d82e0eaab1&oe=58C59F60'
-    // }
   };
   lostOrFound = "Found";
   tmp = "#reportShowFound";
@@ -376,7 +375,7 @@ var setMenu = function(){
 var setAction = function(){
   //found route
   setRedirectWithFunction('#button-sumbitNewReportFound','#newReportFound','#previewReportFound',renderPreviewFound);
-  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#showReportFound',postReport);
+  setRedirectWithFunction('#button-sumbitPreviewReportFound','#previewReportFound','#completeReportFound',postReport);
   setRedirectWithFunction('#button-sumbitCompleteReportFound','#completeReportFound','#showReportFound',getReportFound);
   setRedirectWithFunction('#button-reportAnotherFound','#showReportFound','#newReportFound',newLinkedFoundReport);
   setRedirectWithFunction('#button-trackPet','#showReportFound','#listFilterdReport',getLinkedReport);
@@ -386,7 +385,7 @@ var setAction = function(){
 
   //lost route
   setRedirectWithFunction('#button-sumbitNewReportLost','#newReportLost','#previewReportLost',renderPreviewLost);
-  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#showReportLost',postReport);
+  setRedirectWithFunction('#button-sumbitPreviewReportLost','#previewReportLost','#completeReportLost',postReport);
   setRedirectWithFunction('#button-sumbitCompleteReportLost','#completeReportLost','#showReportLost',getReportLost);
 
   //set deligate
