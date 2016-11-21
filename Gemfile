@@ -12,6 +12,11 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.1.0'
+end
+
 # gem 'bootstrap-sass', '~>3.3'
 gem 'bootstrap', '~> 4.0.0.alpha5'
 # Use Uglifier as compressor for JavaScript assets
@@ -41,7 +46,6 @@ gem 'omniauth-facebook'
 gem 'friendly_id'
 gem 'simple_form'
 gem 'underscore-rails'
-gem 'letter_opener'
 
 gem 'faker'
 
