@@ -11,11 +11,8 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     @report.user = current_user
     if @report.save
-      redirect_to report_path(@report)
-    else
-      render :new
-    end
       render json: { report: @report}
+    end
   end
 
 
@@ -26,6 +23,7 @@ class ReportsController < ApplicationController
       render json: { report: @report}
 
   end
+
   def lost_reports
     user = current_user
     @reports = user.reports.where(report_type: 'Lost')
