@@ -247,3 +247,58 @@ to {
     text-align: center;
   }
 }
+select {
+  width: 100%;
+  min-height: 40px;
+  border-color: $sidebar-background;
+  border-radius: 0;
+}
+textarea {
+  width: 100%;
+  border-color: $lightgrey;
+}
+input {
+  width: 100%;
+}
+.form {
+  padding: 1.4em 3em 0.8em 3em;
+  &-heading {
+    color: $text;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &-header {
+    padding: 1.4em 3em 0.8em 3em;
+
+    p {
+      margin-bottom: 0;
+    }
+    display: flex;
+    min-height: 70px;
+    align-items: baseline;
+  }
+  &-body {
+    background-color: white;
+
+  }
+  &-group {
+    margin-bottom: 10px;
+  }
+}
+
+.button {
+  width: 100%;
+  background-color: rgb(228, 228, 228);
+  border-radius: 0.3em;
+  border: 0;
+  color: white;
+  height: 3em;
+  box-shadow: $box-shadow;
+  font-size: 0.8em;
+}
+
+.blue {
+  background-color: #00AEFC;
+}

@@ -8,6 +8,7 @@
  <div class="row">
   <!-- 👇 START OF SIDEBAR -->
   <div id='menu-main' class='sidebar nopadding col-xs-12 col-md-4'>
+    <%= render 'found_report_form' %>
     <% if user_signed_in? %>
       <section class='side-section side-user'>
         <% if current_user.avatar.present? %>
@@ -37,6 +38,14 @@
       <p class="side-links">About find my pet</p>
     </section>
     <p class="side-footer"><%= fa_icon 'paw' %> Find my Pet V.01 </p>
+
+    <!-- <section id="newReportLost">
+      <div class="report-form-header">
+        <a class="button-back"></a>
+      </div>
+
+      <button id="button-sumbitNewReportLost">Preview Your Report</button>
+    </section> -->
     <!-- <section id="menu-main">
       <div id='userInfoData'>
       </div>
@@ -187,13 +196,6 @@
 
     <section class='footnote'>
       <p>FindMyPet V1.0</p>
-<<<<<<< HEAD
-<<<<<<< 428327ff6ecac56e133e79c73c2989697259e99d
-    </section>
-    <!-- template list:
-      newmessage
-      editReportFound
-    -->
 
     <script id="showMessage" type="x-tmpl-mustache">
       <img src={{photo1}}>
