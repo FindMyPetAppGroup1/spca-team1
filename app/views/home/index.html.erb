@@ -8,7 +8,6 @@
  <div class="row">
   <!-- 👇 START OF SIDEBAR -->
   <div id='menu-main' class='sidebar nopadding col-xs-12 col-md-4'>
-    <%= render 'my_reports' %>
     <% if user_signed_in? %>
       <section class='side-section side-user'>
         <% if current_user.avatar.present? %>
