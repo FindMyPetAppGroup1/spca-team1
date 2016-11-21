@@ -1,5 +1,7 @@
 <p>Hello <%= @user.full_name %>,</p>
-<p>Thank you for creating a report for <%= @report.name %>.</p>
+<p>Thank you for creating a report
+  <% if @report.name.present? %>for <%= @report.name.capitalize %>.</p>
+  <% end %>
 <p>Report: <%= @report.report_type %></p>
 <p><%= @report.name %> was last seen: <%= @report.last_seen_date %> on <%= @report.last_seen_address %></p>
 <%= link_to 'Click here to view your report', report_url(@report) %>
