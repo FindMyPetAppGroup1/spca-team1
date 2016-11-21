@@ -22,7 +22,7 @@
       </section>
       <p class="side-heading">Account</p>
       <section id="button-listReport" class="side-section side-lost-report">
-        <p class="side-links">My Report</p>
+        <p class="side-links">My Reports</p>
       </section>
       <section id="button-listMessage" class="side-section side-lost-report">
         <p class="side-links">Messages</p>
@@ -49,7 +49,7 @@
     </section>
 
     <section id='listMessage'>
-      <div class='menu-control'>
+      <div class='report-control form-header'>
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
         <p class="form-heading">My Messages</p>
 
@@ -59,9 +59,9 @@
       </ul>
     </section>
     <section id='setting'>
-      <div class='menu-control'>
+      <div class='report-control form-header'>
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
-        Setting
+        <p class="form-heading">Settings</p>
       </div>
       <section id="button-location" class="side-section side-lost-report">
         <p class="side-links">Location</p>
@@ -74,29 +74,29 @@
       </section>
     </section>
     <section id='about'>
-      <div class='menu-control'>
+      <div class='report-control form-header'>
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
         <p class="form-heading">My Report</p>
       </div>
-      ABOUT
     </section>
     <section id='newReportFound'>
       <div class = 'ReportFoundForm'>
         <%= render 'found_report_form' %>
       </div>
-      <section id="button-sumbitNewReportFound" class="side-section side-lost-report">
-        <p class="side-links">Preview</p>
+      <section class="side-section side-lost-report-button">
+        <!-- <p class="side-links">Preview</p> -->
+        <button id="button-sumbitNewReportFound" class="button blue">Preview Your Report</button>
       </section>
     </section>
     <section id='previewReportFound'>
-      <div class='report-control'>
+      <div class='report-control form-header'>
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
-        <p class="form-heading">Preview Report</p>
+        <p class="form-heading">Preview</p>
       </div>
-      <div id='previewReportFoundData'>
+      <div id='previewReportFoundData' class='report'>
       </div>
-      <section id="button-sumbitPreviewReportFound" class="side-section side-lost-report">
-        <p class="side-links">Confirm</p>
+      <section class="side-section side-lost-report-button">
+        <button id="button-sumbitPreviewReportFound" class="button blue">Confirm</button>
       </section>
     </section>
     <section id='completeReportFound'>
@@ -112,7 +112,7 @@
 
     <section id='showReportFound'>
       <div class='report-control form-header'>
-        <a class='button-back'><%= fa_icon 'chevron-left', style: 'color: #00AEFC' %></a> class="form-heading">Found Pet</p>
+        <a class='button-back'><%= fa_icon 'chevron-left', style: 'color: #00AEFC' %></a> <p class="form-heading">Found Pet</p>
       </div>
 
       <div id='showReportFoundData' class="report">
@@ -134,24 +134,24 @@
     </section>
     <section id='newReportLost'>
       <div class='report-control form-header'>
-        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a> class="form-heading">Lost Report</p>
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a><p class="form-heading">Lost Pet</p>
       </div>
       <div class = 'ReportLostForm'>
         <%= render 'lost_report_form' %>
       </div>
-      <section id="button-sumbitNewReportLost" class="side-section side-lost-report">
-        <p class="side-links">Preview</p>
+      <section class="side-section side-lost-report-button">
+        <button id="button-sumbitNewReportLost" class="button blue">Preview Your Report</button>
       </section>
     </section>
     <section id='previewReportLost'>
-      <div class='report-control'>
+      <div class='report-control form-header'>
         <a class='button-backNewLost'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
-        <p class="form-heading">Preview Report</p>
+        <p class="form-heading">Preview</p>
       </div>
-      <div id='previewReportLostData'>
+      <div id='previewReportLostData' class='report'>
       </div>
-      <section id="button-sumbitPreviewReportLost" class="side-section side-lost-report">
-        <p class="side-links">Confirm</p>
+      <section class="side-section side-lost-report-button">
+        <button id="button-sumbitPreviewReportLost" class="button blue">Confirm</button>
       </section>
     </section>
     <section id='completeReportLost'>
@@ -167,7 +167,7 @@
     </section>
     <section id='showReportLost'>
       <div class='report-control form-header'>
-        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a> class="form-heading">Lost Report</p>
+        <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a><p class="form-heading">Lost Pet</p>
       </div>
       <div id='showReportLostData' class="report">
       </div>
@@ -333,11 +333,12 @@ function initSearch() {
   // Create the search box and link it to the UI element.
  var input = document.getElementById('pac-input');
  var formInput = document.getElementById('pac-report-input');
+ var formInputLost = document.getElementById('pac-report-input-lost');
+
  var searchContainer = document.getElementById('search-container');
  var searchBox = new google.maps.places.SearchBox(input);
- if(formInput){
-   var formSearchBox = new google.maps.places.SearchBox(formInput);
- }
+ var formSearchBox = new google.maps.places.SearchBox(formInput);
+ var formLostSearchBox = new google.maps.places.SearchBox(formInputLost);
 
  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(searchContainer);
  // Bias the SearchBox results towards current map's viewport.

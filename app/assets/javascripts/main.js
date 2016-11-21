@@ -81,7 +81,12 @@ var resetReportForm = function(){
 
   $('#pac-report-input').val(""),
   $('#found_last_seen_date').val(""),
-  $('#found_note').val("")
+  $('#found_note').val(""),
+  $('#lost_name').val(''),
+  $('#lost_age').val(''),
+  $('#pac-report-input-lost').val(''),
+  $('#last_seen_date-lost').val(''),
+  $('#lost_note').val('');
 
 }
 var newLinkedFoundReport = function(){
@@ -225,14 +230,9 @@ var renderPreviewFound = function(){
     pet_type: $('#found_pet_type option:selected').text(),
     last_seen_address: $('#pac-report-input').val(),
     last_seen_date: $('#found_last_seen_date').val(),
-<<<<<<< a1500758eeabe5cf7f9d5d4d3b27eddacd66f4ac
-    color: $('#color').val(),
+    color: $('#color option:selected').val(),
     note: $('#found_note').val(),
     related_id: caseid
-=======
-    color: $('#color option:selected').val(),
-    note: $('#found_note').val()
->>>>>>> routes fixed
   };
   lostOrFound = "Found";
   tmp = "#reportShowFound";
