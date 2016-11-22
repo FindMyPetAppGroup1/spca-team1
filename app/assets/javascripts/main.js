@@ -17,6 +17,18 @@ $(function(){
 var initialize = function(){
   //initialize value
   $("#search-container").hide();
+  $("#search-container").on("mouseenter",function(){
+    $("#searchForm").slideDown();
+  });
+  $("#search-container").on("mouseleave",function(){
+    $("#searchForm").slideUp();
+  });
+  $("#searchForm").hide();
+  $("#button-search").click(function(){
+    $("#searchForm").hide();
+    console.log('s');
+    searchReport();
+  })
   $DOMAIN = $("#domainurl").attr('val');
   // $DOMAIN = 'http://localhost:3000/'
   renderUserInfo();
@@ -33,7 +45,20 @@ var initialize = function(){
  setControllerButton();
  setAction();
 }
-
+var searchReport = function(){
+  lostval = $("#lost-check").prop('checked');
+  foundval = $("#found-check").prop('checked');
+  var info = {
+    lost:lostval,
+    found:foundval
+  };
+  $.post($DOMAIN+"/reportsearch/",info,function(data){
+    //code to add pin1
+    bufferedData = data.reports;
+    renderFilterReports(bufferedData);
+    searchResults(bufferedData);
+  })
+}
 var showReport = function(id,bln){
   //bln determin lost or found, true for found, false for lost
   //currentPage
