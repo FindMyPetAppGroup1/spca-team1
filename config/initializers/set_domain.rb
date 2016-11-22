@@ -1,1 +1,1 @@
-ENV['DOMAIN_URL'] = "https://find-my-pet-codecore-team1.herokuapp.com"
+ENV['DOMAIN_URL'] = "https://findmypet-team1.herokuapp.com"
