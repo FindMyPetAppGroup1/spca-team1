@@ -10,10 +10,11 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require gmaps/google
 //= require jquery
+//= require tether
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require underscore
-//= require gmaps/google
 //= require turbolinks
 //= require_tree .

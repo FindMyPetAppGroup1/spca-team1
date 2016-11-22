@@ -1,1 +1,1 @@
-ENV['DOMAIN_URL'] = "http://localhost:3000"
+ENV['DOMAIN_URL'] = "https://find-my-pet-team1.herokuapp.com"
