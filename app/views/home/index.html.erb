@@ -477,9 +477,9 @@ function addMarker(mark){
   console.log(mark);
   var icon = "";
   if (mark.report_type == "Lost"){
-    icon = ".."+'<%= path_to_image("icon_report_lost_red_active_sm.png") %>'
+    icon = '<%= path_to_image("icon_report_lost_red_active_sm.png") %>'
   } else {
-    icon = "../.."+'<%= path_to_image("icon_report_found_sm.png") %>'
+    icon = '<%= path_to_image("icon_report_found_sm.png") %>'
   }
 
   var newMarker = new google.maps.Marker({
