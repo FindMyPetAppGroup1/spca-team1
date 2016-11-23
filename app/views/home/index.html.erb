@@ -443,16 +443,8 @@ function initMap(){
 
       },
       internal: {id: 'map-canvas'}}, function(){
-    var jsonMarkers = <%=raw @markers.to_json %>;
-    markers = jsonMarkers.map(function(m) {
-      var marker = handler.addMarker(m);
-      marker.serviceObject.set('id', m.id);
-      marker.serviceObject.set('report_type', m.report_type);
-      marker.serviceObject.addListener('click', function(){
-        showReport(m.id, m.report_type != 'Lost' && m.report_type != 'lost');
-      });
-      return marker;
-    })
+    setMarkers(<%=raw @markers.to_json %>);
+
     // markers = Gmaps.store.markers();
     console.log(markers);
     // markers = handler.addMarkers(<%=raw @markers.to_json %>);
@@ -479,6 +471,17 @@ function initMap(){
     addLegend();
   });
 }
+function setMarkers(jsonMarkers){
+  markers = jsonMarkers.map(function(m) {
+    var marker = handler.addMarker(m);
+    marker.serviceObject.set('id', m.id);
+    marker.serviceObject.set('report_type', m.report_type);
+    marker.serviceObject.addListener('click', function(){
+      showReport(m.id, m.report_type != 'Lost' && m.report_type != 'lost');
+    });
+    return marker;
+  })
+}
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
@@ -487,8 +490,8 @@ function setMapOnAll(map) {
 
 function searchResults(marks){
   clearMarkers();
-  markers = handler.addMarkers(marks);
-
+  // markers = handler.addMarkers(marks);
+  setMarkers(marks);
 
 }
 
