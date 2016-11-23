@@ -475,43 +475,49 @@ function searchResults(marks){
 
 function addMarker(mark){
   console.log(mark);
+  var icon = "";
+  if (mark.report_type == "Lost"){
+    icon = ".."+'<%= path_to_image("icon_report_lost_red_active_sm.png") %>'
+    };
+  } else {
+    icon = "../.."+'<%= path_to_image("icon_report_found_sm.png") %>',
+      "width": 23,
+      "height": 32
+    };
+  }
 
   var newMarker = new google.maps.Marker({
     position: new google.maps.LatLng(mark.latitude, mark.longitude),
     title: mark.last_seen_date,
     lat: mark.latitude,
     lng: mark.longitude,
-    id: mark.id
+    id: mark.id,
+    icon: icon,
+    map: map
   });
-  //
-  // var newMarker = new google.maps.Marker({
-  //   id: mark.id,
-  //   position:
-  //   lat: mark.latitude,
-  //   lng: mark.longitude,
-  //   marker_title: mark.last_seen_date
-  // });
-  if (mark.report_type == "Lost"){
-    newMarker.picture = {
-      "url": ".."+'<%= path_to_image("icon_report_lost_red_active_sm.png") %>',
-      "width": 22,
-      "height": 32
-    };
-    // newMarker.icon = "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>";
-  } else {
-    newMarker.picture = {
-      "url": "../.."+'<%= path_to_image("icon_report_found_sm.png") %>',
-      "width": 23,
-      "height": 32
-    };
-    // newMarker.icon = "<%= asset_url('icon_report_found_sm.png', digest: false) %>";
-  }
+
+  // if (mark.report_type == "Lost"){
+  //   newMarker.picture = {
+  //     "url": ".."+'<%= path_to_image("icon_report_lost_red_active_sm.png") %>',
+  //     "width": 22,
+  //     "height": 32
+  //   };
+  //   // newMarker.icon = "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>";
+  // } else {
+  //   newMarker.picture = {
+  //     "url": "../.."+'<%= path_to_image("icon_report_found_sm.png") %>',
+  //     "width": 23,
+  //     "height": 32
+  //   };
+  //   // newMarker.icon = "<%= asset_url('icon_report_found_sm.png', digest: false) %>";
+  // }
   console.log(newMarker);
-  newMarker.setMap(map);
-  clearMarkers();
-  showMarkers();
+  // newMarker.setMap(map);
+  // clearMarkers();
+  // showMarkers();
   //  markers = handler.addMarkers(newMarker);
   //  showMarkers();
+  markers.push(newMarker);
    showMarkerOther(newMarker);
 }
 
