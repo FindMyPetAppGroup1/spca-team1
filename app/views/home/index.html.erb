@@ -476,20 +476,13 @@ function searchResults(marks){
 function addMarker(mark){
   console.log(mark);
 
-  var newMarker = {
+  var newMarker = new google.maps.Marker({
     position: new google.maps.LatLng(mark.latitude, mark.longitude),
     title: mark.last_seen_date,
     lat: mark.latitude,
     lng: mark.longitude,
     id: mark.id
-  };
-  // var newMarker = new google.maps.Marker({
-  //   position: new google.maps.LatLng(mark.latitude, mark.longitude),
-  //   title: mark.last_seen_date,
-  //   lat: mark.latitude,
-  //   lng: mark.longitude,
-  //   id: mark.id
-  // });
+  });
   //
   // var newMarker = new google.maps.Marker({
   //   id: mark.id,
@@ -499,26 +492,24 @@ function addMarker(mark){
   //   marker_title: mark.last_seen_date
   // });
   if (mark.report_type == "Lost"){
-    newMarker.picture = {
-      "url": '<%= path_to_image("icon_report_lost_red_active_sm.png") %>',
-      "width": 22,
-      "height": 32
-    };
-    // newMarker.icon = "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>";
+    // newMarker.picture = {
+    //   "url": '<%= path_to_image("icon_report_lost_red_active_sm.png") %>',
+    //   "width": 22,
+    //   "height": 32
+    // };
+    newMarker.icon = "<%= path_to_image("icon_report_lost_red_active_sm.png") %>";
   } else {
-    newMarker.picture = {
-      "url": '<%= path_to_image("icon_report_found_sm.png") %>',
-      "width": 23,
-      "height": 32
-    };
-    // newMarker.icon = "<%= asset_url('icon_report_found_sm.png', digest: false) %>";
+    // newMarker.picture = {
+    //   "url": '<%= path_to_image("icon_report_found_sm.png") %>',
+    //   "width": 23,
+    //   "height": 32
+    // };
+    newMarker.icon = "<%= path_to_image("icon_report_found_sm.png") %>";
   }
   console.log(newMarker);
-  // newMarker.setMap(map);
+  newMarker.setMap(map);
   //  markers = handler.addMarkers(newMarker);
   //  showMarkers();
-
-  markers = handler.addMarkers(newMarker);
    showMarkerOther(newMarker);
 }
 
