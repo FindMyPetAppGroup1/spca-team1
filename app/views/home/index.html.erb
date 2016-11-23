@@ -445,6 +445,12 @@ function initMap(){
       internal: {id: 'map-canvas'}}, function(){
     markers = handler.addMarkers(<%=raw @markers.to_json %>);
 
+    for (var i=0; i<markers.length; i++){
+      markers[i].serviceObject.addListener('click', function(){
+        showReport(this.id, this.report_type != 'lost' || this.report_type != 'Lost');
+      })
+    }
+
     if(markers.length != 0){
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
@@ -489,7 +495,8 @@ function addMarker(mark){
     lng: mark.longitude,
     id: mark.id,
     icon: icon,
-    map: map
+    map: map,
+    report_type: mark.report_type
   });
 
   // if (mark.report_type == "Lost"){

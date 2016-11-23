@@ -91,7 +91,8 @@ var showReport = function(id,bln){
   //use ajax to get report using report id
   caseid = id;
   $.get($DOMAIN+"/reports/"+id, function(data){
-    bufferedData = info.report
+    info = data;
+    bufferedData = data.report;
     if(bln){
       to = '#showReportFound';
       tmp = '#showReportFoundData';
