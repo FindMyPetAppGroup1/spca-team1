@@ -473,13 +473,25 @@ function initMap(){
 }
 function setMarkers(jsonMarkers){
   markers = jsonMarkers.map(function(m) {
-    var marker = handler.addMarker(m);
-    marker.serviceObject.set('draggable', false),
-    marker.serviceObject.set('id', m.id);
-    marker.serviceObject.set('report_type', m.report_type);
-    marker.serviceObject.addListener('click', function(){
+    var marker = new google.maps.Marker({
+      id: m.id,
+      map: map,
+      report_type: m.report_type,
+      lat: m.latitude,
+      lng: m.longitude,
+      position: google.maps.LatLng(m.latitude, m.longitude),
+      draggable: false
+    });
+    marker.addListener('click', function(){
       showReport(m.id, m.report_type != 'Lost' && m.report_type != 'lost');
     });
+    // var marker = handler.addMarker(m);
+    // marker.serviceObject.set('draggable', false),
+    // marker.serviceObject.set('id', m.id);
+    // marker.serviceObject.set('report_type', m.report_type);
+    // marker.serviceObject.addListener('click', function(){
+    //   showReport(m.id, m.report_type != 'Lost' && m.report_type != 'lost');
+    // });
     return marker;
   })
 }

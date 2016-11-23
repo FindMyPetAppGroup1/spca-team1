@@ -47,7 +47,6 @@ var initialize = function(){
   $("#searchForm").hide();
   $("#button-search").click(function(){
     $("#searchForm").hide();
-    console.log('s');
     searchReport();
   })
   //added that
