@@ -237,11 +237,13 @@ var hideObject= function(targetHide,targetShow){
   // $(targetHide).hide("slide", { direction: "left" }, 0);
   $(targetHide).slideUp('fast');
   // setTimeout(function(){ showObject(targetShow); }, CHGTIME);
-  showObject(targetShow);
+  if(targetShow != ""){
+    showObject(targetShow);
+  }
 }
 var showObject= function(target){
   // $(target).show();
-  $(target).show("slide", { direction: "left" }, 300);
+  $(target).show("slide");
   currentPage = target;
 }
 // var hideObject= function(target){
