@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_signed_in?
-    session[:user_id].present? && User.find_by(id: :user_id).present?
+    session[:user_id].present? && user_valid?
   end
   helper_method :user_signed_in? # adding this line makes this mehtod accessible
                                  # in view files. Because this method is in the
@@ -18,6 +18,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def user_valid?
+    if User.find_by(id: session[:user_id]).present?
+      true
+    else
+      reset_session
+      false
+    end
+  end
   # def current_case_id
   #   @current_case_id = ||= Report.find(session[:report_id])
   # end
