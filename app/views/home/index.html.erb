@@ -443,13 +443,26 @@ function initMap(){
 
       },
       internal: {id: 'map-canvas'}}, function(){
-    markers = handler.addMarkers(<%=raw @markers.to_json %>);
-
-    for (var i=0; i<markers.length; i++){
-      markers[i].serviceObject.addListener('click', function(){
-        showReport(this.id, this.report_type != 'lost' || this.report_type != 'Lost');
-      })
-    }
+    var jsonMarkers = <%=raw @markers.to_json %>;
+    markers = jsonMarkers.map(function(m) {
+      var marker = handler.addMarker(m);
+      marker.serviceObject.set('id', m.id);
+      marker.serviceObject.set('report_type', m.report_type);
+      marker.serviceObject.addListener('click', function(){
+        showReport(m.id, m.report_type != 'Lost' && m.report_type != 'lost');
+      });
+      return marker;
+    })
+    // markers = Gmaps.store.markers();
+    console.log(markers);
+    // markers = handler.addMarkers(<%=raw @markers.to_json %>);
+    // console.log(markers)
+    // for (var i=0; i<markers.length; i++){
+    //   markers[i].serviceObject.addListener('click', function(){
+    //     console.log(this);
+    //     // showReport(markers[i].id, true);
+    //   })
+    // }
 
     if(markers.length != 0){
       handler.bounds.extendWith(markers);
