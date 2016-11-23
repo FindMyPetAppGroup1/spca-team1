@@ -493,18 +493,18 @@ function addMarker(mark){
   // });
   if (mark.report_type == "Lost"){
     newMarker.picture = {
-      "url": "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>",
+      "url": '<%= path_to_image("icon_report_lost_red_active_sm.png") %>',
       "width": 22,
       "height": 32
     };
-    newMarker.icon = "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>";
+    // newMarker.icon = "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>";
   } else {
     newMarker.picture = {
-      "url": "<%= asset_url('icon_report_found_sm.png', digest: false) %>",
+      "url": '<%= path_to_image("icon_report_found_sm.png") %>',
       "width": 23,
       "height": 32
     };
-    newMarker.icon = "<%= asset_url('icon_report_found_sm.png', digest: false) %>";
+    // newMarker.icon = "<%= asset_url('icon_report_found_sm.png', digest: false) %>";
   }
   console.log(newMarker);
   newMarker.setMap(map);
