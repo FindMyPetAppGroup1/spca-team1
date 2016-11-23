@@ -37,11 +37,25 @@ $(function(){
 
 var initialize = function(){
   //initialize value
+  //added this  $("#search-container").hide();
+  $("#search-container").on("mouseenter",function(){
+    $("#searchForm").slideDown();
+  });
+  $("#search-container").on("mouseleave",function(){
+    $("#searchForm").slideUp();
+  });
+  $("#searchForm").hide();
+  $("#button-search").click(function(){
+    $("#searchForm").hide();
+    console.log('s');
+    searchReport();
+  })
+  //added that
   $DOMAIN = $("#domainurl").attr('val');
   renderUserInfo();
   //hide all views
   allView.forEach(function(view){
-    hideObject(view);
+    hideObject(view, "");
   })
   //list all views need to be visiable at begining
   showObject('#menu-main')
@@ -52,6 +66,24 @@ var initialize = function(){
  setControllerButton();
  setAction();
 }
+
+//added search
+var searchReport = function(){
+  lostval = $("#lost-check").prop('checked');
+  foundval = $("#found-check").prop('checked');
+  var info = {
+    lost:lostval,
+    found:foundval
+  };
+  $.post($DOMAIN+"/reportsearch/",info,function(data){
+    //code to add pin1
+    bufferedData = data.reports;
+    renderFilterReports(bufferedData);
+    searchResults(bufferedData);
+  })
+}
+//added that function
+
 
 var showReport = function(id,bln){
   //bln determin lost or found, true for found, false for lost
@@ -69,8 +101,8 @@ var showReport = function(id,bln){
       tmp = '#showReportLostData';
       target = "#reportShowLost";
     }
-    hideObject(currentPage);
-    showObject(to);
+    hideObject(currentPage, to);
+    // showObject(to);
   })
 }
 var renderUserInfo = function(){
@@ -159,8 +191,8 @@ var sendMessage = function(){
   bufferedData.report_id = reportID;
   //ajax post to db
   $.post($DOMAIN+"/messengers",bufferedData, function(data){bufferedData = data});
-  hideObject(currentPage);
-  showObject('#menu-main');
+  hideObject(currentPage,'#menu-main');
+  // showObject('#menu-main');
 }
 var getMessage = function(){
   $.get($DOMAIN+"/messengers/"+bufferedData, function(data){
@@ -177,8 +209,8 @@ var getMessage = function(){
 var setRedirect = function(target,fro,to){
   //set redirect function for a button
   $(target).click(function(){
-    hideObject(fro);
-    showObject(to);
+    hideObject(fro, to);
+    // showObject(to);
   });
 }
 var setDeligate = function(deligateTar,target,func,fro,to){
@@ -186,8 +218,8 @@ var setDeligate = function(deligateTar,target,func,fro,to){
     //store id to bufferedData
     bufferedData = $(this).data('id');
     func();
-    hideObject(fro);
-    showObject(to);
+    hideObject(fro, to);
+    // showObject(to);
   });
 }
 
@@ -195,18 +227,30 @@ var setRedirectWithFunction = function(target,fro,to,func){
   //set redirect function for a button
   $(target).click(function(){
     func();
-    hideObject(fro);
-    showObject(to);
+    hideObject(fro, to);
+    // showObject(to);
   });
 }
-
-var hideObject= function(target){
-  $(target).hide();
+var hideObject= function(targetHide,targetShow){
+  // $(target).hide();
+  var CHGTIME = 300;
+  // $(targetHide).hide("slide", { direction: "left" }, 0);
+  $(targetHide).slideUp('fast');
+  // setTimeout(function(){ showObject(targetShow); }, CHGTIME);
+  showObject(targetShow);
 }
 var showObject= function(target){
-  $(target).show();
+  // $(target).show();
+  $(target).show("slide", { direction: "left" }, 300);
   currentPage = target;
 }
+// var hideObject= function(target){
+//   $(target).hide();
+// }
+// var showObject= function(target){
+//   $(target).show();
+//   currentPage = target;
+// }
 var renderLists = function(reports,template,list){
   var reportTemplate = $(template).html();
   var reportList = $(list);
@@ -339,20 +383,20 @@ var setControllerButton = function(){
   $('.button-back').click(function(){
     // $(this).parent().parent().hide();
     // $('#menu-main').show();
-    hideObject(currentPage);
-    showObject('#menu-main');
+    hideObject(currentPage, '#menu-main');
+    // showObject('#menu-main');
   })
   $('.button-backNewFound').click(function(){
     // $(this).parent().parent().hide();
     // $('#menu-main').show();
-    hideObject(currentPage);
-    showObject('#newReportFound');
+    hideObject(currentPage, '#newReportFound');
+    // showObject('#newReportFound');
   })
   $('.button-backNewLost').click(function(){
     // $(this).parent().parent().hide();
     // $('#menu-main').show();
-    hideObject(currentPage);
-    showObject('#newReportLost');
+    hideObject(currentPage, '#newReportLost');
+    // showObject('#newReportLost');
   })
 
   $('.button-facebook').click(function(){
@@ -365,12 +409,12 @@ var setControllerButton = function(){
     $('#messageIMG')
 
     //before changing, bufferedData stored the report object
-    bufferedData = bufferedData.report.id;
+    bufferedData = bufferedData.id;
     //after changing, bufferedData holds the report id
     console.log('redirect to message with case id = '+bufferedData);
 
-    hideObject(currentPage);
-    showObject('#newMessage');
+    hideObject(currentPage, '#newMessage');
+    // showObject('#newMessage');
   })
 }
 
