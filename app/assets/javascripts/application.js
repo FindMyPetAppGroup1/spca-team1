@@ -102,8 +102,8 @@ var showReport = function(id,bln){
       target = "#reportShowLost";
     }
     hideObject(currentPage, to);
-    console.log(data);
-    console.log(bufferedData);
+    // console.log(data);
+    // console.log(bufferedData);
     showMarker({data.lat, data.lng})
     // showObject(to);
   })
