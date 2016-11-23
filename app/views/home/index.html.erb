@@ -1,8 +1,7 @@
 <%= javascript_include_tag "//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js" %>
 <%= javascript_include_tag src="https://cdn.klokantech.com/maptilerlayer/v1/index.js"%>
 
-<div id='domainurl' val= "<%= ENV['DOMAIN_URL'] %>" >
-</div>
+<div id='domainurl' val= "<%= ENV['DOMAIN_URL'] %>" ></div>
 <div class = 'container-fluid'>
  <div class="row">
   <div id='menu' class='sidebar nopadding col-xs-12 col-md-4'>
@@ -106,7 +105,7 @@
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
         <p class="form-heading">Completed</p>
       </div>
-      <img id='pinImageLost'>
+      <img id='pinImageFound' src="<%= asset_url('icon_report_found_sm.png', digest: false) %>">
       <section id="button-sumbitCompleteReportFound" class="side-section side-lost-report">
         <p class="side-links">Confirm</p>
       </section>
@@ -128,7 +127,7 @@
         <p class="side-links">Track</p>
       </section>
 
-      <section id="button-sendMessage" class="side-section side-lost-report">
+      <section class="side-section side-lost-report button-newMessage">
         <p class="side-links">Message</p>
       </section>
     </section>
@@ -161,8 +160,7 @@
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
          <p class="form-heading">Compelted</p>
       </div>
-      <img id='pinImageLost'>
-      completed a report
+      <img id='pinImageLost' src="<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>">
       <section id="button-sumbitCompleteReportLost" class="side-section side-lost-report">
         <p class="side-links">Confirm</p>
       </section>
@@ -173,6 +171,9 @@
       </div>
       <div id='showReportLostData' class="report">
       </div>
+      <section class="side-section side-lost-report button-newMessage">
+        <p class="side-links">Message</p>
+      </section>
 
     </section>
     <section id='editReportLost'>
@@ -182,7 +183,7 @@
         <a class='button-back'><%=  fa_icon 'chevron-left', style: 'color: #00AEFC' %></a>
         <p class="form-heading">My Message</p>
       </div>
-      <div class='messageData'>
+      <div id='messageData'>
       </div>
     </section>
     <section id='listFilterdReport'>
@@ -209,8 +210,7 @@
   </div>
 
   <!-- sidebar template -->
-    <script id="showMessage" type="x-tmpl-mustache">
-      <img src={{photo1}}>
+    <script id="showMessageTMP" type="x-tmpl-mustache">
       <p>{{body}}</p>
     </script>
 
@@ -229,7 +229,7 @@
     </script>
 
     <script id="reportShowFound" type="x-tmpl-mustache">
-      <img data-id={{id}} scr={{photo}}>
+      <img data-id={{id}} src={{photo1.url}}>
       <p><span class='blue-text'>Pet Type:</span> {{pet_type}}</p>
       <p><span class='blue-text'>Colour:</span> {{color}} </p>
       <p><span class='blue-text'>Last Seen date:</span> {{last_seen_date}}</p>
@@ -238,7 +238,7 @@
     </script>
 
     <script id="reportShowLost" type="x-tmpl-mustache">
-      <img data-id={{id}} scr={{photo}}>
+      <img data-id={{id}} src={{photo1.url}}>
       <p><span class='blue-text'>Pet Type:</span> {{pet_type}}</p>
       <p><span class='blue-text'>Breed:</span> {{breed}}</p>
       <p><span class='blue-text'>Name:</span> {{name}}</p>
@@ -299,21 +299,23 @@
         <div class="form-group">
           <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
             <input id="pac-input" type="text" placeholder="Search Box">
-              <hr>
         </div>
 
 
-        <div class="form-group">
+        <div id='searchForm' class="form-group">
+          <hr>
           <label class="form-check-label" id="lost-checkbox">
-          <input class="form-check-input" type="checkbox" name="Lost Pet" value="lost">Lost Pet</label>
+          <input class="form-check-input" id='lost-check' type="checkbox" name="Lost Pet" checked='true' >Lost Pet</label>
           <label class="form-check-label" id="found-checkbox">
-          <input class="form-check-input" type="checkbox" name="Found Pet" value="sighted">Found Pet</label>
+          <input class="form-check-input" id='found-check' type="checkbox" name="Found Pet" checked="true" >Found Pet</label>
+          <br>
+          <a id='button-search' class="btn btn-primary">Search</a>
         </div>
 
-        <button type="submit" class="btn btn-primary">Search</button>
       </form>
       <div id="map-canvas"></div>
-       <div id="legend"><h3>Pets</h3></div>
+        <div id="map-canvas"></div>
+          <div id="legend"><h3>Pets</h3></div>
 
     </div>
   </div>
@@ -332,7 +334,6 @@ function initSearch() {
   //   mapTypeId: 'roadmap'
   // });
   // Create the search box and link it to the UI element.
-
  var input = document.getElementById('pac-input');
  var formInput = document.getElementById('pac-report-input');
  var formInputLost = document.getElementById('pac-report-input-lost');
@@ -349,6 +350,7 @@ function initSearch() {
    searchBox.setBounds(map.getBounds());
  });
 
+$("#search-container").show();
  // Listen for the event fired when the user selects a prediction and retrieve
        // more details for that place.
  searchBox.addListener('places_changed', function() {
@@ -466,6 +468,13 @@ function setMapOnAll(map) {
   }
 }
 
+function searchResults(marks){
+  clearMarkers();
+  markers = handler.addMarkers(marks);
+
+
+}
+
 function addMarker(mark){
 
   var newMarker = new google.maps.Marker({
@@ -527,6 +536,6 @@ function clearMarkers() {
 
 // in listener
 //
-</script>
 
+</script>
 <script src= "https://maps.googleapis.com/maps/api/js?key=AIzaSyBXclu8PhDGVun2bDikmbNE5YUUNRFG204&libraries=places&callback=initMap"></script>

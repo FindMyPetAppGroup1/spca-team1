@@ -42,6 +42,23 @@ class ReportsController < ApplicationController
     # @reports = Report.where(case_id: params[:case_id])
     render json: { reports: @reports}
   end
+
+  def search_report
+    lost = params[:lost]
+    found = params[:found]
+    reports = nil
+    if(lost=="true"&&found=="true")
+      reports = Report.all
+    elsif (lost=="true" &&found=="false")
+      reports = Report.where(report_type: "Lost")
+    elsif (lost=="false" && found=='true')
+      reports = Report.where("report_type = ? OR report_type = ? ","Sighted","Found")
+    else
+      reports = Report.where(report_type: "FUCKTHISSHIT")
+    end
+    render json: { reports: Report.make_markers(reports)}
+  end
+
   def index
     # We are not making a index action on reports, because this would
     # render a list of all reports in the database.

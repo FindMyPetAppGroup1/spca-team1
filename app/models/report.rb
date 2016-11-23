@@ -50,6 +50,25 @@ class Report < ApplicationRecord
     result
   end
 
+  def self.make_markers(reports)
+    result = Gmaps4rails.build_markers(reports) do |rep, marker|
+      marker.lat rep.latitude
+      marker.lng rep.longitude
+      marker.json({ :id => rep.id })
+      marker.title "Last seen: #{rep.last_seen_date}"
+      if rep.report_type == "lost" || rep.report_type == 'Lost'
+        marker.picture({"url": ActionController::Base.helpers.asset_path("/assets/icon_report_lost_red_active_sm.png", :digest => false),
+                        "width":  22,
+                        "height": 32})
+      else
+        marker.picture({"url":  ActionController::Base.helpers.asset_path("/assets/icon_report_found_sm.png", :digest => false),
+                        "width":  23,
+                        "height": 32})
+      end
+    end
+    result
+  end
+
   # def markers
   #   Report.where(user_id: :current_user)
   # end

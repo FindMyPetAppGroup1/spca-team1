@@ -18,6 +18,7 @@
 //= require underscore
 //= require turbolinks
 //= require_tree .
+
 // all views
 var allView = ['#menu-main','#listReport','#listMessage','#setting','#about'
 ,'#newReportFound','#previewReportFound','#completeReportFound','#showReportFound','#editReportFound','#newReportLost','#previewReportLost','#completeReportLost','#showReportLost','#editReportLost','#showMessage','#listFilterdReport','#newMessage']
