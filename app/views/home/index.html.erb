@@ -417,7 +417,6 @@ var addLegend = function () {
   var legend = document.getElementById('legend');
 
   for (var key in icons) {
-    console.log(key);
     var type = icons[key];
     var name = type.name;
     var icon = type.icon;
@@ -444,7 +443,6 @@ function initMap(){
 
       },
       internal: {id: 'map-canvas'}}, function(){
-        console.log(<%=raw @markers.to_json %>);
     markers = handler.addMarkers(<%=raw @markers.to_json %>);
 
     if(markers.length != 0){
@@ -476,6 +474,7 @@ function searchResults(marks){
 }
 
 function addMarker(mark){
+  console.log(mark);
 
   var newMarker = new google.maps.Marker({
     position: new google.maps.LatLng(mark.latitude, mark.longitude),
@@ -492,7 +491,6 @@ function addMarker(mark){
   //   lng: mark.longitude,
   //   marker_title: mark.last_seen_date
   // });
-  console.log(mark.report_type);
   if (mark.report_type == "Lost"){
     newMarker.picture = {
       "url": "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>",
@@ -509,19 +507,16 @@ function addMarker(mark){
     newMarker.icon = "<%= asset_url('icon_report_found_sm.png', digest: false) %>";
   }
   newMarker.setMap(map);
-  console.log(newMarker);
   //  markers = handler.addMarkers(newMarker);
   //  showMarkers();
    showMarkerOther(newMarker);
 }
 
 function showMarkerOther(mark){
-  console.log(mark);
   map.setZoom(17);
   map.panTo(new google.maps.LatLng(mark.lat, mark.lng));
 }
 function showMarker(mark){
-  console.log(mark);
   map.setZoom(17);
   map.panTo(new google.maps.LatLng(mark.latitude, mark.longitude));
 }
