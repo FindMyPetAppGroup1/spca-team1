@@ -104,7 +104,7 @@ var showReport = function(id,bln){
     hideObject(currentPage, to);
     // console.log(data);
     // console.log(bufferedData);
-    showMarker({data.lat, data.lng})
+    showMarker({data.latitude, data.longitude});
     // showObject(to);
   })
 }
