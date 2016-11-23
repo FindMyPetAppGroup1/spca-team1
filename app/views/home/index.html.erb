@@ -497,14 +497,14 @@ function addMarker(mark){
     //   "width": 22,
     //   "height": 32
     // };
-    newMarker.icon = "../" + "<%=asset_path("icon_report_lost_red_active_sm.png") %>";
+    newMarker.icon = ".." + "<%=asset_path("icon_report_lost_red_active_sm.png") %>";
   } else {
     // newMarker.picture = {
     //   "url": '<%= path_to_image("icon_report_found_sm.png") %>',
     //   "width": 23,
     //   "height": 32
     // };
-    newMarker.icon = "../../"+"<%= asset_path("icon_report_found_sm.png") %>";
+    newMarker.icon = "../.."+"<%= asset_path("icon_report_found_sm.png") %>";
   }
   console.log(newMarker);
   newMarker.setMap(map);
