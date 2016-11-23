@@ -476,13 +476,20 @@ function searchResults(marks){
 function addMarker(mark){
   console.log(mark);
 
-  var newMarker = new google.maps.Marker({
+  var newMarker = {
     position: new google.maps.LatLng(mark.latitude, mark.longitude),
     title: mark.last_seen_date,
     lat: mark.latitude,
     lng: mark.longitude,
     id: mark.id
   });
+  // var newMarker = new google.maps.Marker({
+  //   position: new google.maps.LatLng(mark.latitude, mark.longitude),
+  //   title: mark.last_seen_date,
+  //   lat: mark.latitude,
+  //   lng: mark.longitude,
+  //   id: mark.id
+  // });
   //
   // var newMarker = new google.maps.Marker({
   //   id: mark.id,
@@ -507,9 +514,11 @@ function addMarker(mark){
     // newMarker.icon = "<%= asset_url('icon_report_found_sm.png', digest: false) %>";
   }
   console.log(newMarker);
-  newMarker.setMap(map);
+  // newMarker.setMap(map);
   //  markers = handler.addMarkers(newMarker);
   //  showMarkers();
+
+  markers = handler.addMarkers(newMarker);
    showMarkerOther(newMarker);
 }
 
