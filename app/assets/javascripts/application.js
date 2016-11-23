@@ -93,16 +93,24 @@ var showReport = function(id,bln){
   $.get($DOMAIN+"/reports/"+id, function(data){
     info = data;
     bufferedData = data.report;
-    if(bln){
-      to = '#showReportFound';
-      tmp = '#showReportFoundData';
-      target = "#reportShowFound";
-    } else{
-      to = '#showReportLost';
-      tmp = '#showReportLostData';
-      target = "#reportShowLost";
+    // if(bln){
+    //   to = '#showReportFound';
+    //   target = '#showReportFoundData';
+    //   tmp = "#reportShowFound";
+    // } else{
+    //   to = '#showReportLost';
+    //   target = '#showReportLostData';
+    //   tmp = "#reportShowLost";
+    // }4
+    if(!bln){
+      to = "#showReportLost"
+      renderMustache("#reportShowLost",'#showReportLostData');
+    } else {
+      to = "#showReportFound"
+      renderMustache("#reportShowFound",'#showReportFoundData');
     }
     hideObject(currentPage, to);
+    // renderMustache(tmp,target);
     showMarker(bufferedData.latitude, bufferedData.longitude);
     // showObject(to);
   })
@@ -158,7 +166,7 @@ var getReportLost = function(){
     caseid = bufferedData.id;
     console.log('lost:'+bufferedData);
     console.log('get lost report');
-    showMarker(bufferedData);
+    showMarker(bufferedData.latitude, bufferedData.longitude);
 
     //before running ajax, bufferedData stored the report id
     //use ajax to update bufferedData, report.find(bufferedData)
@@ -178,7 +186,7 @@ var getReportFound = function(){
   caseid = bufferedData.id;
   console.log('found:'+bufferedData);
   console.log('get found report');
-  showMarker(bufferedData);
+  showMarker(bufferedData.latitude, bufferedData.longitude);
   //before running ajax, bufferedData stored the report id
   //use ajax to update bufferedData, report.find(bufferedData)
 

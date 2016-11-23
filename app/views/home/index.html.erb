@@ -541,9 +541,9 @@ function showMarkerOther(mark){
   map.setZoom(17);
   map.panTo(new google.maps.LatLng(mark.lat, mark.lng));
 }
-function showMarker(mark){
+function showMarker(lat, lng){
   map.setZoom(17);
-  map.panTo(new google.maps.LatLng(mark.latitude, mark.longitude));
+  map.panTo(new google.maps.LatLng(lat, lng));
 }
 
 function showMarkers() {
