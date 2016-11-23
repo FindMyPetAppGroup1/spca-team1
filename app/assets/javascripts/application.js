@@ -75,7 +75,7 @@ var searchReport = function(){
     lost:lostval,
     found:foundval
   };
-  $.post($DOMAIN+"/reportsearch/",info,function(data){
+  $.post($DOMAIN+"/reportsearch",info,function(data){
     //code to add pin1
     bufferedData = data.reports;
     renderFilterReports(bufferedData);

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'reports/user/lost' => 'reports#lost_reports'
   get 'reports/user/found' => 'reports#found_reports'
   get 'reports/case/linked' => 'reports#linked_reports'
+  post 'reportsearch' => 'reports#search_report'
   get '/auth/facebook', as: :sign_in_facebook
   get '/auth/facebook/callback' => 'callbacks#facebook'
 
