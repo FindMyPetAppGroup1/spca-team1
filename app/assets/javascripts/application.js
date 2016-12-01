@@ -279,7 +279,6 @@ var renderMustache = function(tmp,target){
   //bufferedData will be updated by ajax before calling renderMustache
   var reportDetailsTmpl = $(tmp).html();
   var reportDetails = $(target);
-  debugger
   reportDetails.html(Mustache.render(reportDetailsTmpl,bufferedData));
 }
 
