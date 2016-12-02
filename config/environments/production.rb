@@ -1,6 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  Rails.application.configure do
+      config.force_ssl = true
+  end
   # Code is not reloaded between requests.
   config.cache_classes = true
   config.assets.digest = true
