@@ -214,9 +214,19 @@
       <p>{{body}}</p>
     </script>
 
-    <script id="report-summary" type="x-tmpl-mustache">
+    <script id="report-summary-found" type="x-tmpl-mustache">
       <li data-id={{id}}>
-        <p class='side-section'>{{note}}</p>
+        <p class='side-section'>{{pet_type}} - {{color}}
+          <br>{{note}}
+        </p>
+      </li>
+    </script>
+    <script id="report-summary-lost" type="x-tmpl-mustache">
+      <li data-id={{id}}>
+        <p class='side-section'>{{name}}
+        <br>Last Seen: {{last_seen_date}}
+        <br>{{note}}
+        </p>
       </li>
     </script>
 
@@ -270,7 +280,8 @@
   </script>
   <script id="report-summary" type="x-tmpl-mustache">
     <li data-id={{id}}>
-      <p>{{note}}</p>
+      <p>{{pet_type}} - {{color}}
+      <br>Last Seen at: {{last_seen_address}}</p>
       <hr>
     </li>
   </script>
@@ -329,11 +340,7 @@ var map;
 
 
 function initSearch() {
-  // var map = new google.maps.Map(document.getElementById('map'), {
-  //   center: {lat: -33.8688, lng: 151.2195},
-  //   zoom: 13,
-  //   mapTypeId: 'roadmap'
-  // });
+
   // Create the search box and link it to the UI element.
  var input = document.getElementById('pac-input');
  var formInput = document.getElementById('pac-report-input');
@@ -353,19 +360,13 @@ function initSearch() {
 
 $("#search-container").show();
  // Listen for the event fired when the user selects a prediction and retrieve
-       // more details for that place.
+ // more details for that place.
  searchBox.addListener('places_changed', function() {
    var places = searchBox.getPlaces();
 
    if (places.length == 0) {
      return;
    }
-
-  //  // Clear out the old markers.
-  //  markers.forEach(function(marker) {
-  //    marker.setMap(null);
-  //  });
-  //  markers = [];
 
    // For each place, get the icon, name and location.
    var bounds = new google.maps.LatLngBounds();
@@ -374,21 +375,6 @@ $("#search-container").show();
        console.log("Returned place contains no geometry");
        return;
      }
-    //  var icon = {
-    //    url: place.icon,
-    //    size: new google.maps.Size(71, 71),
-    //    origin: new google.maps.Point(0, 0),
-    //    anchor: new google.maps.Point(17, 34),
-    //    scaledSize: new google.maps.Size(25, 25)
-    //  };
-     //
-    //  // Create a marker for each place.
-    //  markers.push(new google.maps.Marker({
-    //    map: map,
-    //    icon: '',
-    //    title: place.name,
-    //    position: place.geometry.location
-    //  }));
 
      if (place.geometry.viewport) {
        // Only geocodes have viewport.
@@ -446,16 +432,6 @@ function initMap(){
       internal: {id: 'map-canvas'}}, function(){
     setMarkers(<%=raw @markers.to_json %>);
 
-    // markers = Gmaps.store.markers();
-    console.log(markers);
-    // markers = handler.addMarkers(<%=raw @markers.to_json %>);
-    // console.log(markers)
-    // for (var i=0; i<markers.length; i++){
-    //   markers[i].serviceObject.addListener('click', function(){
-    //     console.log(this);
-    //     // showReport(markers[i].id, true);
-    //   })
-    // }
     if(markers.length != 0){
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
@@ -464,34 +440,24 @@ function initMap(){
     initSearch();
 
     var geoloccontrol = new klokantech.GeolocationControl(map, 18);
-    // if(navigator.geolocation)
-    //   navigator.geolocation.getCurrentPosition(displayOnMap);
 
     addLegend();
   });
 }
+
+function createMarker(m){
+  console.log(m);
+  var marker = handler.addMarker(m);
+  marker.serviceObject.set('draggable', false),
+  marker.serviceObject.addListener('click', function(){
+    showReport(m.id, m.report_type != 'Lost' && m.report_type != 'lost');
+  });
+  return marker;
+}
+
 function setMarkers(jsonMarkers){
   markers = jsonMarkers.map(function(m) {
-    // var marker = new google.maps.Marker({
-    //   id: m.id,
-    //   map: map,
-    //   report_type: m.report_type,
-    //   lat: m.latitude,
-    //   lng: m.longitude,
-    //   position: google.maps.LatLng(m.latitude, m.longitude),
-    //   draggable: false
-    // });
-    // marker.addListener('click', function(){
-    //   showReport(m.id, m.report_type != 'Lost' && m.report_type != 'lost');
-    // });
-    var marker = handler.addMarker(m);
-    marker.serviceObject.set('draggable', false),
-    marker.serviceObject.set('id', m.id);
-    marker.serviceObject.set('report_type', m.report_type);
-    marker.serviceObject.addListener('click', function(){
-      showReport(m.id, m.report_type != 'Lost' && m.report_type != 'lost');
-    });
-    return marker;
+    return createMarker(m);
   })
 }
 function setMapOnAll(map) {
@@ -502,61 +468,38 @@ function setMapOnAll(map) {
 
 function searchResults(marks){
   clearMarkers();
-  // markerCluster.clearMarkers();
-  // markers = handler.addMarkers(marks);
   setMarkers(marks);
-
 }
 
 function addMarker(mark){
-  console.log(mark);
-  var icon = "";
+  var pic = {};
   if (mark.report_type == "Lost"){
-    icon = '<%= path_to_image("icon_report_lost_red_active_sm.png") %>'
+    pic = {
+      url: '<%= path_to_image("icon_report_lost_red_active_sm.png") %>',
+      height: 32,
+      width: 22
+    }
   } else {
-    icon = '<%= path_to_image("icon_report_found_sm.png") %>'
+    pic = {
+      url: '<%= path_to_image("icon_report_found_sm.png") %>',
+      height: 32,
+      width: 23
+    }
   }
 
-  var newMarker = new google.maps.Marker({
-    position: new google.maps.LatLng(mark.latitude, mark.longitude),
-    title: mark.last_seen_date,
+  var newMarker = {
+    marker_title: 'Last seen: ' + mark.last_seen_date,
     lat: mark.latitude,
     lng: mark.longitude,
     id: mark.id,
-    icon: icon,
-    map: map,
+    picture: pic,
     report_type: mark.report_type
-  });
+  };
 
-  // if (mark.report_type == "Lost"){
-  //   newMarker.picture = {
-  //     "url": ".."+'<%= path_to_image("icon_report_lost_red_active_sm.png") %>',
-  //     "width": 22,
-  //     "height": 32
-  //   };
-  //   // newMarker.icon = "<%= asset_url('icon_report_lost_red_active_sm.png', digest: false) %>";
-  // } else {
-  //   newMarker.picture = {
-  //     "url": "../.."+'<%= path_to_image("icon_report_found_sm.png") %>',
-  //     "width": 23,
-  //     "height": 32
-  //   };
-  //   // newMarker.icon = "<%= asset_url('icon_report_found_sm.png', digest: false) %>";
-  // }
-  console.log(newMarker);
-  // newMarker.setMap(map);
-  // clearMarkers();
-  // showMarkers();
-  //  markers = handler.addMarkers(newMarker);
-  //  showMarkers();
-  markers.push(newMarker);
-   showMarkerOther(newMarker);
+  markers.push(createMarker(newMarker));
+  showMarker(newMarker.lat, newMarker.lng);
 }
 
-function showMarkerOther(mark){
-  map.setZoom(17);
-  map.panTo(new google.maps.LatLng(mark.lat, mark.lng));
-}
 function showMarker(lat, lng){
   map.setZoom(17);
   map.panTo(new google.maps.LatLng(lat, lng));
@@ -572,8 +515,6 @@ function clearMarkers() {
     markers = [];
 }
 
-// in listener
-//
 
 </script>
 <script src= "https://maps.googleapis.com/maps/api/js?key=AIzaSyBXclu8PhDGVun2bDikmbNE5YUUNRFG204&libraries=places&callback=initMap"></script>
