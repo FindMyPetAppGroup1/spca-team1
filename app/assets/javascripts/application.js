@@ -351,7 +351,7 @@ var addReport = function(){
   //use ajax to get alist of my lost report
   $.get($DOMAIN+"/reports/user/lost",function(data){
     // reportlist=;
-    renderLists(data.reports,'#report-summary','#list-lost');
+    renderLists(data.reports,'#report-summary-lost','#list-lost');
 
   });
 
@@ -361,7 +361,7 @@ var addReport = function(){
 
   $.get($DOMAIN+"/reports/user/found",function(data){
     // reportlist=data.reports;
-    renderLists(data.reports,'#report-summary','#list-found');
+    renderLists(data.reports,'#report-summary-found','#list-found');
   });
   // reports = [report1,report2];
 
